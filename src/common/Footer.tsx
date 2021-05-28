@@ -1,107 +1,80 @@
 import React, { FunctionComponent } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import "./Footer.scss";
 
-export const Footer: FunctionComponent = () => {
+const MENU = [
+  {
+    name: "Quick links",
+    children: [
+      { name: "How to cite PDX Finder?", link: "#" },
+      { name: "PDX Minimum Information standard publication", link: "#" },
+      { name: "PDX Finder Privacy Policy", link: "#" },
+      { name: "PDX Finder Terms of Use", link: "#" },
+    ],
+  },
+  {
+    name: "Contacts",
+    children: [{ name: "Submit models / Feedback", link: "#" }],
+  },
+];
+
+export interface IFooterProps {
+  className?: string;
+}
+
+export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
   return (
-    <footer className="container py-5 px-15 bg-dark text-light">
-      <div className="row">
-        <div className="col-12 col-md">
-          <img
-            src={`${process.env.PUBLIC_URL}/pdcm-dark.png`}
-            height="100"
-            className="d-inline-block align-top"
-            alt="PDCM logo"
-          />
-          <small className="d-block mb-3 text-muted text-center">
-            &copy; 2017-2021
-          </small>
-        </div>
-        <div className="col-6 col-md">
-          <h5>Features</h5>
-          <ul className="list-unstyled text-small">
-            <li>
-              <a className="text-muted" href="#">
-                Cool stuff
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Random feature
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Team feature
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Stuff for developers
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Another one
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Last time
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="col-6 col-md">
-          <h5>Resources</h5>
-          <ul className="list-unstyled text-small">
-            <li>
-              <a className="text-muted" href="#">
-                Resource
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Resource name
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Another resource
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Final resource
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="col-6 col-md">
-          <h5>Resources</h5>
-          <ul className="list-unstyled text-small">
-            <li>
-              <a className="text-muted" href="#">
-                Business
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Education
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Government
-              </a>
-            </li>
-            <li>
-              <a className="text-muted" href="#">
-                Gaming
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <footer className={`py-5 bg-dark text-light ${className}`}>
+      <Container>
+        <Row>
+          <Col xs={12} md={2} className="text-center">
+            <img
+              src={`${process.env.PUBLIC_URL}/pdcm-dark.png`}
+              style={{ width: "100%", maxWidth: "200px" }}
+              className="d-inline-block align-top"
+              alt="PDCM logo"
+            />
+            <small className="d-block mb-3 text-muted text-right">
+              &copy; 2017-2021
+            </small>
+          </Col>
+          {MENU.map((menu) => (
+            <Col xs={6} md={3}>
+              {" "}
+              <h5 className="footer-heading">{menu.name}</h5>
+              <ul className="list-unstyled text-small">
+                {menu.children.map((menuItem) => (
+                  <li>
+                    <a className="text-muted" href={menuItem.link}>
+                      {menuItem.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Col>
+          ))}
+          <Col xs={6} md={4}>
+            <p className="text-muted">
+              <a
+                href="https://www.ebi.ac.uk/about/people/helen-parkinson"
+                className="text-light"
+              >
+                EMBL-EBI
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://www.jax.org/research-and-faculty/research-labs/the-bult-lab"
+                className="text-light"
+              >
+                The Jackson Laboratory
+              </a>{" "}
+              are co-developers of PDX Finder. This work is supported by the
+              National Institutes of Health/National Cancer Institute U24
+              CA204781 01 (ended 31.08.2020), U24 CA253539 01 and R01 CA089713.
+            </p>
+          </Col>
+        </Row>
+      </Container>
     </footer>
   );
 };

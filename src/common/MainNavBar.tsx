@@ -1,9 +1,14 @@
 import React, { FunctionComponent, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "./MainNavBar.scss";
-import logo from "../logo.svg";
 
-export const MainNavBar: FunctionComponent = () => {
+export interface IMainNavBarProps {
+  location?: Location;
+}
+
+export const MainNavBar: FunctionComponent<IMainNavBarProps> = ({
+  location,
+}) => {
   const [show, setShow] = useState(false);
 
   const showDropdown = (e: any) => {
@@ -14,7 +19,12 @@ export const MainNavBar: FunctionComponent = () => {
   };
 
   return (
-    <Navbar bg="white" collapseOnSelect expand="lg" className="shadow-sm">
+    <Navbar
+      bg="white"
+      collapseOnSelect
+      expand="md"
+      className="py-1 py-md-3 shadow-sm main-nav"
+    >
       <Container>
         <Navbar.Brand href="#home">
           <img
@@ -34,7 +44,7 @@ export const MainNavBar: FunctionComponent = () => {
           <span className="icon-bar"></span>
         </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto text">
+          <Nav className="ml-auto text" activeKey={location?.pathname}>
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#features">Search</Nav.Link>
             <NavDropdown
