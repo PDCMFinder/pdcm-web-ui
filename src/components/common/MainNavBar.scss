@@ -1,0 +1,123 @@
+@import "../../variables";
+
+.main-nav {
+  transition: all 0.5s ease;
+}
+.nav-link {
+  text-transform: uppercase;
+}
+
+.nav-link:hover {
+  border-bottom: 4px solid $secondary;
+  padding-bottom: 4px;
+  max-width: max-content;
+}
+
+.dropdown-toggle::after {
+  transition: transform 0.3s linear;
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+
+.dropdown .dropdown-menu {
+  -webkit-transition: max-height 0.5s, opacity 0.2s 0.1s, visibility 0s 0.3s,
+    border-width 0s 0.3s, padding 0s 0.3s;
+  -moz-transition: max-height 0.5s, opacity 0.2s 0.1s, visibility 0s 0.3s,
+    border-width 0s 0.3s, padding 0s 0.3s;
+  -ms-transition: max-height 0.5s, opacity 0.2s 0.1s, visibility 0s 0.3s,
+    border-width 0s 0.3s, padding 0s 0.3s;
+  -o-transition: max-height 0.5s, opacity 0.2s 0.1s, visibility 0s 0.3s,
+    border-width 0s 0.3s, padding 0s 0.3s;
+  transition: max-height 0.5s, opacity 0.2s 0.1s, visibility 0s 0.3s,
+    border-width 0s 0.3s, padding 0s 0.3s;
+
+  max-height: 0;
+  display: block;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  padding: 0px;
+  border-width: 0px;
+}
+
+.dropdown.show .dropdown-menu {
+  -webkit-transition: max-height 0.5s, opacity 0.2s, visibility 0s,
+    border-width 0s 0.3s, padding 0s;
+  -moz-transition: max-height 0.5s, opacity 0.2s, visibility 0s,
+    border-width 0s 0.3s, padding 0s;
+  -ms-transition: max-height 0.5s, opacity 0.2s, visibility 0s,
+    border-width 0s 0.3s, padding 0s;
+  -o-transition: max-height 0.5s, opacity 0.2s, visibility 0s,
+    border-width 0s 0.3s, padding 0s;
+  transition: max-height 0.5s, opacity 0.2s, visibility 0s, padding 0s;
+
+  max-height: 600px;
+  opacity: 1;
+  visibility: visible;
+  padding: 0.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .dropdown.show .dropdown-menu {
+    border: 3px solid rgba(0, 0, 0, 0.15);
+  }
+}
+
+.dropdown-item {
+  text-transform: uppercase;
+}
+
+/* ANIMATED TOGGLE FOR MOBILE NAV BAR */
+
+.navbar-toggler.uarr {
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &:not(.collapsed) {
+    .icon-bar {
+      &:nth-of-type(1) {
+        transform: translate3d(1px, 0, 0) rotate(-45deg);
+        transform-origin: center center;
+        width: 11px;
+      }
+      &:nth-of-type(2) {
+        transform: rotate(-90deg);
+        transform-origin: center center;
+      }
+      &:nth-of-type(3) {
+        transform: translate3d(0px, -14px, 0) rotate(-135deg);
+        transform-origin: right top;
+        width: 11px;
+      }
+    }
+  }
+  .icon-bar {
+    width: 22px;
+    display: block;
+    height: 2px;
+    background-color: #7f7f7f;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    & + .icon-bar {
+      margin-top: 4px;
+    }
+    &:nth-of-type(1) {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+      width: 22px;
+    }
+    &:nth-of-type(2) {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    &:nth-of-type(3) {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+      width: 22px;
+    }
+  }
+}

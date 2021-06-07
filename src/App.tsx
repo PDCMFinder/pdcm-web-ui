@@ -1,5 +1,4 @@
 import React from "react";
-import { MainNavBar } from "./common/MainNavBar";
 import { GeneralTemplate } from "./templates/GeneralTemplate";
 
 function App() {
