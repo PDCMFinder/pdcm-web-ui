@@ -80,6 +80,8 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+To learn about StorybookJS, check out [Storybook documentation](https://storybook.js.org/docs/react/get-started/introduction).
+
 ## Acknowledgements
 
 PDCM Finder is freely available under an Apache 2 license. Work is supported by NCI U24CA253539 and the European Molecular Biology Laboratory.
