@@ -1,10 +1,16 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# PDCM Web UI
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn storybook`
+
+Runs a [Storybook](https://storybook.js.org/docs/react/get-started/introduction) instance.\
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
 ### `yarn start`
 
@@ -18,6 +24,10 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn deploy-storybook`
+
+Builds and deploys a static version of the Storybook component library to Github Pages on the Upstream repository. Go to [https://pdxfinder.github.io/pdcm-web-ui/](https://pdxfinder.github.io/pdcm-web-ui/?path=/story/documentation-introduction--page) To see the current Storybook deployment.
 
 ### `yarn build`
 
@@ -41,6 +51,12 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Learn More
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Acknowledgements
+
+PDCM Finder is freely available under an Apache 2 license. Work is supported by NCI U24CA253539 and the European Molecular Biology Laboratory.
