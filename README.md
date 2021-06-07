@@ -2,6 +2,26 @@
 
 This project will therefore aggregate, harmonize and integrate diverse PDCM data, extending our previous resource PDX Finder by inclusion of novel models, making these FAIR (Findable, Accessible, Interoperable, Reusable) compliant and cloud accessible, for example in the NCI Research Commons. PCDM Finder will address challenges with searching over many repositories for models, incompatible standards that make analysis and reuse of models difficult, molecular datasets annotated with insufficient information that prevent cloud-based analyses and the need for more community awareness in providing FAIR- compliant data to maximize the impact of their work.
 
+## Requirements
+
+- [Node 12.0+](https://nodejs.org/en/)
+- [Yarn Classic](https://classic.yarnpkg.com/lang/en/)
+
+## Setup development environment
+
+1. Fork this repo using Github's user interface.
+2. Clone your fork
+
+```
+git clone https://github.com/<YOUR_USERNAME>/pdcm-web-ui
+```
+
+3. Add `upstream` remote:
+
+```
+git remote add upstream https://github.com/PDXFinder/pdcm-web-ui.git
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
