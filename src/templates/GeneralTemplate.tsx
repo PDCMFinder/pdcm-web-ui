@@ -1,8 +1,7 @@
 import React, { Fragment, FunctionComponent } from "react";
-import { Footer } from "../common/Footer";
-import { MainNavBar } from "../common/MainNavBar";
+import { Footer } from "../components/common/Footer";
+import { MainNavBar } from "../components/common/MainNavBar";
 import "./GeneralTemplate.scss";
-import { withRouter } from "react-router";
 
 export const GeneralTemplate: FunctionComponent = ({ children }) => {
   return (
