@@ -7,7 +7,7 @@ This project will therefore aggregate, harmonize and integrate diverse PDCM data
 - [Node 12.0+](https://nodejs.org/en/)
 - [Yarn Classic](https://classic.yarnpkg.com/lang/en/)
 
-## Setup development environment
+## Setup development environment
 
 1. Fork this repo using Github's user interface.
 2. Clone your fork
