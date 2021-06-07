@@ -1,10 +1,18 @@
-# Getting Started with Create React App
+# PDCM Web UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project will therefore aggregate, harmonize and integrate diverse PDCM data, extending our previous resource PDX Finder by inclusion of novel models, making these FAIR (Findable, Accessible, Interoperable, Reusable) compliant and cloud accessible, for example in the NCI Research Commons. PCDM Finder will address challenges with searching over many repositories for models, incompatible standards that make analysis and reuse of models difficult, molecular datasets annotated with insufficient information that prevent cloud-based analyses and the need for more community awareness in providing FAIR- compliant data to maximize the impact of their work.
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn storybook`
+
+Runs a [Storybook](https://storybook.js.org/docs/react/get-started/introduction) instance.\
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
 ### `yarn start`
 
@@ -18,6 +26,10 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn deploy-storybook`
+
+Builds and deploys a static version of the Storybook component library to Github Pages on the Upstream repository. Go to [https://pdxfinder.github.io/pdcm-web-ui/](https://pdxfinder.github.io/pdcm-web-ui/?path=/story/documentation-introduction--page) To see the current Storybook deployment.
 
 ### `yarn build`
 
@@ -41,6 +53,12 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Learn More
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Acknowledgements
+
+PDCM Finder is freely available under an Apache 2 license. Work is supported by NCI U24CA253539 and the European Molecular Biology Laboratory.
