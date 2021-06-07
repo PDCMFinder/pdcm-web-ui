@@ -1,5 +1,7 @@
 # PDCM Web UI
 
+This project will therefore aggregate, harmonize and integrate diverse PDCM data, extending our previous resource PDX Finder by inclusion of novel models, making these FAIR (Findable, Accessible, Interoperable, Reusable) compliant and cloud accessible, for example in the NCI Research Commons. PCDM Finder will address challenges with searching over many repositories for models, incompatible standards that make analysis and reuse of models difficult, molecular datasets annotated with insufficient information that prevent cloud-based analyses and the need for more community awareness in providing FAIR- compliant data to maximize the impact of their work.
+
 ## Available Scripts
 
 In the project directory, you can run:
