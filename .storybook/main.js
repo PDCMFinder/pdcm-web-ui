@@ -26,7 +26,8 @@ module.exports = {
             'style-loader',
             'css-loader',
             {
-              loader: 'sass-loader'
+              loader: 'sass-loader',
+              options: { resources: '../src/styles/*.scss' }
             },
           ],
           include: path.resolve(__dirname, '../src/'),
