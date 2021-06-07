@@ -1,0 +1,17 @@
+@import "./variables";
+
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto&display=swap");
+
+.pdcm-heading {
+  font-family: $font-family-headings;
+}
+
+h1 {
+  font-family: $font-family-headings;
+}
+
+th {
+  font-family: $font-family-headings;
+}
+
+@import "~bootstrap/scss/bootstrap.scss";
