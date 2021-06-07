@@ -14,6 +14,7 @@ This project will therefore aggregate, harmonize and integrate diverse PDCM data
 
 ```
 git clone https://github.com/<YOUR_USERNAME>/pdcm-web-ui
+cd pdcm-web-ui
 ```
 
 3. Add `upstream` remote:
