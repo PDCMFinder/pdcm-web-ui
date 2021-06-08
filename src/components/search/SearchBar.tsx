@@ -1,41 +1,60 @@
+// @ts-nocheck
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Form, Col, InputGroup } from "react-bootstrap";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "./SearchBar.scss";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 
 export interface ISearchBarProps {
-  value: string;
+  values: Array<string>;
+  options: Array<string>;
+  multiple: boolean;
   onChange(newValue: string): void;
 }
 
 export const SearchBar: FunctionComponent<ISearchBarProps> = ({
-  value,
+  values,
+  options,
+  multiple,
   onChange,
 }) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValues, setInputValues] = useState<Array<string>>([]);
   useEffect(() => {
-    setInputValue(value);
-  }, [value]);
+    setInputValues(values);
+  }, [values]);
   return (
-    <Form.Row>
-      <Form.Group as={Col}>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <InputGroup.Text>
-              <FontAwesomeIcon icon={faSearch} />
-            </InputGroup.Text>
-          </InputGroup.Prepend>
-          <Form.Control
-            type="text"
-            placeholder="Search by cancer diagnosis (e.g. Melanoma)"
-            value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-              onChange(e.target.value);
-            }}
-          />
-        </InputGroup>
-      </Form.Group>
-    </Form.Row>
+    <Form className="w-100">
+      <Form.Row className="align-items-center">
+        <Form.Group as={Col} xs={12}>
+          <InputGroup>
+            <Typeahead
+              id="basic-typeahead-multiple"
+              single={!multiple}
+              multiple={multiple}
+              onChange={(s) => {
+                setInputValues(s);
+                onChange(s);
+              }}
+              options={options}
+              placeholder="Search by cancer diagnosis (e.g. Melanoma)"
+              selected={inputValues}
+              clearButton
+              style={{ minHeight: "50px" }}
+              className="w-100"
+            />
+            <InputGroup.Append className="bg-primary text-white">
+              <InputGroup.Text
+                style={{ width: "50px" }}
+                className="text-center bg-primary text-white"
+              >
+                <FontAwesomeIcon icon={faSearch} style={{ fontSize: "25px" }} />
+              </InputGroup.Text>
+            </InputGroup.Append>
+          </InputGroup>
+        </Form.Group>
+      </Form.Row>
+    </Form>
   );
 };

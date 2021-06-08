@@ -62,3 +62,16 @@ Default.args = {
     },
   ],
 };
+
+export const NoResults = Template.bind({});
+NoResults.args = {
+  displayColumns: [
+    { displayName: "Model", key: "model" },
+    { displayName: "Histology", key: "datasource" },
+    { displayName: "Primary", key: "sourceId" },
+    { displayName: "Collection", key: "patient.age" },
+    { displayName: "Type", key: "patient.gender" },
+    { displayName: "Data available", key: "patient.ethnicity" },
+  ],
+  results: [],
+};

@@ -14,6 +14,7 @@ This project will therefore aggregate, harmonize and integrate diverse PDCM data
 
 ```
 git clone https://github.com/<YOUR_USERNAME>/pdcm-web-ui
+cd pdcm-web-ui
 ```
 
 3. Add `upstream` remote:
@@ -78,6 +79,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+To learn about StorybookJS, check out [Storybook documentation](https://storybook.js.org/docs/react/get-started/introduction).
 
 ## Acknowledgements
 

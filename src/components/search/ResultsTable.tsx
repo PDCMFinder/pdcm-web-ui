@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import { Table, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Table, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { SearchResult, ResultCol } from "../../models/SearchResult.model";
 
 export interface IResultsTableProps {
@@ -42,7 +42,7 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
     },
   ];
   return (
-    <Table responsive>
+    <Table responsive className="border">
       <thead>
         <tr className="text-uppercase">
           {displayColumns.map((column) => (
@@ -51,6 +51,15 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
         </tr>
       </thead>
       <tbody>
+        {results.length === 0 ? (
+          <tr>
+            <td colSpan={displayColumns.length}>
+              <Alert variant="warning" className="mt-0 text-center">
+                Your query/filter did not return any results!
+              </Alert>
+            </td>
+          </tr>
+        ) : null}
         {results.map((result) => (
           <tr key={result.pdcmId}>
             <td>
