@@ -29,7 +29,7 @@ export const MainNavBar: FunctionComponent<IMainNavBarProps> = ({
         <Navbar.Brand href="#home">
           <img
             src={`${process.env.PUBLIC_URL}/pdcm-hor.png`}
-            height="40"
+            height="40px"
             className="d-inline-block align-top"
             alt="PDCM logo"
           />

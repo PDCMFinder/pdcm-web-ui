@@ -11,7 +11,9 @@ export interface ISearchPageProps {
   /**
    * Text input value for the search bar
    */
-  searchValue: string;
+  searchValues: Array<string>;
+  searchOptions: Array<string>;
+  searchMultiple: boolean;
   /**
    * List of Search Results displayed on the results table. Each Search result has
    */
@@ -21,7 +23,9 @@ export interface ISearchPageProps {
 }
 
 export const SearchPage: FunctionComponent<ISearchPageProps> = ({
-  searchValue,
+  searchValues,
+  searchOptions,
+  searchMultiple,
   searchResults,
   displayColumns,
   onSearchChange,
@@ -29,25 +33,37 @@ export const SearchPage: FunctionComponent<ISearchPageProps> = ({
   return (
     <GeneralTemplate>
       <Container fluid className="h-100">
-        <Row className="flex-xl-nowrap h-100">
+        <Row className="flex-xl-nowrap h-100 px-0">
           <Col
             xs={12}
             md={3}
-            lg={2}
-            className="shadow-sm h-100"
+            xl={2}
+            className="shadow-sm h-auto py-3 py-sm-5 mt-3 mt-sm-0"
             id="sidebar-wrapper"
           >
             <Facets />
           </Col>
-          <Col xs={12} md={9} lg={10} id="content-wrapper" className="p-5">
-            <SearchBar
-              value={searchValue}
-              onChange={onSearchChange}
-            ></SearchBar>
-            <ResultsTable
-              results={searchResults}
-              displayColumns={displayColumns}
-            ></ResultsTable>
+          <Col
+            xs={12}
+            md={9}
+            xl={10}
+            id="page-content-wrapper"
+            className="py-5 px-md-3 px-lg-5 px-0"
+          >
+            <div className="mx-auto">
+              <SearchBar
+                values={searchValues}
+                options={searchOptions}
+                multiple={searchMultiple}
+                onChange={onSearchChange}
+              ></SearchBar>
+            </div>
+            <div>
+              <ResultsTable
+                results={searchResults}
+                displayColumns={displayColumns}
+              ></ResultsTable>
+            </div>
           </Col>
         </Row>
       </Container>
