@@ -3,6 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import { ISearchPageProps, SearchPage } from "./SearchPage";
 import { Default as ResultsStory } from "../components/search/ResultsTable.stories";
 import { Default as SearchBarStory } from "../components/search/SearchBar.stories";
+import { Default as FacetsStory } from "../components/search/Facets.stories";
 
 export default {
   title: "Pages/Search page",
@@ -23,6 +24,7 @@ Default.args = {
   searchMultiple: SearchBarStory.args?.multiple,
   searchResults: ResultsStory.args?.results,
   displayColumns: ResultsStory.args?.displayColumns,
+  facetsSections: FacetsStory.args?.facetSections,
 };
 
 export const MultipleTermSearch = Template.bind({});
@@ -32,6 +34,7 @@ MultipleTermSearch.args = {
   searchMultiple: true,
   searchResults: ResultsStory.args?.results,
   displayColumns: ResultsStory.args?.displayColumns,
+  facetsSections: FacetsStory.args?.facetSections,
 };
 
 export const NoResults = Template.bind({});
@@ -41,4 +44,5 @@ NoResults.args = {
   searchMultiple: false,
   searchResults: [],
   displayColumns: ResultsStory.args?.displayColumns,
+  facetsSections: FacetsStory.args?.facetSections,
 };

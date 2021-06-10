@@ -6,6 +6,7 @@ import { ResultsTable } from "../components/search/ResultsTable";
 import { ResultCol, SearchResult } from "../models/SearchResult.model";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 import "./SearchPage.scss";
+import { FacetSection } from "../models/Facet.model";
 
 export interface ISearchPageProps {
   /**
@@ -19,6 +20,7 @@ export interface ISearchPageProps {
    */
   searchResults: Array<SearchResult>;
   displayColumns: Array<ResultCol>;
+  facetsSections: Array<FacetSection>;
   onSearchChange(value: string): void;
 }
 
@@ -28,6 +30,7 @@ export const SearchPage: FunctionComponent<ISearchPageProps> = ({
   searchMultiple,
   searchResults,
   displayColumns,
+  facetsSections,
   onSearchChange,
 }) => {
   return (
@@ -41,7 +44,7 @@ export const SearchPage: FunctionComponent<ISearchPageProps> = ({
             className="shadow-sm h-auto py-3 py-sm-5 mt-3 mt-sm-0"
             id="sidebar-wrapper"
           >
-            <Facets />
+            <Facets facetSections={facetsSections} />
           </Col>
           <Col
             xs={12}

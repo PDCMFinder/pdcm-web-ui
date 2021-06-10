@@ -1,8 +1,33 @@
-// .sidebar {
-//   top: 0;
-//   bottom: 0;
-//   left: 0;
-//   z-index: 100;
-//   padding: 48px 0 0;
-//   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
-// }
+@import "../../variables";
+
+.filter-section-heading {
+  border-bottom: 2px solid $secondary;
+  max-width: fit-content;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: $font-family-headings;
+}
+
+.facet-section {
+  border: none;
+}
+
+.facet-section-heading {
+  font-family: $font-family-headings;
+  font-size: large;
+  font-weight: bold;
+  & .facet-section-heading-caret {
+    transition: all 0.3s;
+    //font-size: large;
+  }
+}
+
+.facet-section-heading:focus {
+  box-shadow: none;
+}
+
+.facet-section-heading[aria-expanded="true"] {
+  & .facet-section-heading-caret {
+    transform: translate3d(0, 0, 0) rotate(90deg);
+  }
+}
