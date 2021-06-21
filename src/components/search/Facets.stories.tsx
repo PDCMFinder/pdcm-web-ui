@@ -10,7 +10,7 @@ export default {
 } as Meta;
 
 const Template: Story<IFacetsProps> = (args) => (
-  <div style={{ width: "100%", backgroundColor: "#fff" }} className="h-100">
+  <div style={{ width: "20%", backgroundColor: "#fff" }} className="h-100">
     <Facets {...args} />
   </div>
 );
@@ -19,8 +19,14 @@ export const Default = Template.bind({});
 Default.args = {
   facetSections: [
     {
-      name: "PDX Model",
-      facets: [{ name: "", options: [], type: "" }],
+      key: "model",
+      name: "PDCM Model",
+      facets: [{ key: "model", name: "", options: [], type: "check" }],
+    },
+    {
+      key: "molecular_data",
+      name: "Molecular Data",
+      facets: [{ key: "molecular_data", name: "", options: [], type: "check" }],
     },
   ],
 };

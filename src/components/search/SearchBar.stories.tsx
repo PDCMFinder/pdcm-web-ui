@@ -19,16 +19,16 @@ const Template: Story<ISearchBarProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  values: [],
-  options: options,
-  multiple: false,
-  onChange: (value) => console.log(value),
+  searchValues: [],
+  searchOptions: options,
+  searchAllowMultipleTerms: false,
+  onSearchChange: (value) => console.log(value),
 };
 
 export const Multiple = Template.bind({});
 Multiple.args = {
-  values: [],
-  options: options,
-  multiple: true,
-  onChange: (value) => console.log(value),
+  searchValues: [],
+  searchOptions: options,
+  searchAllowMultipleTerms: true,
+  onSearchChange: (value) => console.log(value),
 };

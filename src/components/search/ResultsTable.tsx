@@ -11,36 +11,37 @@ import { Table, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { SearchResult, ResultCol } from "../../models/SearchResult.model";
 
 export interface IResultsTableProps {
-  results: Array<SearchResult>;
-  displayColumns: Array<ResultCol>;
+  results?: Array<SearchResult>;
+  displayColumns?: Array<ResultCol>;
 }
+
+const dataTypes = [
+  {
+    name: "Copy Number Alteration",
+    icon: faWaveSquare,
+  },
+  {
+    name: "Expression",
+    icon: faMicroscope,
+  },
+  {
+    name: "Gene Mutation",
+    icon: faDna,
+  },
+  {
+    name: "Dosing Studies",
+    icon: faPills,
+  },
+  {
+    name: "Patient Treatment",
+    icon: faPrescription,
+  },
+];
 
 export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
   results = [],
   displayColumns = [],
 }) => {
-  const dataTypes = [
-    {
-      name: "Copy Number Alteration",
-      icon: faWaveSquare,
-    },
-    {
-      name: "Expression",
-      icon: faMicroscope,
-    },
-    {
-      name: "Gene Mutation",
-      icon: faDna,
-    },
-    {
-      name: "Dosing Studies",
-      icon: faPills,
-    },
-    {
-      name: "Patient Treatment",
-      icon: faPrescription,
-    },
-  ];
   return (
     <Table responsive className="border">
       <thead>

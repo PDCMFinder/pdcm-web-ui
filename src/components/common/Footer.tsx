@@ -6,13 +6,13 @@ const MENU = [
   {
     name: "Quick links",
     children: [
-      { name: "How to cite PDX Finder?", link: "/about/how-to-cite" },
+      { name: "How to cite PDCM Finder?", link: "/about/how-to-cite" },
       {
-        name: "PDX Minimum Information standard publication",
-        link: "/about/pdcm-mis",
+        name: "PDCM Minimum Information standard publication",
+        link: "/about/minimum-information-standard",
       },
-      { name: "PDX Finder Privacy Policy", link: "/about/pdcm-policy" },
-      { name: "PDX Finder Terms of Use", link: "/about/pdcm-terms-of-use" },
+      { name: "PDCM Finder Privacy Policy", link: "/about/privacy-policy" },
+      { name: "PDCM Finder Terms of Use", link: "/about/terms-of-use" },
     ],
   },
   {
@@ -71,7 +71,7 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
               >
                 The Jackson Laboratory
               </a>{" "}
-              are co-developers of PDX Finder. This work is supported by the
+              are co-developers of PDCM Finder. This work is supported by the
               National Institutes of Health/National Cancer Institute U24
               CA204781 01 (ended 31.08.2020), U24 CA253539 01 and R01 CA089713.
             </p>

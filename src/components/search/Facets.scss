@@ -1,33 +1,34 @@
 @import "../../variables";
 
 .filter-section-heading {
-  border-bottom: 2px solid $secondary;
+  border-bottom: 3px solid $secondary;
   max-width: fit-content;
   text-transform: uppercase;
   font-weight: bold;
   font-family: $font-family-headings;
-}
-
-.facet-section {
-  border: none;
-}
-
-.facet-section-heading {
-  font-family: $font-family-headings;
   font-size: large;
+}
+
+.facet-heading {
+  font-family: $font-family-headings;
   font-weight: bold;
-  & .facet-section-heading-caret {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  //border: none;
+  justify-content: space-between;
+  & .facet-heading-caret {
     transition: all 0.3s;
     //font-size: large;
   }
 }
 
-.facet-section-heading:focus {
+.facet-heading:focus {
   box-shadow: none;
 }
 
-.facet-section-heading[aria-expanded="true"] {
-  & .facet-section-heading-caret {
+.facet-heading[aria-expanded="true"] {
+  & .facet-heading-caret {
     transform: translate3d(0, 0, 0) rotate(90deg);
   }
 }
