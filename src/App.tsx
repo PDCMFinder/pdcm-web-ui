@@ -1,11 +1,16 @@
 import React from "react";
-import { GeneralTemplate } from "./templates/GeneralTemplate";
+import { HashRouter, Route, Switch } from "react-router-dom";
+import { SearchPage } from "./pages/SearchPage";
 
 function App() {
   return (
-    <div className="App">
-      <GeneralTemplate>TEST</GeneralTemplate>
-    </div>
+    <HashRouter basename="/">
+      <Switch>
+        <Route exact path="/search">
+          <SearchPage />
+        </Route>
+      </Switch>
+    </HashRouter>
   );
 }
 
