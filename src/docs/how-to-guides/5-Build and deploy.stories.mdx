@@ -1,0 +1,21 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documentation/How to guides/5. Build and deploy" />
+
+# Build and deploy
+
+## Create a JS bundle
+
+```bash
+    yarn build
+```
+
+That's it.
+
+## Deploy
+
+Copy the build directory contents to the Web Server of your choice.
+
+## Deploy on a subpath
+
+Change the `homepage` value of the `package.json` file to match the full deployment path of the website and rebuild the project.

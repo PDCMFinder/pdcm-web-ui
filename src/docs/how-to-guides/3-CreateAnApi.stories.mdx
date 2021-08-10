@@ -1,0 +1,21 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documentation/How to guides/3. Create an API" />
+
+# Create an API
+
+An API is a collection of functions to retrieve data or to do some client side transformation of the data. They shouldn’t manipulate the DOM or generate any secondary effects on the styling or final rendered version of the application. Try to keep your components as dumb as possible and your APIs simple, remember we are in control of the Server side of this application, so any complicated transformation should live on the data loading and transformation logic for the Backend API. Here is an example of an API function:
+
+```ts
+export async function getSearchFacets(): Promise<Array<IFacetSectionProps>> {
+  const response = await fetch("/data/search-facets.json/");
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+}
+```
+
+For data fetching APIs try to follow that simple pattern, use fetch to get the data, throw an `Error` if something went wrong and return the content of the response if everything went fine. We'll be using ReactQuery to manage those responses so don't worry too much on error handling, that logic will live declaratively on the Pages components.
+
+Put your APIs JS files on the `src/apis/` directory and try to keep them grouped by functionality.

@@ -1,0 +1,175 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documentation/Introduction" />
+
+# PDCM Web project
+
+<h1 style={{ color: "var(--secondary)", fontSize: "20px", marginTop: "5px" }}>
+  Developer documentation and Component Library
+</h1>
+
+Welcome to the PDCM Web Project!
+
+This is the documentation and component library for the [cancermodels.org]() website. In here you will find useful documents to guide you trough the project structure, development process and probably some hints for bug fixing. This page is the starting point for working on the project, It'll get you the minimum you'll need to get the project running on your local environment and to share your changes with the other team members. You'll find information about the methodology we followed and the mental model behind our development process.
+
+## Component Driven Development and Atomic Design
+
+Component-Driven Development (CDD) is a development methodology that anchors
+the build process around components. It is a process that builds UIs from the
+“bottom up” by starting at the level of components and ending at the level of
+pages or screens [[1]](https://www.chromatic.com/blog/component-driven-development/). At **PDCM** we try to use Component Driven Development to develop [cancermodels.org]() in a modular, easy to think about and easy to talk about way. Components are also a great way to encapsulate and reuse styles and functionality in a simplier way than using a monolithic web application approach [[2]](https://medium.com/@arqex/what-is-component-driven-development-and-why-to-use-it-e3e57abbc449). But what is a component anyway? A component is a piece of functionality/user interface (e.g. a Button) that can be used and reused in isolation.
+
+This project also borrows some concepts from the Atomic Design methodology for creating design systems. Atomic Design is way to abstract Web user interfaces as a collection of composable pieces, starting by Atoms that can form Molecules and Organisms to be used in Templates to finally build Pages [[3]](https://bradfrost.com/blog/post/atomic-web-design/).
+
+<img
+  src="https://bradfrost.com/wp-content/uploads/2013/06/atomic-design.png"
+  style={{ maxWidth: "500px", marginBottom: "10px" }}
+/>
+
+We found the Atom abstraction to be way too granular for our use case, considering we are using BootStrap for those smaller components, so we started to create molecules, which are collected as Components in our directory structure. With those molecules we build Templates and the we create instaces of those templates to produce the final Pages.
+
+### Useful readings about CDD and Atomic Design
+
+1. [Component-Driven Development](https://www.chromatic.com/blog/component-driven-development/)
+2. [What is component-driven development and why to use it](https://medium.com/@arqex/what-is-component-driven-development-and-why-to-use-it-e3e57abbc449)
+3. [Atomic design](https://bradfrost.com/blog/post/atomic-web-design/)
+
+## Technologies and libraries
+
+1. [Yarn](https://yarnpkg.com/): dependecy management
+2. [TypeScript](https://www.typescriptlang.org/): Type checking for JavaScript
+3. [ReactJS](https://reactjs.org/): Component based JavaScript library
+4. [React Query](https://react-query.tanstack.com/): data-fetching library for React
+5. [BootStrap](https://getbootstrap.com/docs/4.6/getting-started/introduction/): Visual framework
+6. [FontAwesome](https://fontawesome.com/): Icons library
+7. [StorybookJS](https://storybook.js.org/): Component library and documentation
+8. [Prettier](https://prettier.io/): Automatic (opionated) code formatting
+
+## Directory structure
+
+```bash
+├── pdcm-web-ui
+    ├── LICENSE
+    ├── README.md
+    ├── package.json
+    ├── public # React static assets
+    ├── src # Here you'll find all the application's code
+    │   ├── apis # Data access layer logic
+    │   ├── components # Components grouped by functionality
+    │   ├── docs # This documentation
+    │   ├── mock # Mock data for testing purposes
+    │   ├── models # TypeScript models for shared data among componets
+    │   ├── pages # Template instances that represent a page on the website
+    │   └── templates # Groups of components without state to define standard layouts
+    ├── tsconfig.json
+    ├── yarn-error.log
+    └── yarn.lock
+```
+
+## How to contribute?
+
+### Requirements
+
+- [Node 12.0+](https://nodejs.org/en/)
+- [Yarn Classic](https://classic.yarnpkg.com/lang/en/)
+
+### Setup development environment
+
+1. Fork this repo using Github's user interface
+2. Clone your fork:
+
+```bash
+git clone https://github.com/<YOUR_USERNAME>/pdcm-web-ui
+cd pdcm-web-ui
+```
+
+3. Add `upstream` remote:
+
+```bash
+git remote add upstream https://github.com/PDXFinder/pdcm-web-ui.git
+```
+
+4. Install the dependencies:
+
+```bash
+yarn install
+```
+
+5. Start the React development server:
+
+```bash
+yarn start
+```
+
+6. Start the StorybookJS development server:
+
+```bash
+yarn storybook
+```
+
+7. Start coding!
+8. When you are ready to share your changes with the team and/or external users, you can deploy the Storybook instance to github pages.
+
+```bash
+yarn deploy-storybook
+```
+
+9. After you are ready to deploy your changes to the live site push your changes to your personal fork and create a new pull request, if you have an issue for the new feature or bug, please include it on the PR description.
+
+## Available `yarn` Scripts
+
+In the project directory, you can run:
+
+#### `yarn storybook`
+
+Runs a [Storybook](https://storybook.js.org/docs/react/get-started/introduction) instance.\
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
+
+The page will reload if you make edits.
+
+#### `yarn start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+#### `yarn test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+#### `yarn deploy-storybook`
+
+Builds and deploys a static version of the Storybook component library to Github Pages on the Upstream repository. Go to [https://pdxfinder.github.io/pdcm-web-ui/](https://pdxfinder.github.io/pdcm-web-ui/?path=/story/documentation-introduction--page) To see the current Storybook deployment.
+
+#### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+#### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+To learn about StorybookJS, check out [Storybook documentation](https://storybook.js.org/docs/react/get-started/introduction).

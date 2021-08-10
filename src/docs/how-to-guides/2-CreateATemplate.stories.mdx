@@ -1,0 +1,78 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documentation/How to guides/2. Create a template" />
+
+# Create a Template
+
+A template should work as a placeholder that can hold several types of Content. Templates are also React components, they should be easyly wrapped around components or collections of components, one template with rendered content is a Page. Take a llok to our `GeneralTemplate` component:
+
+```jsx
+import React, { Fragment, FunctionComponent } from "react";
+import { Breadcrumb } from "react-bootstrap";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
+import { Footer } from "../components/common/Footer";
+import { MainNavBar } from "../components/common/MainNavBar";
+import "./GeneralTemplate.scss";
+
+export interface IGeneralTemplateProps {
+  breadcrumbs?: Array<{ name: string, link: string }>;
+}
+
+export const GeneralTemplate: FunctionComponent<IGeneralTemplateProps> = ({
+  breadcrumbs,
+  children,
+}) => {
+  const MainNavBarWithRouter = withRouter(MainNavBar);
+  return (
+    <Fragment>
+      <MainNavBarWithRouter />
+      {breadcrumbs ? (
+        <div>
+          <Breadcrumb>
+            {breadcrumbs.map((crumb) => (
+              <Breadcrumb.Item>
+                <Link to={crumb.link}>{crumb.name}</Link>
+              </Breadcrumb.Item>
+            ))}
+          </Breadcrumb>
+        </div>
+      ) : null}
+
+      <main className="main-content">{children}</main>
+      <Footer className="footer"></Footer>
+    </Fragment>
+  );
+};
+```
+
+Is not the case of this General template, but templates can have input properties as well, imagine you would like to hide the footer on some pages or change the width of the `<main>` element, add a side bar, etc.
+
+Templates should be placed on the `src/templates/` directory.
+
+# How to use a template
+
+Templates are supposed to be simple wrappers around fully rendered components, their only purpose should be taking the children prop and rendered in an specific layout. This is an example of usage of the General Template:
+
+```jsx
+import React, { FunctionComponent } from "react";
+import { Jumbotron, Button } from "react-bootstrap";
+import { GeneralTemplate } from "../templates/GeneralTemplate";
+
+export const HomePage: FunctionComponent = () => {
+  return (
+    <GeneralTemplate>
+      <Jumbotron>
+        <h1>Hello, world!</h1>
+        <p>
+          This is a simple hero unit, a simple jumbotron-style component for
+          calling extra attention to featured content or information.
+        </p>
+        <p>
+          <Button variant="primary">Learn more</Button>
+        </p>
+      </Jumbotron>
+    </GeneralTemplate>
+  );
+};
+```
