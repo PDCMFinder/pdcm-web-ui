@@ -1,7 +1,7 @@
-@import "../../variables";
+@import "../../../variables";
 
 .filter-section-heading {
-  border-bottom: 3px solid $secondary;
+  border-bottom: 3px solid $info;
   max-width: fit-content;
   text-transform: uppercase;
   font-weight: bold;
@@ -31,4 +31,8 @@
   & .facet-heading-caret {
     transform: translate3d(0, 0, 0) rotate(90deg);
   }
+}
+
+.facet-section {
+  background-color: $gray-100;
 }

@@ -17,11 +17,11 @@
     "bootstrap": "4.6.0",
     "node-sass": "^6.0.0",
     "react": "^17.0.2",
-    "react-bootstrap": "^1.6.0",
+    "react-bootstrap": "^1.6.1",
     "react-bootstrap-drawer": "^1.0.0",
     "react-bootstrap-typeahead": "^5.1.4",
     "react-dom": "^17.0.2",
-    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
@@ -73,13 +73,18 @@
     "@storybook/react": "^6.2.9",
     "@storybook/storybook-deployer": "^2.8.8",
     "@types/react-router": "^5.1.14",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/storybook-react-router": "^1.0.1",
     "css-loader": "^5.2.5",
+    "fetch-mock": "^9.11.0",
     "mini-css-extract-plugin": "^1.6.0",
     "sass-loader": "^10.0.0",
     "sass-resources-loader": "^2.2.1",
+    "storybook-react-router": "^1.0.8",
     "style-loader": "^2.0.0"
   },
   "resolutions": {
-    "babel-loader": "8.1.0"
+    "babel-loader": "8.1.0",
+    "webpack": "4.44.2"
   }
 }

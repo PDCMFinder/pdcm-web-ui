@@ -1,0 +1,52 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import "../assets/docs-styles.css";
+
+<Meta title="Documentation/How to guides/6. Modify Bootstrap theme" />
+
+# Modify BootStrap theme
+
+The default values for the Bootstrap's theme color variables are:
+
+- Primary color: <span className="theme-color" style={{color: "#0032a0"}}>#0032a0</span>
+- Secondary color: <span className="theme-color" style={{color: "#9899a6"}}>#9899a6</span>
+- Success color: <span className="theme-color" style={{color: "#72cfaf"}}>#72cfaf</span>
+- Danger color: <span className="theme-color" style={{color: "#960200"}}>#960200</span>
+- Info color: <span className="theme-color" style={{color: "#02b2d5"}}>#02b2d5</span>
+- Warning color: <span className="theme-color" style={{color: "#ffd046"}}>#ffd046</span>
+- Light color: <span className="theme-color" style={{color: "#f8f9fa"}}>#f8f9fa</span>
+- Dark color: <span className="theme-color" style={{color: "#2f2e3b"}}>#2f2e3b</span>
+
+To modifify the theme just edit the values on the files `src/_variables`:
+
+```scss
+// PDCM Web UI Bootstrap theme variables
+$primary: #0032a0;
+$secondary: #9899a6;
+$success: #72cfaf;
+$danger: #960200;
+$info: #02b2d5;
+$warning: #ffd046;
+$light: #f8f9fa;
+$dark: #2f2e3b;
+$enable-gradients: false;
+$spacer: 0.7rem;
+$border-width: 1px;
+$btn-border-radius: 0;
+$btn-border-radius-sm: 0;
+$border-radius: 0;
+$component-active-bg: $primary;
+$font-family-base: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+  "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$font-family-headings: "Maven Pro", Helvetica, Arial, sans-serif;
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000;
+```

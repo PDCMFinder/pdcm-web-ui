@@ -1,0 +1,63 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documentation/How to guides/1. Create a component" />
+
+# Create a Component
+
+Before trying to create a new component, search this StoryBook to be sure there is nothing in our component library to fulfill your usecase. After being sure you need a new component you can start by adding a new file to the components directory following this pattern: `src/components/<functionality_group>/<component_name>.tsx` (e.g. `src/components/common/NameComponent.tsx`). A basic React component in TypeScript looks like this:
+
+```jsx
+import React from "react";
+
+export interface INameComponentProps {
+  name: string;
+  lastName: string;
+}
+
+export const NameComponent: FunctionComponent<INameComponentProps> = ({
+  name,
+  lastName,
+}) => {
+  return (
+    <div>
+      <p>
+        <b>Name:</b> {name}
+      </p>
+      <p>
+        <b>Last name:</b> {lastName}
+      </p>
+    </div>
+  );
+};
+```
+
+# Create Stories for your component
+
+In order to keep our components well documented you should create a collection of Stories for your component to display them. An Story is a way to represent your component with a particular State, so you, the team, or any external user can see how the component behaves under different cirscunstances, try to cover the most number of cases possible and try to add stories any time you find a case that generated a bug. Add a story file in the same directory that you used for you component, the file name should follow this pattern `src/components/<functionality_group>/<component_name>.stories.tsx` (e.g. `src/components/common/NameComponent.stories.tsx`). A standard StorybookJS stories file looks like:
+
+```jsx
+import React from "react";
+import { Story, Meta } from "@storybook/react/types-6-0";
+import { NameComponent } from "./NameComponent";
+
+export default {
+  title: "Components/common/Name component",
+  component: NameComponent,
+} as Meta;
+
+const Template: Story<INameComponentProps> = (args) => (
+  <div
+    style={{ width: "100%", backgroundColor: "#fff", marginTop: "20px" }}
+    className="h-100"
+  >
+    <NameComponent {...args}></NameComponent>
+  </div>
+);
+
+export const Default = Template.bind({});
+Default.args = {
+    name: "Thursday",
+    lastName: "Dude"
+};
+
+```

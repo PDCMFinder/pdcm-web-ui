@@ -1,0 +1,11 @@
+.theme-color {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace !important;
+  font-size: 1em !important;
+}
+
+.theme-color::before {
+  content: "\25A0";
+  font-size: large;
+  margin-right: 2px;
+}

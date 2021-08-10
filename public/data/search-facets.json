@@ -1,0 +1,60 @@
+[
+    {
+        "key": "model",
+        "name": "Model",
+        "facets": [
+            {
+                "key": "data_available",
+                "name": "Data available",
+                "options": [
+                    {
+                        "key": "gene_mutation",
+                        "name": "Gene Mutation"
+                    },
+                    {
+                        "key": "cytogenetics",
+                        "name": "Cytogenetics"
+                    },
+                    {
+                        "key": "copy_number_alteration",
+                        "name": "Copy Number Alteration"
+                    },
+                    {
+                        "key": "dosing_studies",
+                        "name": "Dosing Studies"
+                    },
+                    {
+                        "key": "patient_treatment",
+                        "name": "Patient Treatment"
+                    },
+                    {
+                        "key": "expression",
+                        "name": "Expression"
+                    }
+                ],
+                "type": "check"
+            },
+            {
+                "key": "datasource",
+                "name": "Datasource",
+                "options": [],
+                "type": "check"
+            }
+        ]
+    },
+    {
+        "key": "molecular_data",
+        "name": "Molecular Data",
+        "facets": []
+    },
+    {
+        "key": "treatment_drug_dosing",
+        "name": "Treatment/Drug Dosing",
+        "facets": []
+    },
+    {
+        "key": "patient_tumor",
+        "name": "Patient/Tumor",
+        "facets": []
+    }
+]

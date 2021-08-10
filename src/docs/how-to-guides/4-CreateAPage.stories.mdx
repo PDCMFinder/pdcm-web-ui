@@ -1,0 +1,44 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documentation/How to guides/4. Create a page" />
+
+# Create a Page
+
+A Page is an instance of a template that, in most cases, will hold and share the state of all the rendered components. It should be in the pages where you will be using the APIs to fetch and transform data that is gonna be passed as properties to the different componentes. Pages should be the most complex components in teh application, but they should still be simple enough to think about. Here is an example of a page:
+
+```jsx
+import React, { FunctionComponent } from "react";
+import { Jumbotron, Button } from "react-bootstrap";
+import { GeneralTemplate } from "../templates/GeneralTemplate";
+import { useQuery } from "react-query";
+import { fetchImportantInfo } from "../apis/Important.api";
+
+export const HomePage: FunctionComponent = () => {
+  const { isLoading, isError, data, error } = useQuery(
+    "importantInfo",
+    fetchImportantInfo
+  );
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
+
+  return (
+    <GeneralTemplate>
+      <Jumbotron>
+        <h1>Hello, world!</h1>
+        <p>This is some important information: {info}</p>
+        <p>
+          <Button variant="primary">Learn more</Button>
+        </p>
+      </Jumbotron>
+    </GeneralTemplate>
+  );
+};
+```
+
+This example also illustrates how we use React Query to fetch data form a remote service and manage the response accordingly.

@@ -8,22 +8,22 @@ import "./SearchBar.scss";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 export interface ISearchBarProps {
-  values: Array<string>;
-  options: Array<string>;
-  multiple: boolean;
-  onChange(newValue: string): void;
+  searchValues?: Array<string>;
+  searchOptions?: Array<string>;
+  searchAllowMultipleTerms?: boolean;
+  onSearchChange?(newValue: Array<string>): void;
 }
 
 export const SearchBar: FunctionComponent<ISearchBarProps> = ({
-  values,
-  options,
-  multiple,
-  onChange,
+  searchValues,
+  searchOptions,
+  searchAllowMultipleTerms,
+  onSearchChange,
 }) => {
   const [inputValues, setInputValues] = useState<Array<string>>([]);
   useEffect(() => {
-    setInputValues(values);
-  }, [values]);
+    setInputValues(searchValues);
+  }, [searchValues]);
   return (
     <Form className="w-100">
       <Form.Row className="align-items-center">
@@ -31,13 +31,13 @@ export const SearchBar: FunctionComponent<ISearchBarProps> = ({
           <InputGroup>
             <Typeahead
               id="basic-typeahead-multiple"
-              single={!multiple}
-              multiple={multiple}
+              single={!searchAllowMultipleTerms}
+              multiple={searchAllowMultipleTerms}
               onChange={(s) => {
                 setInputValues(s);
-                onChange(s);
+                onSearchChange(s);
               }}
-              options={options}
+              options={searchOptions}
               placeholder="Search by cancer diagnosis (e.g. Melanoma)"
               selected={inputValues}
               clearButton

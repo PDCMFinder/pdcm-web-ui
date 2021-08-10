@@ -14,7 +14,7 @@ th {
   font-family: $font-family-headings;
 }
 
-/* ANIMATED TOGGLE FOR MOBILE NAV BAR */
+/* ANIMATED TOGGLE Collapsible NAVS */
 
 .navbar-toggler.uarr {
   border: none;
@@ -22,7 +22,8 @@ th {
     outline: none;
   }
   &:not(.collapsed) {
-    .icon-bar {
+    .icon-bar,
+    .icon-bar.filter {
       &:nth-of-type(1) {
         transform: translate3d(1px, 0, 0) rotate(-45deg);
         transform-origin: center center;
