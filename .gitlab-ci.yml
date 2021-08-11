@@ -58,7 +58,7 @@ build_main_image:
     - |
       if [[ "${REQUIRES_REBUILD_IMAGE}" == "true" ]]; then
           echo "Building prod image" 
-          docker build -t "${CI_REGISTRY_IMAGE}":dev -f Dockerfile-dev .  | tee ${MOUNT_POINT}/build.log
+          docker build -t "${CI_REGISTRY_IMAGE}":dev -f Dockerfile .  | tee ${MOUNT_POINT}/build.log
           docker push "${CI_REGISTRY_IMAGE}":dev  | tee ${MOUNT_POINT}/push.log
           docker logout ${CI_REGISTRY}
           echo "Pushing to docker hub"
