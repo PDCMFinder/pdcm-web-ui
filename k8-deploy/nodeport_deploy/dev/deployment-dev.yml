@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: pdcm-web-ui-dev
-  namespace: pdx-admin-interface-dev
+  namespace: pdcm-web-ui-dev
 spec:
   replicas: 3
   template:
