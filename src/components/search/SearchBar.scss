@@ -1,15 +1,18 @@
 @import "../../variables";
 
-.input-group > .rbt:not(:last-child) .form-control {
+.search-bar-type-ahead.rbt:not(:last-child) .form-control {
   min-height: 50px;
 }
 
-.rbt-input-multi .rbt-input-main {
+.search-bar-type-ahead > .rbt-input-multi .rbt-input-main {
   margin: 8px 0 4px !important;
 }
 
-.rbt-token {
+div.search-bar-type-ahead div.rbt-token {
   margin: 8px 3px 2px 0 !important;
-  background-color: $secondary !important;
+}
+
+div.rbt-token {
+  background-color: $info !important;
   color: #fff !important;
 }

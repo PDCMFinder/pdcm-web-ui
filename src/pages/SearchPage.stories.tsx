@@ -2,11 +2,13 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { Default as ResultsStory } from "../components/search/ResultsTable.stories";
-import { Default as FacetsStory } from "../components/search/Facets.stories";
+import { Default as FacetsStory } from "../components/search/facets/FacetSidebar.stories";
 import StoryRouter from "storybook-react-router";
 import { SearchPage } from "./SearchPage";
 import fetchMock from "fetch-mock";
 import { options } from "../mock/SearchOptions";
+import { useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 export default {
   title: "Pages/Search page",
@@ -14,6 +16,8 @@ export default {
   argTypes: { onSearchChange: { action: "change" } },
   decorators: [StoryRouter(undefined, { initialEntries: ["/search"] })],
 } as Meta;
+
+const queryClient = new QueryClient();
 
 const Template: Story = (args) => {
   fetchMock.get(
@@ -28,7 +32,9 @@ const Template: Story = (args) => {
   );
   return (
     <div style={{ width: "100%", backgroundColor: "#fff" }} className="h-100">
-      <SearchPage {...args} />
+      <QueryClientProvider client={queryClient}>
+        <SearchPage {...args} />
+      </QueryClientProvider>
     </div>
   );
 };

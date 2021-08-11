@@ -1,15 +1,20 @@
 import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import { SearchPage } from "./pages/SearchPage";
+import { routes } from "./Routes";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <HashRouter basename="/">
-      <Switch>
-        <Route exact path="/search">
-          <SearchPage />
-        </Route>
-      </Switch>
+      <QueryClientProvider client={queryClient}>
+        <Switch>
+          {routes.map(({ path, name, component }) => (
+            <Route exact path={path} key={name} component={component} />
+          ))}
+        </Switch>
+      </QueryClientProvider>
     </HashRouter>
   );
 }

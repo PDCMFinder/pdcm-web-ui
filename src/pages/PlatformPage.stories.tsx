@@ -19,7 +19,7 @@ export const Default = Template.bind({});
 Default.args = {
   mdContent: `
   
-  ## Test
+  ## Markdown Test
 
 - Hi, I'm an incredible markdown editor
 - Look at me I'm markdowing
