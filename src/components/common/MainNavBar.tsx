@@ -11,7 +11,7 @@ export const MENU = [
     name: "Home",
   },
   {
-    link: "/search",
+    link: "/data/search",
     name: "Search",
   },
   {
@@ -31,7 +31,7 @@ export const MENU = [
     name: "Submit",
   },
   {
-    link: "/contact",
+    link: "/about/contact",
     name: "Contact",
   },
 ];
@@ -55,7 +55,7 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
       expand="md"
       className="py-1 py-md-3 shadow-sm main-nav"
     >
-      <Container>
+      <Container fluid="xl" className="w-100">
         <Navbar.Brand href="#home">
           <img
             src={`${process.env.PUBLIC_URL}/pdcm-hor.png`}

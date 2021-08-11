@@ -1,13 +1,23 @@
+import { IFacetSectionProps } from "../models/Facet.model";
+
 export async function getSearchOptions() {
-  let options = await fetch(
+  let response = await fetch(
     `${process.env.PUBLIC_URL}/data/search-options.json`
   );
-  return options.json().then((d) => d);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json().then((d) => d);
 }
 
-export async function getSearchFacets() {
-  let options = await fetch(
+export async function getSearchFacets(): Promise<Array<IFacetSectionProps>> {
+  let response = await fetch(
     `${process.env.PUBLIC_URL}/data/search-facets.json`
   );
-  return options.json().then((d) => d);
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json().then((d) => d);
 }

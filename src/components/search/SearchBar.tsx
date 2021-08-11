@@ -1,48 +1,48 @@
 // @ts-nocheck
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Form, Col, InputGroup } from "react-bootstrap";
-import { Typeahead } from "react-bootstrap-typeahead";
+import { Option, Typeahead } from "react-bootstrap-typeahead";
 import "./SearchBar.scss";
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import { IOptionProps } from "../../models/Facet.model";
 
 export interface ISearchBarProps {
-  searchValues?: Array<string>;
-  searchOptions?: Array<string>;
+  searchValues?: Array<Option>;
+  searchOptions?: Array<Option>;
   searchAllowMultipleTerms?: boolean;
-  onSearchChange?(newValue: Array<string>): void;
+  isLoading: boolean;
+  onSearchChange?(newValue: Array<IOptionProps>): void;
 }
 
 export const SearchBar: FunctionComponent<ISearchBarProps> = ({
-  searchValues,
-  searchOptions,
+  searchValues = [],
+  searchOptions = [],
   searchAllowMultipleTerms,
+  isLoading,
   onSearchChange,
 }) => {
-  const [inputValues, setInputValues] = useState<Array<string>>([]);
-  useEffect(() => {
-    setInputValues(searchValues);
-  }, [searchValues]);
   return (
     <Form className="w-100">
       <Form.Row className="align-items-center">
         <Form.Group as={Col} xs={12}>
           <InputGroup>
             <Typeahead
-              id="basic-typeahead-multiple"
+              id="search-bar-type-ahead"
               single={!searchAllowMultipleTerms}
               multiple={searchAllowMultipleTerms}
               onChange={(s) => {
-                setInputValues(s);
                 onSearchChange(s);
               }}
               options={searchOptions}
               placeholder="Search by cancer diagnosis (e.g. Melanoma)"
-              selected={inputValues}
+              selected={searchValues || []}
               clearButton
               style={{ minHeight: "50px" }}
-              className="w-100"
+              className="w-100 search-bar-type-ahead"
+              labelKey="name"
+              isLoading={isLoading}
             />
             <InputGroup.Append className="bg-primary text-white">
               <InputGroup.Text
