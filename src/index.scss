@@ -1,4 +1,4 @@
-@import "./variables";
+@import "variables";
 
 @import url("https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto&display=swap");
 
@@ -93,3 +93,11 @@ th {
 }
 
 @import "~bootstrap/scss/bootstrap.scss";
+
+.pdcm-mark-down {
+  table {
+    @extend .table;
+    @extend .table-bordered;
+    @extend .table-striped;
+  }
+}

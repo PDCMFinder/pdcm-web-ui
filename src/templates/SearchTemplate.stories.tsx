@@ -3,23 +3,25 @@ import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { Default as ResultsStory } from "../components/search/ResultsTable.stories";
 import { Default as FacetsStory } from "../components/search/facets/FacetSidebar.stories";
-import StoryRouter from "storybook-react-router";
-import { SearchPage } from "./SearchPage";
+import {
+  ISearchTemplateProps,
+  SearchTemplate,
+} from "../templates/SearchTemplate";
 import fetchMock from "fetch-mock";
 import { options } from "../mock/SearchOptions";
-import { useQuery } from "react-query";
 import { QueryClient, QueryClientProvider } from "react-query";
+import StoryRouter from "storybook-react-router";
 
 export default {
-  title: "Pages/Search page",
-  component: SearchPage,
+  title: "Templates/Search template",
+  component: SearchTemplate,
   argTypes: { onSearchChange: { action: "change" } },
-  decorators: [StoryRouter(undefined, { initialEntries: ["/search"] })],
+  decorators: [StoryRouter(null, { initialEntries: ["/data/search"] })],
 } as Meta;
 
 const queryClient = new QueryClient();
 
-const Template: Story = (args) => {
+const Template: Story<ISearchTemplateProps> = (args) => {
   fetchMock.get(
     `${process.env.PUBLIC_URL}/data/search-options.json`,
     args.options || [],
@@ -33,7 +35,7 @@ const Template: Story = (args) => {
   return (
     <div style={{ width: "100%", backgroundColor: "#fff" }} className="h-100">
       <QueryClientProvider client={queryClient}>
-        <SearchPage {...args} />
+        <SearchTemplate {...args} />
       </QueryClientProvider>
     </div>
   );
@@ -47,8 +49,11 @@ export const Default = Template.bind({});
 Default.args = {
   allowMultipleSearchTerms: true,
   resultsTableDisplayColumns: ResultsStory.args?.displayColumns,
-  options: options,
-  facets: FacetsStory.args?.facetSections,
+  searchOptions: options,
+  searchValues: [],
+  facetSections: FacetsStory.args?.facetSections,
+  facetSelection: {},
+  onSearchChange: (searchTerm) => {},
 };
 
 export const SmallOptionSet = Template.bind({});

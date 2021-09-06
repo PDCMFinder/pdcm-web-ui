@@ -218,7 +218,48 @@ export const SearchPage: FunctionComponent = () => {
             </div>
             <div>
               <ResultsTable
-                results={[]}
+                results={[
+                  {
+                    pdcmId: "145191",
+                    datasource: "DFCI-CPDM",
+                    sourceId: "DFAM-14043-Q2",
+                    histology: "Renal Cell Carcinoma",
+                    primary: "Kidney",
+                    collection: "Lung",
+                    type: "Metastatic",
+                    dataAvailable: [
+                      "Copy Number Alteration",
+                      "Expression",
+                      "Gene Mutation",
+                      "Dosing Studies",
+                      "Patient Treatment",
+                    ],
+                  },
+                  {
+                    pdcmId: "145192",
+                    datasource: "DFCI-CPDM",
+                    sourceId: "NIBRX-2428",
+                    histology: "Pancreatic Carcinoma",
+                    primary: "Not Specified",
+                    collection: "Not Specified",
+                    type: "Not Specified",
+                    dataAvailable: [],
+                  },
+                  {
+                    pdcmId: "145193",
+                    datasource: "TM01144",
+                    sourceId: "TM01144",
+                    histology: "Skin Squamous Cell Carcinoma",
+                    primary: "Skin",
+                    collection: "Skin",
+                    type: "Primary",
+                    dataAvailable: [
+                      "Copy Number Alteration",
+                      "Expression",
+                      "Gene Mutation",
+                    ],
+                  },
+                ]}
                 displayColumns={resultTableColumns}
               ></ResultsTable>
             </div>

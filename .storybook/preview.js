@@ -1,5 +1,6 @@
-import '../src/index.scss';
+import { Router, Route, MemoryRouter } from 'react-router-dom';
 
+import '../src/index.scss';
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {

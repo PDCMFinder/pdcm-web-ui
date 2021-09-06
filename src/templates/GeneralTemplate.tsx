@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Footer } from "../components/common/Footer";
 import { MainNavBar } from "../components/common/MainNavBar";
 import "./GeneralTemplate.scss";
-import { routes, IRoute } from "../Routes";
+import { routes } from "../Routes";
 
 export const GeneralTemplate: FunctionComponent = ({ children }) => {
   const MainNavBarWithRouter = withRouter(MainNavBar);
@@ -40,7 +40,7 @@ export const GeneralTemplate: FunctionComponent = ({ children }) => {
 // A custom hook that builds on useLocation to parse
 // the query string for you.
 function useBreadcrumbs(
-  routes: Array<IRoute>
+  routes: Array<any>
 ): Array<{ link: string; name: string }> {
   const currentPath = useRouteMatch();
   const crumbs = routes
