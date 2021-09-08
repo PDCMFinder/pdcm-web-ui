@@ -1,10 +1,17 @@
 import React, { FunctionComponent } from "react";
-import { GeneralTemplate } from "../templates/GeneralTemplate";
+import { useParams } from "react-router-dom";
+import { DetailsTemplate } from "../templates/DetailsTemplate";
 
 export const DetailsPage: FunctionComponent = () => {
+  document.title = "PDCM Finder - Details";
+  const { modelId, providerId } = useParams<{
+    modelId: string;
+    providerId: string;
+  }>();
   return (
-    <GeneralTemplate>
-      <h1>Details page</h1>
-    </GeneralTemplate>
+    <DetailsTemplate
+      modelId={modelId}
+      providerId={providerId}
+    ></DetailsTemplate>
   );
 };

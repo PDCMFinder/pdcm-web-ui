@@ -7,12 +7,12 @@ import "./MainNavBar.scss";
 
 export const MENU = [
   {
-    link: "/",
+    link: "/home",
     name: "Home",
   },
   {
-    link: "/data/search",
-    name: "Search",
+    link: "/data",
+    name: "Data",
   },
   {
     link: "/about",
@@ -31,7 +31,7 @@ export const MENU = [
     name: "Submit",
   },
   {
-    link: "/about/contact",
+    link: "/contact",
     name: "Contact",
   },
 ];
@@ -78,15 +78,21 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
             {MENU.map((menuItem) => {
               if (!menuItem.children) {
                 return (
-                  <Nav.Link key={menuItem.link} as={Link} to={menuItem.link}>
+                  <Nav.Link
+                    key={menuItem.link}
+                    active={location?.pathname.includes(menuItem.link)}
+                    as={Link}
+                    to={menuItem.link}
+                  >
                     {menuItem.name}
                   </Nav.Link>
                 );
               } else {
-                const key = menuItem.link.replace("/", "");
+                const key = menuItem.link;
                 return (
                   <NavDropdown
                     title={menuItem.name}
+                    active={location?.pathname.includes(key)}
                     key={key}
                     id={`${key}-dropdown`}
                     show={show}

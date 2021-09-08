@@ -1,15 +1,13 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { MainNavBar } from "./MainNavBar";
-import StoryRouter from "storybook-react-router";
 import { RouteComponentProps } from "react-router";
+import StoryRouter from "storybook-react-router";
 
 export default {
   title: "Components/Common/Main navigation bar",
   component: MainNavBar,
-  decorators: [
-    StoryRouter(undefined, { initialEntries: ["/home"], initialIndex: 0 }),
-  ],
+  decorators: [StoryRouter(undefined, { initialEntries: ["/data/search"] })],
 } as Meta;
 
 const Template: Story<RouteComponentProps> = (args) => (
@@ -19,4 +17,6 @@ const Template: Story<RouteComponentProps> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  location: { pathname: "/data/search", search: "", state: {}, hash: "" },
+};

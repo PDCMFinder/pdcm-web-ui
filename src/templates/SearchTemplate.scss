@@ -16,3 +16,9 @@
     min-height: calc(100vh - 270px);
   }
 }
+
+@media (min-width: 992px) {
+  #sidebar-wrapper {
+    max-width: 20%;
+  }
+}
