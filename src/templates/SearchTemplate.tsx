@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Option } from "react-bootstrap-typeahead";
 import { FacetSidebar } from "../components/search/facets/FacetSidebar";
 import { ResultsPagination } from "../components/search/facets/ResultsPagination";
 import { QueryViewer } from "../components/search/QueryViewer";
@@ -12,13 +11,15 @@ import {
   IFacetSidebarSelection,
   IOptionProps,
 } from "../models/Facet.model";
-import { ResultCol, SearchResult } from "../models/SearchResult.model";
+import { ResultCol, SearchResult } from "../models/Search.model";
 import { GeneralTemplate } from "./GeneralTemplate";
+import "./SearchTemplate.scss";
 
 export interface ISearchTemplateProps {
   facetSections: Array<IFacetSectionProps>;
   facetSelection: IFacetSidebarSelection;
   facetOperators: IFacetSidebarOperators;
+  loadingFacetSidebar: boolean;
 
   searchOptions: Array<IOptionProps>;
   loadingSearchBarOptions: boolean;
@@ -33,7 +34,7 @@ export interface ISearchTemplateProps {
     facetSelection: IFacetSidebarSelection,
     facetOperators: IFacetSidebarOperators
   ) => void;
-  onSearchBarChange: (searchValues: Array<Option>) => void;
+  onSearchBarChange: (searchValues: Array<IOptionProps>) => void;
   onPaginationChange: (page: number) => void;
 }
 
@@ -41,6 +42,7 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
   facetSections,
   facetSelection = {},
   facetOperators,
+  loadingFacetSidebar,
   searchOptions,
   searchValues = [],
   loadingSearchBarOptions,
@@ -139,7 +141,48 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
             </div>
             <div>
               <ResultsTable
-                results={searchResults}
+                results={[
+                  {
+                    pdcmId: "145191",
+                    datasource: "DFCI-CPDM",
+                    sourceId: "DFAM-14043-Q2",
+                    histology: "Renal Cell Carcinoma",
+                    primary: "Kidney",
+                    collection: "Lung",
+                    type: "Metastatic",
+                    dataAvailable: [
+                      "Copy Number Alteration",
+                      "Expression",
+                      "Gene Mutation",
+                      "Dosing Studies",
+                      "Patient Treatment",
+                    ],
+                  },
+                  {
+                    pdcmId: "145192",
+                    datasource: "DFCI-CPDM",
+                    sourceId: "NIBRX-2428",
+                    histology: "Pancreatic Carcinoma",
+                    primary: "Not Specified",
+                    collection: "Not Specified",
+                    type: "Not Specified",
+                    dataAvailable: [],
+                  },
+                  {
+                    pdcmId: "145193",
+                    datasource: "TM01144",
+                    sourceId: "TM01144",
+                    histology: "Skin Squamous Cell Carcinoma",
+                    primary: "Skin",
+                    collection: "Skin",
+                    type: "Primary",
+                    dataAvailable: [
+                      "Copy Number Alteration",
+                      "Expression",
+                      "Gene Mutation",
+                    ],
+                  },
+                ]}
                 displayColumns={resultTableColumns}
                 loading={loadingSearchResults}
               ></ResultsTable>

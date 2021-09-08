@@ -1,10 +1,4 @@
 import { FunctionComponent, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { FacetSidebar } from "../components/search/facets/FacetSidebar";
-import { SearchBar } from "../components/search/SearchBar";
-import { ResultsTable } from "../components/search/ResultsTable";
-import { GeneralTemplate } from "../templates/GeneralTemplate";
-import "./SearchPage.scss";
 import { useHistory, useLocation } from "react-router-dom";
 import { getSearchFacets, getSearchOptions } from "../apis/Search.api";
 import {
@@ -13,9 +7,8 @@ import {
   IFacetSidebarSelection,
   IOptionProps,
 } from "../models/Facet.model";
-import { QueryViewer } from "../components/search/QueryViewer";
 import { useQuery } from "react-query";
-import { ResultsPagination } from "../components/search/facets/ResultsPagination";
+import { SearchTemplate } from "../templates/SearchTemplate";
 
 const resultTableColumns = [
   { displayName: "Model", key: "model" },
@@ -112,168 +105,41 @@ export const SearchPage: FunctionComponent = () => {
       }facet.operators=${facetOperatorString}`;
 
     history.push({
-      pathname: "/data/search",
+      pathname: "/data/",
       search: search,
     });
   };
 
   return (
-    <GeneralTemplate>
-      <Container fluid className="h-100">
-        <Row className="flex-xl-nowrap h-100 px-0 mt-0">
-          <Col
-            xs={12}
-            md={3}
-            lg={3}
-            className="shadow h-100 py-3 py-md-4 pl-lg-5"
-            id="sidebar-wrapper"
-          >
-            <FacetSidebar
-              facetSections={searchFacetsQuery.data}
-              sidebarSelection={facetSelection}
-              sidebarOperators={facetOperators}
-              onSelectionChange={(section, facet, options) => {
-                let newSelection = {
-                  ...facetSelection,
-                  [section]: {
-                    ...facetSelection[section],
-                    [facet]: options,
-                  },
-                };
-                newSelection = deleteEmptyFacetSelection(newSelection);
-                setFacetSelection(newSelection);
-                updateSearchParams(searchValues, newSelection, facetOperators);
-              }}
-              onOperatorChange={(section, facet, operator) => {
-                const newOperators = {
-                  ...facetOperators,
-                  [section]: {
-                    ...facetOperators[section],
-                    [facet]: operator,
-                  },
-                };
-                setFacetOperators(newOperators);
-                updateSearchParams(searchValues, facetSelection, newOperators);
-              }}
-              onReset={() => {
-                setFacetSelection({});
-                updateSearchParams(searchValues, {}, {});
-              }}
-            />
-          </Col>
-          <Col
-            xs={12}
-            md={9}
-            lg={9}
-            id="page-content-wrapper"
-            className="py-3 py-md-4 px-lg-5 px-2"
-          >
-            <div className="mx-auto">
-              <SearchBar
-                searchValues={searchValues}
-                searchOptions={searchOptionsQuery.data}
-                searchAllowMultipleTerms={true}
-                onSearchChange={(values) => {
-                  setSearchValues(values);
-                  updateSearchParams(values, facetSelection, facetOperators);
-                }}
-                isLoading={searchOptionsQuery.isLoading}
-              ></SearchBar>
-            </div>
-            <div className="mb-3">
-              <QueryViewer
-                searchTerms={searchValues}
-                facetSelection={facetSelection}
-                facetOperators={facetOperators}
-                facetNames={getFacetNames(
-                  searchFacetsQuery.data,
-                  facetSelection
-                )}
-                onRemoveFacet={(sectionKey, facetKey, optionKey) => {
-                  let newFacetSelection = { ...facetSelection };
-                  newFacetSelection[sectionKey][facetKey] = newFacetSelection[
-                    sectionKey
-                  ][facetKey].filter((option) => option.key !== optionKey);
-                  newFacetSelection = deleteEmptyFacetSelection(
-                    newFacetSelection
-                  );
-                  setFacetSelection(newFacetSelection);
-                  updateSearchParams(
-                    searchValues,
-                    newFacetSelection,
-                    facetOperators
-                  );
-                }}
-                onRemoveSearchTerm={(searchTermKey) => {
-                  setSearchValues(
-                    searchValues.filter((o) => o.key !== searchTermKey)
-                  );
-                  updateSearchParams(
-                    searchValues.filter((o) => o.key !== searchTermKey),
-                    facetSelection,
-                    facetOperators
-                  );
-                }}
-              ></QueryViewer>
-            </div>
-            <div>
-              <ResultsTable
-                results={[
-                  {
-                    pdcmId: "145191",
-                    datasource: "DFCI-CPDM",
-                    sourceId: "DFAM-14043-Q2",
-                    histology: "Renal Cell Carcinoma",
-                    primary: "Kidney",
-                    collection: "Lung",
-                    type: "Metastatic",
-                    dataAvailable: [
-                      "Copy Number Alteration",
-                      "Expression",
-                      "Gene Mutation",
-                      "Dosing Studies",
-                      "Patient Treatment",
-                    ],
-                  },
-                  {
-                    pdcmId: "145192",
-                    datasource: "DFCI-CPDM",
-                    sourceId: "NIBRX-2428",
-                    histology: "Pancreatic Carcinoma",
-                    primary: "Not Specified",
-                    collection: "Not Specified",
-                    type: "Not Specified",
-                    dataAvailable: [],
-                  },
-                  {
-                    pdcmId: "145193",
-                    datasource: "TM01144",
-                    sourceId: "TM01144",
-                    histology: "Skin Squamous Cell Carcinoma",
-                    primary: "Skin",
-                    collection: "Skin",
-                    type: "Primary",
-                    dataAvailable: [
-                      "Copy Number Alteration",
-                      "Expression",
-                      "Gene Mutation",
-                    ],
-                  },
-                ]}
-                displayColumns={resultTableColumns}
-              ></ResultsTable>
-            </div>
-            <div>
-              <ResultsPagination
-                activePage={activePage}
-                totalPages={totalPages}
-                onPageChange={setActivePage}
-              ></ResultsPagination>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </GeneralTemplate>
+    <SearchTemplate
+      facetSections={searchFacetsQuery.data ? searchFacetsQuery.data : []}
+      facetSelection={facetSelection}
+      facetOperators={facetOperators}
+      loadingFacetSidebar={searchFacetsQuery.isLoading}
+      searchValues={searchValues}
+      searchOptions={searchOptionsQuery.data}
+      loadingSearchBarOptions={searchOptionsQuery.isLoading}
+      searchResults={[]}
+      loadingSearchResults={false}
+      resultTableColumns={resultTableColumns}
+      activePage={activePage}
+      totalPages={totalPages}
+      onFacetSidebarChange={(
+        facetSelection: IFacetSidebarSelection,
+        facetOperators: IFacetSidebarOperators
+      ) => {
+        setFacetSelection(facetSelection);
+        setFacetOperators(facetOperators);
+        updateSearchParams(searchValues, facetSelection, facetOperators);
+      }}
+      onSearchBarChange={(searchValues: Array<IOptionProps>) => {
+        updateSearchParams(searchValues, facetSelection, facetOperators);
+        setSearchValues(searchValues);
+      }}
+      onPaginationChange={(activePage: number) => {
+        setActivePage(activePage);
+      }}
+    ></SearchTemplate>
   );
 };
 
@@ -334,43 +200,4 @@ function parseOperatorsFromUrl(operatorsByKey: any): IFacetSidebarOperators {
     facetSidebarSelection[sectionKey][facetKey] = urlOperator;
   });
   return facetSidebarSelection;
-}
-
-function getFacetNames(
-  facetSections: Array<IFacetSectionProps> | undefined,
-  facetSidebarSelection: IFacetSidebarSelection
-): { [sectionFacetKey: string]: string } {
-  if (!facetSections) return {};
-  const facetNames: { [sectionFacetKey: string]: string } = {};
-  Object.keys(facetSidebarSelection).forEach((sectionKey) => {
-    const section = facetSections?.find(({ key }) => sectionKey === key);
-    if (section && section.facets) {
-      section.facets.forEach((facet) => {
-        if (facetSidebarSelection[sectionKey][facet.key]) {
-          facetNames[
-            `${sectionKey}.${facet.key}`
-          ] = `${section.name}/${facet.name}`;
-        }
-      });
-    }
-  });
-  return facetNames;
-}
-
-function deleteEmptyFacetSelection(facetSelection: any): any {
-  const newFacetSelection: any = {};
-  Object.keys(facetSelection).forEach((sectionKey) => {
-    const section = facetSelection[sectionKey];
-    const newSection: any = {};
-    Object.keys(section).forEach((facetKey) => {
-      const facet = section[facetKey];
-      if (facet.length > 0) {
-        newSection[facetKey] = facet;
-      }
-    });
-    if (Object.keys(newSection).length > 0) {
-      newFacetSelection[sectionKey] = newSection;
-    }
-  });
-  return newFacetSelection;
 }

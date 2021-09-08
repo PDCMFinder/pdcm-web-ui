@@ -15,4 +15,12 @@ export const routes = [
     path: "/data/platform/:platformId/",
     name: "Platform",
   },
+  {
+    path: "/contact",
+    name: "Contact",
+  },
+  {
+    path: "/submit",
+    name: "Submit",
+  },
 ];

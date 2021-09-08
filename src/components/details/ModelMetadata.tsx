@@ -7,10 +7,11 @@ import {
   faMapMarkerAlt,
   faMicroscope,
   faStethoscope,
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, ListGroup, Row } from "react-bootstrap";
 
 export interface IModelMetadataProps {
   pdcmFinderModelId: string;
@@ -21,6 +22,7 @@ export interface IModelMetadataProps {
   providerContactEmails: Array<string>;
   modelProviderUrl: string;
   cancerSystem: string;
+  modelType: string;
 }
 
 export const ModelMetadata: FunctionComponent<IModelMetadataProps> = ({
@@ -30,24 +32,31 @@ export const ModelMetadata: FunctionComponent<IModelMetadataProps> = ({
   providerName,
   providerContactEmails,
   cancerSystem,
+  modelType,
+  modelProviderUrl,
 }) => (
-  <>
-    <Row>
-      <Col xs={12}>
-        <h2>Model overview</h2>
-        <h5>
-          <FontAwesomeIcon icon={faAt} /> Name: {modelId}
-        </h5>
-        <h5>
-          <FontAwesomeIcon icon={faMapMarkerAlt} /> Provider: {providerName}
-        </h5>
-        <h5>
-          <FontAwesomeIcon icon={faStethoscope} /> Diagnosis: {diagnosis}
-        </h5>
-        <h5>
-          <FontAwesomeIcon icon={faDiagnoses} /> Cancer system: {cancerSystem}
-        </h5>
-      </Col>
-    </Row>
-  </>
+  <ListGroup variant="flush" style={{ fontSize: "large" }}>
+    <ListGroup.Item>
+      <FontAwesomeIcon icon={faAt} /> Name: {modelId}
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <FontAwesomeIcon icon={faMapMarkerAlt} /> Provider: {providerName}
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <FontAwesomeIcon icon={faStethoscope} /> Diagnosis: {diagnosis}
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <FontAwesomeIcon icon={faDiagnoses} /> Cancer system: {cancerSystem}
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <FontAwesomeIcon icon={faTag} /> Model type: {modelType}
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <FontAwesomeIcon icon={faExternalLinkAlt} /> This model in other
+      databases: <a href={modelProviderUrl}>provider site</a>
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <FontAwesomeIcon icon={faEnvelope} /> Contact provider: {modelType}
+    </ListGroup.Item>
+  </ListGroup>
 );

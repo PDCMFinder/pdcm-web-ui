@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
 import { Table, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
-import { SearchResult, ResultCol } from "../../models/SearchResult.model";
+import { SearchResult, ResultCol } from "../../models/Search.model";
 
 export interface IResultsTableProps {
   results?: Array<SearchResult>;
