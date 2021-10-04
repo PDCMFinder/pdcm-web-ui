@@ -70,7 +70,7 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
               facetSections={facetSections}
               sidebarSelection={facetSelection}
               sidebarOperators={facetOperators}
-              onSelectionChange={(section, facet, options) => {
+              onSelectionChange={(section, facet, options, operator) => {
                 let newSelection = {
                   ...facetSelection,
                   [section]: {
@@ -78,10 +78,6 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                     [facet]: options,
                   },
                 };
-                newSelection = deleteEmptyFacetSelection(newSelection);
-                onFacetSidebarChange(newSelection, facetOperators);
-              }}
-              onOperatorChange={(section, facet, operator) => {
                 const newOperators = {
                   ...facetOperators,
                   [section]: {
@@ -89,7 +85,8 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                     [facet]: operator,
                   },
                 };
-                onFacetSidebarChange(facetSelection, newOperators);
+                newSelection = deleteEmptyFacetSelection(newSelection);
+                onFacetSidebarChange(newSelection, newOperators);
               }}
               onReset={() => {
                 onFacetSidebarChange({}, {});
@@ -141,49 +138,8 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
             </div>
             <div>
               <ResultsTable
-                results={[
-                  {
-                    pdcmId: "145191",
-                    datasource: "DFCI-CPDM",
-                    sourceId: "DFAM-14043-Q2",
-                    histology: "Renal Cell Carcinoma",
-                    primary: "Kidney",
-                    collection: "Lung",
-                    type: "Metastatic",
-                    dataAvailable: [
-                      "Copy Number Alteration",
-                      "Expression",
-                      "Gene Mutation",
-                      "Dosing Studies",
-                      "Patient Treatment",
-                    ],
-                  },
-                  {
-                    pdcmId: "145192",
-                    datasource: "DFCI-CPDM",
-                    sourceId: "NIBRX-2428",
-                    histology: "Pancreatic Carcinoma",
-                    primary: "Not Specified",
-                    collection: "Not Specified",
-                    type: "Not Specified",
-                    dataAvailable: [],
-                  },
-                  {
-                    pdcmId: "145193",
-                    datasource: "TM01144",
-                    sourceId: "TM01144",
-                    histology: "Skin Squamous Cell Carcinoma",
-                    primary: "Skin",
-                    collection: "Skin",
-                    type: "Primary",
-                    dataAvailable: [
-                      "Copy Number Alteration",
-                      "Expression",
-                      "Gene Mutation",
-                    ],
-                  },
-                ]}
                 displayColumns={resultTableColumns}
+                results={searchResults || []}
                 loading={loadingSearchResults}
               ></ResultsTable>
             </div>

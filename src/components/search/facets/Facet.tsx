@@ -13,7 +13,6 @@ export const Facet: FunctionComponent<IFacetProps> = ({
   selection,
   operator,
   onSelectionChange,
-  onOperatorChange,
 }) => {
   const [open, setOpen] = useState(selection.length > 0);
 
@@ -44,6 +43,18 @@ export const Facet: FunctionComponent<IFacetProps> = ({
           );
         });
 
+      case "multivalued":
+        return (
+          <TypeaheadFacet
+            name={name}
+            options={options}
+            values={selection}
+            onSelectionChange={onSelectionChange}
+            operator={operator ? operator : "any"}
+            displayOperators={true}
+          />
+        );
+
       case "autocomplete":
         return (
           <TypeaheadFacet
@@ -51,8 +62,8 @@ export const Facet: FunctionComponent<IFacetProps> = ({
             options={options}
             values={selection}
             onSelectionChange={onSelectionChange}
-            onOperatorChange={onOperatorChange}
             operator={operator}
+            displayOperators={false}
           />
         );
 

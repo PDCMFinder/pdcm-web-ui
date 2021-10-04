@@ -18,22 +18,27 @@ export interface IResultsTableProps {
 
 const dataTypes = [
   {
+    key: "copy number alteration",
     name: "Copy Number Alteration",
     icon: faWaveSquare,
   },
   {
+    key: "expression",
     name: "Expression",
     icon: faMicroscope,
   },
   {
+    key: "mutation",
     name: "Gene Mutation",
     icon: faDna,
   },
   {
+    key: "dosing studies",
     name: "Dosing Studies",
     icon: faPills,
   },
   {
+    key: "patient treatment",
     name: "Patient Treatment",
     icon: faPrescription,
   },
@@ -66,13 +71,15 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
         {results.map((result) => (
           <tr key={result.pdcmId}>
             <td>
-              <a href="/">{result.sourceId}</a>
+              <a href="/">{result.pdcmId}</a>
               <br />
               <span className="text-muted font-weight-lighter">
-                {result.datasource}
+                {result.sourceId}
               </span>
             </td>
-            <td>{result.histology}</td>
+            <td style={{ wordWrap: "break-word", maxWidth: "150px" }}>
+              {result.histology}
+            </td>
             <td>{result.primary}</td>
             <td>{result.collection}</td>
             <td>{result.type}</td>
@@ -86,7 +93,7 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
                         {dataType.name}
                       </strong>{" "}
                       data{" "}
-                      {result.dataAvailable.includes(dataType.name)
+                      {result.dataAvailable?.includes(dataType.key)
                         ? "available"
                         : "not available"}
                       .
@@ -98,7 +105,7 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
                     style={{ fontSize: "xx-large" }}
                     className={
                       "mr-3 " +
-                      (result.dataAvailable.includes(dataType.name)
+                      (result.dataAvailable?.includes(dataType.key)
                         ? "text-primary"
                         : "text-muted")
                     }

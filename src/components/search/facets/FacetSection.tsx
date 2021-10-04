@@ -12,7 +12,6 @@ export const FacetSection: FunctionComponent<IFacetSectionProps> = ({
   sectionSelection,
   sectionOperators,
   onSelectionChange,
-  onOperatorChange,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -51,14 +50,11 @@ export const FacetSection: FunctionComponent<IFacetSectionProps> = ({
                   operator={
                     sectionOperators && sectionOperators[key]
                       ? sectionOperators[key]
-                      : "any"
+                      : undefined
                   }
                   type={type}
-                  onSelectionChange={(v) => {
-                    if (onSelectionChange) onSelectionChange(key, v);
-                  }}
-                  onOperatorChange={(v) => {
-                    if (onOperatorChange) onOperatorChange(key, v);
+                  onSelectionChange={(v, op) => {
+                    if (onSelectionChange) onSelectionChange(key, v, op);
                   }}
                 />
               </div>

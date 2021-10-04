@@ -50,12 +50,15 @@ export const ResultsPagination: FunctionComponent<IResultsPaginationProps> = ({
         }
       })}
       {activePage <= totalPages - 4 ? <Pagination.Ellipsis disabled /> : null}
-      <Pagination.Item
-        onClick={() => onPageChange(totalPages)}
-        active={activePage === totalPages}
-      >
-        {totalPages}
-      </Pagination.Item>
+      {totalPages > 1 ? (
+        <Pagination.Item
+          onClick={() => onPageChange(totalPages)}
+          active={activePage === totalPages}
+        >
+          {totalPages}
+        </Pagination.Item>
+      ) : null}
+
       <Pagination.Next
         onClick={() => onPageChange(activePage + 1)}
         disabled={activePage === totalPages}

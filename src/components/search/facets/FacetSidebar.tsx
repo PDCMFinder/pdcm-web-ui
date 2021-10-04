@@ -11,7 +11,6 @@ export const FacetSidebar: FunctionComponent<IFacetSidebarProps> = ({
   sidebarSelection = {},
   sidebarOperators = {},
   onSelectionChange,
-  onOperatorChange,
   onReset,
 }) => {
   const [open, setOpen] = useState(false);
@@ -77,11 +76,13 @@ export const FacetSidebar: FunctionComponent<IFacetSidebarProps> = ({
                     facets={section.facets}
                     sectionSelection={sidebarSelection[section.key]}
                     sectionOperators={sidebarOperators[section.key]}
-                    onSelectionChange={(facetKey, values) => {
-                      onSelectionChange(section.key, facetKey, values);
-                    }}
-                    onOperatorChange={(facetKey, operator) => {
-                      onOperatorChange(section.key, facetKey, operator);
+                    onSelectionChange={(facetKey, values, operator) => {
+                      onSelectionChange(
+                        section.key,
+                        facetKey,
+                        values,
+                        operator
+                      );
                     }}
                   ></FacetSection>
                 </div>

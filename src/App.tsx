@@ -8,7 +8,14 @@ import { SearchPage } from "./pages/SearchPage";
 import { SubmitPage } from "./pages/SubmitPage";
 import { routes } from "./Routes";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 const routeComponentMap: any = {
   Home: HomePage,
   Data: SearchPage,

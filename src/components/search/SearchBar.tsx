@@ -34,6 +34,7 @@ export const SearchBar: FunctionComponent<ISearchBarProps> = ({
               multiple={searchAllowMultipleTerms}
               onChange={(s) => {
                 onSearchChange(s);
+                console.log(s);
               }}
               options={searchOptions}
               placeholder="Search by cancer diagnosis (e.g. Melanoma)"
@@ -43,6 +44,7 @@ export const SearchBar: FunctionComponent<ISearchBarProps> = ({
               className="w-100 search-bar-type-ahead"
               labelKey="name"
               isLoading={isLoading}
+              caseSensitive={false}
             />
             <InputGroup.Append className="bg-primary text-white">
               <InputGroup.Text
