@@ -5,9 +5,9 @@ export interface IFacetSidebarProps {
   onSelectionChange(
     sectionKey: string,
     facetKey: string,
-    selection: Array<IOptionProps>
+    selection: Array<IOptionProps>,
+    operators: string
   ): any;
-  onOperatorChange(sectionKey: string, facetKey: string, operator: string): any;
   onReset(): void;
 }
 
@@ -29,8 +29,11 @@ export interface IFacetSectionProps {
   facets?: Array<IFacetProps>;
   sectionSelection?: IFacetSectionSelection;
   sectionOperators?: { [facet: string]: string };
-  onSelectionChange?(facetKey: string, selection: Array<IOptionProps>): void;
-  onOperatorChange?(facetKey: string, operator: string): void;
+  onSelectionChange?(
+    facetKey: string,
+    selection: Array<IOptionProps>,
+    operator: string
+  ): void;
 }
 
 export interface IFacetProps {
@@ -40,8 +43,8 @@ export interface IFacetProps {
   options: Array<IOptionProps>;
   selection?: Array<IOptionProps>;
   operator?: string;
-  onSelectionChange?(selection: Array<IOptionProps>): void;
-  onOperatorChange?(operator: string): void;
+  displayOperators?: boolean;
+  onSelectionChange?(selection: Array<IOptionProps>, operator: string): void;
 }
 
 export interface IOptionProps {

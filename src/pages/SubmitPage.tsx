@@ -1,154 +1,79 @@
 import React, { FunctionComponent } from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
-import ReactFlow, {
-  ArrowHeadType,
-  Position,
-  isNode,
-} from "react-flow-renderer";
-import dagre from "dagre";
 
-const elements = [
+import { SubmissionWorkflowDiagram } from "../components/submit/SubmissionWorkflowDiagram";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faFileExcel } from "@fortawesome/free-solid-svg-icons";
+
+interface TemplateFile {
+  name: string;
+  link: string;
+}
+
+interface TemplateFileGroup {
+  name: string;
+  subgroups?: TemplateFileGroup[];
+  files?: TemplateFile[];
+}
+
+const templateFiles: Array<TemplateFileGroup> = [
   {
-    id: "fill",
-    data: { label: "Fill in the templates" },
-    position: { x: 0, y: 0 },
-    sourcePosition: Position.Right,
-    targetPosition: Position.Left,
-    style: {
-      background: "#D6D5E6",
-      color: "#333",
-      border: "1px solid #222138",
-    },
+    name: "Metadata templates",
+    files: [
+      {
+        name: "Clinical/Model metadata",
+        link: "/data/templates/metadata_template.xlsx",
+      },
+      {
+        name: "Sample metadata for OMIC data",
+        link: "/data/templates/sample_treatment_template.xlsx",
+      },
+    ],
   },
+
   {
-    id: "send",
-    data: { label: "Send the templates" },
-    position: { x: 0, y: 0 },
-    sourcePosition: Position.Right,
-    targetPosition: Position.Left,
+    name: "Data templates",
+    subgroups: [
+      {
+        name: "Treatment (patient and model)",
+        files: [
+          {
+            name: "Patient treatment template",
+            link: "/data/templates/patient_treatment_template.xlsx",
+          },
+          {
+            name: "Drug dosing template",
+            link: "/data/templates/drug_dosing_template.xlsx",
+          },
+        ],
+      },
+      {
+        name: "Molecular data",
+        files: [
+          {
+            name: "Mutation data template",
+            link: "/data/templates/mutation_template.xlsx",
+          },
+          {
+            name: "Cytogenetics data template",
+            link: "/data/templates/cytogenetics_template.xlsx",
+          },
+          {
+            name: "CNA data template",
+            link: "/data/templates/cna_template.xlsx",
+          },
+          {
+            name: "Expression data template",
+            link: "/data/templates/expression_template.xlsx",
+          },
+        ],
+      },
+    ],
   },
-  {
-    id: "load",
-    data: { label: "Data load" },
-    position: { x: 0, y: 0 },
-    sourcePosition: Position.Right,
-    targetPosition: Position.Left,
-  },
-  {
-    id: "validate",
-    data: { label: "Metadata validation" },
-    position: { x: 0, y: 0 },
-    sourcePosition: Position.Right,
-    targetPosition: Position.Left,
-  },
-  {
-    id: "feedback",
-    data: { label: "Feedback" },
-    position: { x: 0, y: 0 },
-    sourcePosition: Position.Right,
-    targetPosition: Position.Left,
-  },
-  {
-    id: "release",
-    data: { label: "Release" },
-    position: { x: 0, y: 0 },
-    sourcePosition: Position.Right,
-    targetPosition: Position.Left,
-  },
-  {
-    id: "fill-send",
-    source: "fill",
-    target: "send",
-    arrowHeadType: ArrowHeadType.ArrowClosed,
-    type: "smoothstep",
-  },
-  {
-    id: "send-load",
-    source: "send",
-    target: "load",
-    arrowHeadType: ArrowHeadType.ArrowClosed,
-    type: "smoothstep",
-  },
-  {
-    id: "send-validate",
-    source: "send",
-    target: "validate",
-    arrowHeadType: ArrowHeadType.ArrowClosed,
-    type: "smoothstep",
-  },
-  {
-    id: "load-feedback",
-    source: "load",
-    target: "feedback",
-    arrowHeadType: ArrowHeadType.ArrowClosed,
-    type: "smoothstep",
-  },
-  {
-    id: "validate-feedback",
-    source: "validate",
-    target: "feedback",
-    arrowHeadType: ArrowHeadType.ArrowClosed,
-    type: "smoothstep",
-  },
-  {
-    id: "feedback-release",
-    source: "feedback",
-    target: "release",
-    arrowHeadType: ArrowHeadType.ArrowClosed,
-    type: "smoothstep",
-  },
-  //   {
-  //     id: "feedback-fill",
-  //     source: "feedback",
-  //     target: "fill",
-  //     arrowHeadType: ArrowHeadType.ArrowClosed,
-  //     type: "smoothstep",
-  //   },
 ];
 
-const nodeWidth = 172;
-const nodeHeight = 50;
-
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
-
-const getLayoutedElements = (elements: Array<any>, direction = "LR") => {
-  const isHorizontal = direction === "LR";
-  dagreGraph.setGraph({ rankdir: direction });
-
-  elements.forEach((el: any) => {
-    if (isNode(el)) {
-      dagreGraph.setNode(el.id, { width: nodeWidth, height: nodeHeight });
-    } else {
-      dagreGraph.setEdge(el.source, el.target);
-    }
-  });
-
-  dagre.layout(dagreGraph);
-
-  return elements.map((el) => {
-    if (isNode(el)) {
-      const nodeWithPosition = dagreGraph.node(el.id);
-      el.targetPosition = isHorizontal ? Position.Left : Position.Top;
-      el.sourcePosition = isHorizontal ? Position.Right : Position.Bottom;
-
-      // unfortunately we need this little hack to pass a slightly different position
-      // to notify react flow about the change. Moreover we are shifting the dagre node position
-      // (anchor=center center) to the top left so it matches the react flow node anchor point (top left).
-      el.position = {
-        x: nodeWithPosition.x - nodeWidth / 2 + Math.random() / 1000,
-        y: nodeWithPosition.y - nodeHeight / 2,
-      };
-    }
-
-    return el;
-  });
-};
-
-const layoutedElements = getLayoutedElements(elements);
-
-export const SubmitPage: FunctionComponent = ({}) => {
+export const SubmitPage: FunctionComponent = () => {
   document.title = "PDCM Finder - Submit your data";
   return (
     <GeneralTemplate>
@@ -160,12 +85,37 @@ export const SubmitPage: FunctionComponent = ({}) => {
         <p>
           To start the process please contact PDX Finder team:&nbsp;
           <a href="mailto:submissions@pdxfinder.org?subject=PDX%20producer:%20Data%20Submission%20request">
-            submissions&nbsp;
+            submissions&nbsp; <FontAwesomeIcon icon={faEnvelope} />
           </a>
         </p>
-        <div style={{ height: 600 }}>
-          <ReactFlow elements={layoutedElements} paneMoveable={false} />
-        </div>
+        <SubmissionWorkflowDiagram />
+        <Row className="mt-5">
+          <Col xs={12}>
+            <h4>Download submission templates:</h4>
+          </Col>
+        </Row>
+
+        {/* {templateFiles.map((templateGroup) => {
+          return (
+            <Row className="mt-5 mb-5">
+              <Col xs={4}>
+                <h5>{templateGroup.name}</h5>
+                <ListGroup>
+                  {templateGroup.links.map((file) => (
+                    <ListGroup.Item key={file.name} action href={file.link}>
+                      {file.name}
+                      &nbsp;&nbsp;
+                      <FontAwesomeIcon
+                        icon={faFileExcel}
+                        style={{ fontSize: "larger" }}
+                      />
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Col>
+            </Row>
+          );
+        })} */}
       </Container>
     </GeneralTemplate>
   );

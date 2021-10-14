@@ -19,11 +19,11 @@ export const MENU = [
     name: "About",
     children: [
       { link: "/about/objectives", name: "Objectives" },
-      { link: "/about/data-summary", name: "Data Summary" },
+      { link: "/about/data-summary", name: "Data summary" },
       { link: "/about/how-to-cite", name: "How to cite?" },
-      { link: "/about/data-flow", name: "Data Flow" },
-      { link: "/about/privacy-policy", name: "Privacy Policy" },
-      { link: "/about/term-of-use", name: "Terms of Use" },
+      { link: "/about/data-flow", name: "Data flow" },
+      { link: "/about/privacy-policy", name: "Privacy policy" },
+      { link: "/about/terms-of-use", name: "Terms of use" },
     ],
   },
   {

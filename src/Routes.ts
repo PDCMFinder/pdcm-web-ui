@@ -23,4 +23,12 @@ export const routes = [
     path: "/submit",
     name: "Submit",
   },
+  {
+    path: "/about/privacy-policy",
+    name: "Privacy policy",
+  },
+  {
+    path: "/about/terms-of-use",
+    name: "Terms of use",
+  },
 ];

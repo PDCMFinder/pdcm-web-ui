@@ -43,6 +43,7 @@ export const SearchBar: FunctionComponent<ISearchBarProps> = ({
               className="w-100 search-bar-type-ahead"
               labelKey="name"
               isLoading={isLoading}
+              caseSensitive={false}
             />
             <InputGroup.Append className="bg-primary text-white">
               <InputGroup.Text

@@ -1,6 +1,10 @@
 import { FunctionComponent, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { getSearchFacets, getSearchOptions } from "../apis/Search.api";
+import {
+  getSearchFacets,
+  getSearchOptions,
+  getSearchResults,
+} from "../apis/Search.api";
 import {
   IFacetSectionProps,
   IFacetSidebarOperators,
@@ -36,6 +40,20 @@ export const SearchPage: FunctionComponent = () => {
 
   const searchOptionsQuery = useQuery("search-options", getSearchOptions);
   const searchFacetsQuery = useQuery("search-facets", getSearchFacets);
+  const searchResultsQuery = useQuery(
+    [
+      "search-results",
+      { searchValues, facetSelection, facetOperators, pageSize, activePage },
+    ],
+    async () =>
+      getSearchResults(
+        searchValues,
+        facetSelection,
+        facetOperators,
+        activePage,
+        pageSize
+      )
+  );
 
   if (
     !searchOptionsQuery.isLoading &&
@@ -91,7 +109,11 @@ export const SearchPage: FunctionComponent = () => {
     let facetOperatorString = "";
     Object.keys(facetOperators).forEach((facetSectionKey) => {
       Object.keys(facetOperators[facetSectionKey]).forEach((facetKey) => {
-        if (facetOperators[facetSectionKey][facetKey].length === 0) return;
+        if (
+          facetOperators[facetSectionKey][facetKey]?.length === 0 ||
+          facetOperators[facetSectionKey][facetKey] === undefined
+        )
+          return;
         facetOperatorString += `${
           facetOperatorString === "" ? "" : " AND "
         }${facetSectionKey}.${facetKey}:${
@@ -103,7 +125,7 @@ export const SearchPage: FunctionComponent = () => {
       search += `${
         search === "" ? "?" : "&"
       }facet.operators=${facetOperatorString}`;
-
+    setActivePage(1);
     history.push({
       pathname: "/data/",
       search: search,
@@ -119,11 +141,13 @@ export const SearchPage: FunctionComponent = () => {
       searchValues={searchValues}
       searchOptions={searchOptionsQuery.data}
       loadingSearchBarOptions={searchOptionsQuery.isLoading}
-      searchResults={[]}
-      loadingSearchResults={false}
+      searchResults={searchResultsQuery.data ? searchResultsQuery.data[1] : []}
+      loadingSearchResults={searchResultsQuery.isLoading}
       resultTableColumns={resultTableColumns}
       activePage={activePage}
-      totalPages={totalPages}
+      totalPages={Math.ceil(
+        (searchResultsQuery?.data ? searchResultsQuery?.data[0] : 1) / pageSize
+      )}
       onFacetSidebarChange={(
         facetSelection: IFacetSidebarSelection,
         facetOperators: IFacetSidebarOperators
@@ -135,9 +159,11 @@ export const SearchPage: FunctionComponent = () => {
       onSearchBarChange={(searchValues: Array<IOptionProps>) => {
         updateSearchParams(searchValues, facetSelection, facetOperators);
         setSearchValues(searchValues);
+        setFacetOperators({});
       }}
       onPaginationChange={(activePage: number) => {
         setActivePage(activePage);
+        window.scrollTo(0, 0);
       }}
     ></SearchTemplate>
   );

@@ -64,7 +64,9 @@ export const QueryViewer: FunctionComponent<IQueryViewerProps> = ({
               name={name}
               options={options}
               operator={
-                !operator || operator === "any"
+                !operator
+                  ? "IN"
+                  : operator === "any"
                   ? "CONTAINS ANY"
                   : "CONTAINS ALL"
               }

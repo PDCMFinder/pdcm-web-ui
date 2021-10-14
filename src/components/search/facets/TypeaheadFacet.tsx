@@ -18,9 +18,9 @@ import "./TypeaheadFacet.scss";
 export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
   values,
   options,
-  operator = "any",
+  operator,
   onSelectionChange,
-  onOperatorChange,
+  displayOperators,
 }) => {
   const ref = useRef();
   return (
@@ -32,8 +32,9 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
               id="search-bar-type-ahead"
               multiple
               onChange={(s) => {
-                onSelectionChange(s);
+                onSelectionChange(s, operator);
               }}
+              caseSensitive={false}
               filterBy={["name"]}
               options={options}
               selected={values}
@@ -53,26 +54,28 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
           </InputGroup>
         </Form.Group>
       </Form.Row>
-      <Form.Row className="justify-content-end mr-1 mb-1">
-        <ToggleButtonGroup
-          type="radio"
-          name="operator"
-          value={operator}
-          onChange={(newOperator: string) => {
-            onOperatorChange(newOperator);
-          }}
-        >
-          <ToggleButton value="any" variant="light" size="sm" disabled>
-            Contains
-          </ToggleButton>
-          <ToggleButton value="any" variant="outline-primary" size="sm">
-            ANY
-          </ToggleButton>
-          <ToggleButton value="all" variant="outline-primary" size="sm">
-            ALL
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </Form.Row>
+      {displayOperators ? (
+        <Form.Row className="justify-content-end mr-1 mb-1">
+          <ToggleButtonGroup
+            type="radio"
+            name="operator"
+            value={operator}
+            onChange={(newOperator: string) => {
+              onSelectionChange(values, newOperator);
+            }}
+          >
+            <ToggleButton value="any" variant="light" size="sm" disabled>
+              Contains
+            </ToggleButton>
+            <ToggleButton value="any" variant="outline-primary" size="sm">
+              ANY
+            </ToggleButton>
+            <ToggleButton value="all" variant="outline-primary" size="sm">
+              ALL
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Form.Row>
+      ) : null}
       <div className="form-control-sm" style={{ height: "inherit" }}>
         {values.map((value) =>
           value ? (
@@ -82,7 +85,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
               readOnly={false}
               onRemove={() => {
                 const newSelection = [...values].filter((v) => v !== value);
-                onSelectionChange(newSelection);
+                onSelectionChange(newSelection, operator);
               }}
             >
               {value.name}
@@ -96,7 +99,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
             variant="outline-danger"
             size="sm"
             onClick={() => {
-              onSelectionChange([]);
+              onSelectionChange([], operator);
             }}
           >
             Clear <FontAwesomeIcon icon={faTimes} />

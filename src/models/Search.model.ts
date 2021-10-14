@@ -6,7 +6,7 @@ export interface SearchResult {
   primary: string;
   collection: string;
   type: string;
-  dataAvailable: Array<string>;
+  dataAvailable?: Array<string>;
 }
 
 export interface ResultCol {
