@@ -13,7 +13,6 @@ import {
 } from "../models/Facet.model";
 import { useQuery } from "react-query";
 import { SearchTemplate } from "../templates/SearchTemplate";
-import { SearchResult } from "../models/Search.model";
 
 const resultTableColumns = [
   { displayName: "Model", key: "model" },
@@ -42,8 +41,18 @@ export const SearchPage: FunctionComponent = () => {
   const searchOptionsQuery = useQuery("search-options", getSearchOptions);
   const searchFacetsQuery = useQuery("search-facets", getSearchFacets);
   const searchResultsQuery = useQuery(
-    ["search-results", { searchValues, pageSize, activePage }],
-    async () => getSearchResults(searchValues, activePage, pageSize)
+    [
+      "search-results",
+      { searchValues, facetSelection, facetOperators, pageSize, activePage },
+    ],
+    async () =>
+      getSearchResults(
+        searchValues,
+        facetSelection,
+        facetOperators,
+        activePage,
+        pageSize
+      )
   );
 
   if (
@@ -100,8 +109,6 @@ export const SearchPage: FunctionComponent = () => {
     let facetOperatorString = "";
     Object.keys(facetOperators).forEach((facetSectionKey) => {
       Object.keys(facetOperators[facetSectionKey]).forEach((facetKey) => {
-        console.log(facetOperators[facetSectionKey][facetKey]);
-
         if (
           facetOperators[facetSectionKey][facetKey]?.length === 0 ||
           facetOperators[facetSectionKey][facetKey] === undefined

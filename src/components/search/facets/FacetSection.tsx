@@ -13,7 +13,7 @@ export const FacetSection: FunctionComponent<IFacetSectionProps> = ({
   sectionOperators,
   onSelectionChange,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <>

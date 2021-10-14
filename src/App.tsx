@@ -4,8 +4,10 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 import { ContactPage } from "./pages/ContactPage";
 import { DetailsPage } from "./pages/DetailsPage";
 import { HomePage } from "./pages/HomePage";
+import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 import { SearchPage } from "./pages/SearchPage";
 import { SubmitPage } from "./pages/SubmitPage";
+import { TermsOfUsePage } from "./pages/TermsOfUsePage";
 import { routes } from "./Routes";
 
 const queryClient = new QueryClient({
@@ -23,6 +25,8 @@ const routeComponentMap: any = {
   Details: DetailsPage,
   Contact: ContactPage,
   Submit: SubmitPage,
+  "Privacy policy": PrivacyPolicyPage,
+  "Terms of use": TermsOfUsePage,
 };
 
 function App() {

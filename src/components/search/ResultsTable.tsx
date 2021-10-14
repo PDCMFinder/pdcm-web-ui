@@ -3,6 +3,7 @@ import {
   faMicroscope,
   faPills,
   faPrescription,
+  faTh,
   faWaveSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,6 +26,11 @@ const dataTypes = [
   {
     key: "expression",
     name: "Expression",
+    icon: faTh,
+  },
+  {
+    key: "cytogenetics",
+    name: "Cytogenetics",
     icon: faMicroscope,
   },
   {

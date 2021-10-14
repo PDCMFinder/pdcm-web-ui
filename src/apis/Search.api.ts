@@ -5,10 +5,10 @@ import {
 } from "../models/Facet.model";
 import { SearchResult } from "../models/Search.model";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 export async function getSearchOptions() {
-  let response = await fetch(
-    `http://localhost:8085/search_facet?facet_section=eq.search`
-  );
+  let response = await fetch(`${API_URL}/search_facet?facet_section=eq.search`);
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -27,7 +27,7 @@ export async function getSearchOptions() {
 }
 
 export async function getSearchFacets(): Promise<Array<IFacetSectionProps>> {
-  let response = await fetch(`http://localhost:8085/search_facet`);
+  let response = await fetch(`${API_URL}/search_facet`);
 
   const sections: any = {
     model: { key: "model", name: "Model", facets: [] },
@@ -57,7 +57,9 @@ export async function getSearchFacets(): Promise<Array<IFacetSectionProps>> {
 }
 
 export async function getSearchResults(
-  searchValues: Array<IOptionProps>,
+  searchValues: Array<IOptionProps> = [],
+  facetSelections: any,
+  facetOperators: any,
   page: number,
   pageSize: number = 10
 ): Promise<[number, Array<SearchResult>]> {
@@ -67,8 +69,56 @@ export async function getSearchResults(
           .map((d: IOptionProps) => '"' + d.name + '"')
           .join(",")})`
       : "";
+  console.log("hi", facetSelections);
+
+  console.log("howdie", facetOperators);
+  if (facetSelections) {
+    console.log("howdie 1", facetSelections);
+    for (let key in facetSelections) {
+      let facet = facetSelections[key] || {};
+      console.log("howdie 2", key, facet);
+
+      for (let facetColumn in facet) {
+        console.log(
+          "howdie 3",
+          facetOperators[key] ? facetOperators[key][facetColumn] : null
+        );
+
+        const options = facetSelections[key][facetColumn]
+          ? facetSelections[key][facetColumn].map(
+              (d: IOptionProps) => '"' + d.name + '"'
+            )
+          : [];
+        let apiOperator = "in";
+        if (
+          facetOperators &&
+          facetOperators[key] &&
+          facetOperators[key][facetColumn]
+        ) {
+          if (
+            (facetOperators[key][facetColumn] &&
+              facetOperators[key][facetColumn] === "any") ||
+            facetColumn === "dataset_available"
+          )
+            apiOperator = "cs";
+          if (
+            facetOperators[key][facetColumn] &&
+            facetOperators[key][facetColumn] === "all"
+          )
+            apiOperator = "cd";
+        }
+        let optionsQuery =
+          apiOperator === "in"
+            ? `(${options.join(",")})`
+            : `{${options.join(",")}}`;
+        query += `&${facetColumn}=${apiOperator}.${optionsQuery}`;
+      }
+    }
+  }
+  console.log("query", query);
+
   let response = await fetch(
-    `http://localhost:8085/search_index?${query}&limit=${pageSize}&offset=${
+    `${API_URL}/search_index?${query}&limit=${pageSize}&offset=${
       (page - 1) * pageSize
     }&order=external_model_id.asc`,
     { headers: { Prefer: "count=exact" } }
@@ -76,7 +126,6 @@ export async function getSearchResults(
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-  console.log();
   return response.json().then((d: any) => {
     return [
       parseInt(response.headers.get("Content-Range")?.split("/")[1] || "0"),
@@ -89,7 +138,7 @@ export async function getSearchResults(
           primary: result.primary_site,
           collection: result.collection_site,
           type: result.tumour_type,
-          dataAvailable: result.data_available,
+          dataAvailable: result.dataset_available,
         };
       }),
     ];

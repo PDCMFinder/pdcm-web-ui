@@ -34,7 +34,6 @@ export const SearchBar: FunctionComponent<ISearchBarProps> = ({
               multiple={searchAllowMultipleTerms}
               onChange={(s) => {
                 onSearchChange(s);
-                console.log(s);
               }}
               options={searchOptions}
               placeholder="Search by cancer diagnosis (e.g. Melanoma)"
