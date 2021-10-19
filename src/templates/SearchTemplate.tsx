@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FacetSidebar } from "../components/search/facets/FacetSidebar";
-import { ResultsPagination } from "../components/search/facets/ResultsPagination";
+import { ResultsPagination } from "../components/search/ResultsPagination";
 import { QueryViewer } from "../components/search/QueryViewer";
 import { ResultsTable } from "../components/search/ResultsTable";
 import { SearchBar } from "../components/search/SearchBar";
@@ -14,6 +14,7 @@ import {
 import { ResultCol, SearchResult } from "../models/Search.model";
 import { GeneralTemplate } from "./GeneralTemplate";
 import "./SearchTemplate.scss";
+import { ResultsPageSizeSelect } from "../components/search/ResultsPageSizeSelect";
 
 export interface ISearchTemplateProps {
   facetSections: Array<IFacetSectionProps>;
@@ -30,12 +31,14 @@ export interface ISearchTemplateProps {
   resultTableColumns: Array<ResultCol>;
   activePage: number;
   totalPages: number;
+  pageSize: number;
   onFacetSidebarChange: (
     facetSelection: IFacetSidebarSelection,
     facetOperators: IFacetSidebarOperators
   ) => void;
   onSearchBarChange: (searchValues: Array<IOptionProps>) => void;
   onPaginationChange: (page: number) => void;
+  onPageSizeChange: (page: number) => void;
 }
 
 export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
@@ -51,9 +54,11 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
   resultTableColumns,
   activePage,
   totalPages,
+  pageSize,
   onSearchBarChange,
   onFacetSidebarChange,
   onPaginationChange,
+  onPageSizeChange,
 }) => {
   return (
     <GeneralTemplate>
@@ -98,9 +103,9 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
             md={9}
             lg={9}
             id="page-content-wrapper"
-            className="py-3 py-md-4 px-lg-5 px-2"
+            className="py-3 py-md-5 px-lg-5 px-3"
           >
-            <div className="mx-auto">
+            <Row className="mx-auto">
               <SearchBar
                 searchValues={searchValues}
                 searchOptions={searchOptions}
@@ -110,8 +115,8 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                 }}
                 isLoading={loadingSearchBarOptions}
               ></SearchBar>
-            </div>
-            <div className="mb-3">
+            </Row>
+            <Row className="mb-3 mx-auto">
               <QueryViewer
                 searchTerms={searchValues}
                 facetSelection={facetSelection}
@@ -135,21 +140,39 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                   );
                 }}
               ></QueryViewer>
-            </div>
-            <div>
+            </Row>
+            <Row className="mx-auto pb-3 justify-content-end">
+              <div
+                style={{
+                  maxWidth: "145px",
+                  width: "25%",
+                  display: "inline-flex",
+                  justifyContent: "space-between",
+                  whiteSpace: "nowrap",
+                  alignItems: "center",
+                }}
+              >
+                Page size
+                <ResultsPageSizeSelect
+                  pageSize={pageSize}
+                  onChange={onPageSizeChange}
+                ></ResultsPageSizeSelect>
+              </div>
+            </Row>
+            <Row className="mx-auto">
               <ResultsTable
                 displayColumns={resultTableColumns}
                 results={searchResults || []}
                 loading={loadingSearchResults}
               ></ResultsTable>
-            </div>
-            <div>
+            </Row>
+            <Row className="mx-auto justify-content-end">
               <ResultsPagination
                 activePage={activePage}
                 totalPages={totalPages}
                 onPageChange={onPaginationChange}
               ></ResultsPagination>
-            </div>
+            </Row>
           </Col>
         </Row>
       </Container>
