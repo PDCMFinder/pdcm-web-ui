@@ -148,6 +148,7 @@ export const SearchPage: FunctionComponent = () => {
       totalPages={Math.ceil(
         (searchResultsQuery?.data ? searchResultsQuery?.data[0] : 1) / pageSize
       )}
+      pageSize={pageSize}
       onFacetSidebarChange={(
         facetSelection: IFacetSidebarSelection,
         facetOperators: IFacetSidebarOperators
@@ -163,6 +164,10 @@ export const SearchPage: FunctionComponent = () => {
       }}
       onPaginationChange={(activePage: number) => {
         setActivePage(activePage);
+        window.scrollTo(0, 0);
+      }}
+      onPageSizeChange={(pageSize: number) => {
+        setPageSize(pageSize);
         window.scrollTo(0, 0);
       }}
     ></SearchTemplate>
