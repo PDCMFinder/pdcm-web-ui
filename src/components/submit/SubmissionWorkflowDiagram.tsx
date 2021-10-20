@@ -176,6 +176,7 @@ export const SubmissionWorkflowDiagram: FunctionComponent = () => {
         nodesDraggable={false}
         elementsSelectable={false}
         nodesConnectable={false}
+        preventScrolling={false}
       />
     </div>
   );
