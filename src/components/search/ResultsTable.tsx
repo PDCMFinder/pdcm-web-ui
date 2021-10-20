@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
 import { Table, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { SearchResult, ResultCol } from "../../models/Search.model";
 
 export interface IResultsTableProps {
@@ -77,7 +78,9 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
         {results.map((result) => (
           <tr key={result.pdcmId}>
             <td>
-              <a href="/">{result.pdcmId}</a>
+              <Link to={`/data/${result.sourceId}/${result.pdcmId}`}>
+                {result.pdcmId}
+              </Link>
               <br />
               <span className="text-muted font-weight-lighter">
                 {result.sourceId}

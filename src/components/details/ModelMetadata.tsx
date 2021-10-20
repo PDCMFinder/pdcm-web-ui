@@ -51,12 +51,5 @@ export const ModelMetadata: FunctionComponent<IModelMetadataProps> = ({
     <ListGroup.Item>
       <FontAwesomeIcon icon={faTag} /> Model type: {modelType}
     </ListGroup.Item>
-    <ListGroup.Item>
-      <FontAwesomeIcon icon={faExternalLinkAlt} /> This model in other
-      databases: <a href={modelProviderUrl}>provider site</a>
-    </ListGroup.Item>
-    <ListGroup.Item>
-      <FontAwesomeIcon icon={faEnvelope} /> Contact provider: {modelType}
-    </ListGroup.Item>
   </ListGroup>
 );

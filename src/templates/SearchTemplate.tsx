@@ -144,15 +144,15 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
             <Row className="mx-auto pb-3 justify-content-end">
               <div
                 style={{
-                  maxWidth: "145px",
-                  width: "25%",
+                  maxWidth: "200px",
+                  width: "30%",
                   display: "inline-flex",
                   justifyContent: "space-between",
                   whiteSpace: "nowrap",
                   alignItems: "center",
                 }}
               >
-                Page size
+                Models per page:{" "}
                 <ResultsPageSizeSelect
                   pageSize={pageSize}
                   onChange={onPageSizeChange}

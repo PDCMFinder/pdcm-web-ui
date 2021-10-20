@@ -1,5 +1,10 @@
+import {
+  faEnvelope,
+  faExternalLinkAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { DosingStudyTable } from "../components/details/DosingStudyTable";
 import { ModelMetadata } from "../components/details/ModelMetadata";
 import { MolecularDataTable } from "../components/details/MolecularDataTable";
@@ -20,8 +25,24 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   return (
     <GeneralTemplate>
       <Container className="mt-5">
-        <h1>{modelId}</h1>
-        <h5 className="text-muted">{providerId}</h5>
+        <Row>
+          <Col>
+            <h2>{modelId}</h2>
+            <h4>Lip and Oral Cavity Squamous Cell Carcinoma</h4>
+            <h5 className="text-muted">{providerId}</h5>
+          </Col>
+          <Col xs={4}>
+            <Button variant="primary" block>
+              <FontAwesomeIcon icon={faEnvelope} />
+              &nbsp; Contact provider
+            </Button>
+            <Button variant="primary" block>
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
+              &nbsp; View data at {providerId}
+            </Button>
+          </Col>
+        </Row>
+
         <Row className="mt-5 mb-5">
           <Col>
             <h4>Model Metadata</h4>
@@ -59,11 +80,11 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
           </Col>
         </Row>
         <h3>Molecular data</h3>
-        <Row>
+        {/* <Row>
           <Col>
             <MolecularDataTracksChart />
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Col>
             <MolecularDataTable molecularCharacterizations={[]} />
