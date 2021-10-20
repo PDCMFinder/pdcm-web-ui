@@ -21,6 +21,10 @@ export const MENU = [
       { link: "/about/objectives", name: "Objectives" },
       { link: "/about/data-summary", name: "Data summary" },
       { link: "/about/how-to-cite", name: "How to cite?" },
+      {
+        link: "/about/minimum-information-standard",
+        name: "PDX - MI Standard",
+      },
       { link: "/about/data-flow", name: "Data flow" },
       { link: "/about/privacy-policy", name: "Privacy policy" },
       { link: "/about/terms-of-use", name: "Terms of use" },

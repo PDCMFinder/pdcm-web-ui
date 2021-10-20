@@ -43,4 +43,8 @@ export const routes = [
     path: "/about/data-flow",
     name: "Data flow",
   },
+  {
+    path: "/about/minimum-information-standard",
+    name: "PDX - MI Standard",
+  },
 ];
