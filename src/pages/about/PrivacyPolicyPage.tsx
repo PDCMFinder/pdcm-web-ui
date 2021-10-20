@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Container } from "react-bootstrap";
-import { GeneralTemplate } from "../templates/GeneralTemplate";
+import { GeneralTemplate } from "../../templates/GeneralTemplate";
 
 const PRIVACY_POLICY_LINKS = [
   {

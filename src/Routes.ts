@@ -31,4 +31,16 @@ export const routes = [
     path: "/about/terms-of-use",
     name: "Terms of use",
   },
+  {
+    path: "/about/objectives",
+    name: "About",
+  },
+  {
+    path: "/about/how-to-cite",
+    name: "How to cite?",
+  },
+  {
+    path: "/about/data-flow",
+    name: "Data flow",
+  },
 ];
