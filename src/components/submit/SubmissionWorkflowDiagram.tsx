@@ -5,12 +5,32 @@ import ReactFlow, {
   isNode,
 } from "react-flow-renderer";
 import dagre from "dagre";
+import "./SubmissionWorkflowDiagram.scss";
 
 const nodeWidth = 172;
 const nodeHeight = 50;
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
+
+const userStepStyle = {
+  background: "#02b2d5",
+  color: "#fff",
+  border: "1px solid #000",
+  fontSize: "16px",
+};
+
+const pdcmStepStyle = {
+  background: "#0032a0",
+  color: "#fff",
+  border: "1px solid #000",
+  fontSize: "16px",
+};
+
+const edgeStyle = {
+  stroke: "#6c757d",
+  strokeWidth: 2,
+};
 
 const elements = [
   {
@@ -19,11 +39,7 @@ const elements = [
     position: { x: 0, y: 0 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
-    style: {
-      background: "#D6D5E6",
-      color: "#333",
-      border: "1px solid #222138",
-    },
+    style: userStepStyle,
   },
   {
     id: "send",
@@ -31,6 +47,7 @@ const elements = [
     position: { x: 0, y: 0 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
+    style: userStepStyle,
   },
   {
     id: "load",
@@ -38,6 +55,7 @@ const elements = [
     position: { x: 0, y: 0 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
+    style: pdcmStepStyle,
   },
   {
     id: "validate",
@@ -45,13 +63,15 @@ const elements = [
     position: { x: 0, y: 0 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
+    style: pdcmStepStyle,
   },
   {
     id: "feedback",
-    data: { label: "Feedback" },
+    data: { label: "Apply feedback" },
     position: { x: 0, y: 0 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
+    style: userStepStyle,
   },
   {
     id: "release",
@@ -59,6 +79,7 @@ const elements = [
     position: { x: 0, y: 0 },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
+    style: pdcmStepStyle,
   },
   {
     id: "fill-send",
@@ -66,6 +87,7 @@ const elements = [
     target: "send",
     arrowHeadType: ArrowHeadType.ArrowClosed,
     type: "smoothstep",
+    style: edgeStyle,
   },
   {
     id: "send-load",
@@ -73,6 +95,7 @@ const elements = [
     target: "load",
     arrowHeadType: ArrowHeadType.ArrowClosed,
     type: "smoothstep",
+    style: edgeStyle,
   },
   {
     id: "send-validate",
@@ -80,6 +103,7 @@ const elements = [
     target: "validate",
     arrowHeadType: ArrowHeadType.ArrowClosed,
     type: "smoothstep",
+    style: edgeStyle,
   },
   {
     id: "load-feedback",
@@ -87,6 +111,7 @@ const elements = [
     target: "feedback",
     arrowHeadType: ArrowHeadType.ArrowClosed,
     type: "smoothstep",
+    style: edgeStyle,
   },
   {
     id: "validate-feedback",
@@ -94,6 +119,7 @@ const elements = [
     target: "feedback",
     arrowHeadType: ArrowHeadType.ArrowClosed,
     type: "smoothstep",
+    style: edgeStyle,
   },
   {
     id: "feedback-release",
@@ -101,14 +127,8 @@ const elements = [
     target: "release",
     arrowHeadType: ArrowHeadType.ArrowClosed,
     type: "smoothstep",
+    style: edgeStyle,
   },
-  //   {
-  //     id: "feedback-fill",
-  //     source: "feedback",
-  //     target: "fill",
-  //     arrowHeadType: ArrowHeadType.ArrowClosed,
-  //     type: "smoothstep",
-  //   },
 ];
 
 const getLayoutedElements = (elements: Array<any>, direction = "LR") => {

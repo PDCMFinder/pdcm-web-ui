@@ -4,7 +4,12 @@ import { GeneralTemplate } from "../templates/GeneralTemplate";
 
 import { SubmissionWorkflowDiagram } from "../components/submit/SubmissionWorkflowDiagram";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faFileExcel } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faExternalLinkAlt,
+  faFileExcel,
+  faSquareFull,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface TemplateFile {
   name: string;
@@ -88,34 +93,162 @@ export const SubmitPage: FunctionComponent = () => {
             submissions&nbsp; <FontAwesomeIcon icon={faEnvelope} />
           </a>
         </p>
-        <SubmissionWorkflowDiagram />
-        <Row className="mt-5">
+
+        <Row className="mt-5 mb-3">
           <Col xs={12}>
-            <h4>Download submission templates:</h4>
+            <h3>Download submission templates</h3>
           </Col>
         </Row>
-
-        {/* {templateFiles.map((templateGroup) => {
-          return (
-            <Row className="mt-5 mb-5">
-              <Col xs={4}>
-                <h5>{templateGroup.name}</h5>
+        <Row className="mb-5">
+          {templateFiles.map((templateGroup) => {
+            return (
+              <Col md={templateGroup.files ? 4 : 8} xs={12}>
+                <h4
+                  className={`mt-3 ${templateGroup.files ? "" : "mb-1"}`}
+                  style={templateGroup.files ? { marginBottom: "2.5rem" } : {}}
+                >
+                  {templateGroup.name}
+                </h4>
                 <ListGroup>
-                  {templateGroup.links.map((file) => (
-                    <ListGroup.Item key={file.name} action href={file.link}>
-                      {file.name}
-                      &nbsp;&nbsp;
-                      <FontAwesomeIcon
-                        icon={faFileExcel}
-                        style={{ fontSize: "larger" }}
-                      />
-                    </ListGroup.Item>
-                  ))}
+                  {templateGroup.files ? (
+                    templateGroup.files.map((file) => (
+                      <ListGroup.Item key={file.name} action href={file.link}>
+                        {file.name}
+                        &nbsp;&nbsp;
+                        <FontAwesomeIcon
+                          icon={faFileExcel}
+                          style={{ fontSize: "larger" }}
+                        />
+                      </ListGroup.Item>
+                    ))
+                  ) : (
+                    <Row>
+                      {templateGroup.subgroups?.map((subgroup) => (
+                        <Col xs={12} md={6}>
+                          <h5 key={subgroup.name} className="mt-3 mb-1">
+                            {subgroup.name}
+                          </h5>
+                          {subgroup?.files?.map((file) => (
+                            <ListGroup.Item
+                              key={file.name}
+                              action
+                              href={file.link}
+                            >
+                              {file.name}
+                              &nbsp;&nbsp;
+                              <FontAwesomeIcon
+                                icon={faFileExcel}
+                                style={{ fontSize: "larger" }}
+                              />
+                            </ListGroup.Item>
+                          ))}
+                        </Col>
+                      ))}
+                    </Row>
+                  )}
                 </ListGroup>
               </Col>
-            </Row>
-          );
-        })} */}
+            );
+          })}
+        </Row>
+        <Row className="mt-5 mb-3">
+          <Col xs={12}>
+            <h3 className="mb-3">Why submit your data to PDCM Finder</h3>
+            <p>
+              The PDCM Finder is the first free global PDCM models catalogue to
+              facilitate PDCM models discovery. We aggregate and display PDCM
+              models metadata and data from academia, large consortia and CROs.
+            </p>
+            <p>
+              <b>
+                We can collect and display your data making you more
+                discoverable and visible for end-users.
+              </b>{" "}
+              All submitted models adhere to the PDX-MI standard making it easy
+              for researchers to search and compare models of interest. We
+              aggregate PDCM data to be{" "}
+              <a
+                href="https://www.nature.com/articles/sdata201618"
+                target="_blank"
+                rel="noreferrer"
+              >
+                FAIR <FontAwesomeIcon icon={faExternalLinkAlt} />
+              </a>{" "}
+              with the goal of helping users to freely navigate to the
+              originating source for models and/or molecular data. We supply a
+              description page for each provider and models have clear links to
+              the production centres so the users can inquire about obtaining
+              models for their studies.
+            </p>
+            <p>
+              PDX Finder is built with the help of and for the benefit of the
+              community, our service is{" "}
+              <b>completely free to providers and users</b>.
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {" "}
+            <h3>Submission process</h3>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <SubmissionWorkflowDiagram />
+          </Col>
+        </Row>
+        <Row className="justify-content-start mb-5">
+          <Col xs={12} md={4}>
+            <div className="d-flex justify-content-between">
+              <span className="mr-3">
+                <FontAwesomeIcon
+                  icon={faSquareFull}
+                  style={{ color: "#02b2d5" }}
+                />{" "}
+                Model provider
+              </span>
+              <span>
+                <FontAwesomeIcon
+                  icon={faSquareFull}
+                  style={{ color: "#0032a0" }}
+                />
+                &nbsp; PDCM Finder team
+              </span>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p>
+              When you are ready to submit your PDX models, you will be
+              supported through the process by a member of the PDX Finder team.
+              We currently use spreadsheets for the metadata. In addition to
+              metadata, we encourage producers to upload associated data making
+              models more valuable and discoverable for the users. Currently, we
+              support the following data types: gene expression, gene mutation,
+              copy number alterations, cytogenetics, drug dosing studies, and
+              patient treatment.
+            </p>
+            <p>
+              Data can be directly uploaded from other file collections,
+              databases and repositories by a member of the PDX Finder team.
+              Where raw data is available PDX Finder team can deposit
+              corresponding fastq files to the{" "}
+              <a href="" target="_blank" rel="noreferrer">
+                European Nucleotide Archive{" "}
+                <FontAwesomeIcon icon={faExternalLinkAlt} />
+              </a>{" "}
+              and link to the submitted models.
+            </p>
+            <p>
+              To start the process please contact PDX Finder team:{" "}
+              <a href="mailto:submissions@pdxfinder.org?subject=PDX%20producer:%20Data%20Submission%20request">
+                submissions&nbsp; <FontAwesomeIcon icon={faEnvelope} />
+              </a>
+            </p>
+          </Col>
+        </Row>
       </Container>
     </GeneralTemplate>
   );
