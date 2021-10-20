@@ -4,13 +4,16 @@ import { HashRouter, Link, Route, Switch } from "react-router-dom";
 import { ContactPage } from "./pages/ContactPage";
 import { DetailsPage } from "./pages/DetailsPage";
 import { HomePage } from "./pages/HomePage";
-import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
+import { PrivacyPolicyPage } from "./pages/about/PrivacyPolicyPage";
 import { SearchPage } from "./pages/SearchPage";
 import { SubmitPage } from "./pages/SubmitPage";
-import { TermsOfUsePage } from "./pages/TermsOfUsePage";
+import { TermsOfUsePage } from "./pages/about/TermsOfUsePage";
 import { routes } from "./Routes";
 import CookieConsent from "react-cookie-consent";
 import { Button } from "react-bootstrap";
+import { ObjectivesPage } from "./pages/about/ObjectivesPage";
+import { HowToCitePage } from "./pages/about/HowToCitePage";
+import { DataFlowPage } from "./pages/about/DataFlowPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +32,9 @@ const routeComponentMap: any = {
   Submit: SubmitPage,
   "Privacy policy": PrivacyPolicyPage,
   "Terms of use": TermsOfUsePage,
+  About: ObjectivesPage,
+  "How to cite?": HowToCitePage,
+  "Data flow": DataFlowPage,
 };
 
 function App() {
