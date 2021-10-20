@@ -28,11 +28,14 @@ const templateFiles: Array<TemplateFileGroup> = [
     files: [
       {
         name: "Clinical/Model metadata",
-        link: "/data/templates/metadata_template.xlsx",
+        link:
+          process.env.PUBLIC_URL + "/static/templates/metadata_template.xlsx",
       },
       {
         name: "Sample metadata for OMIC data",
-        link: "/data/templates/sample_treatment_template.xlsx",
+        link:
+          process.env.PUBLIC_URL +
+          "/static/templates/sampleplatform_template.xlsx",
       },
     ],
   },
@@ -45,11 +48,15 @@ const templateFiles: Array<TemplateFileGroup> = [
         files: [
           {
             name: "Patient treatment template",
-            link: "/data/templates/patient_treatment_template.xlsx",
+            link:
+              process.env.PUBLIC_URL +
+              "/static/templates/patienttreatment_template.xlsx",
           },
           {
             name: "Drug dosing template",
-            link: "/data/templates/drug_dosing_template.xlsx",
+            link:
+              process.env.PUBLIC_URL +
+              "/static/templates/drug_dosing_template.xlsx",
           },
         ],
       },
@@ -58,19 +65,26 @@ const templateFiles: Array<TemplateFileGroup> = [
         files: [
           {
             name: "Mutation data template",
-            link: "/data/templates/mutation_template.xlsx",
+            link:
+              process.env.PUBLIC_URL +
+              "/static/templates/mutation_template_external.xlsx",
           },
           {
             name: "Cytogenetics data template",
-            link: "/data/templates/cytogenetics_template.xlsx",
+            link:
+              process.env.PUBLIC_URL +
+              "/static/templates/cytogenetics_template.xlsx",
           },
           {
             name: "CNA data template",
-            link: "/data/templates/cna_template.xlsx",
+            link:
+              process.env.PUBLIC_URL + "/static/templates/cna_template.xlsx",
           },
           {
             name: "Expression data template",
-            link: "/data/templates/expression_template.xlsx",
+            link:
+              process.env.PUBLIC_URL +
+              "/static/templates/expression_template.xlsx",
           },
         ],
       },
@@ -112,7 +126,12 @@ export const SubmitPage: FunctionComponent = () => {
                 <ListGroup>
                   {templateGroup.files ? (
                     templateGroup.files.map((file) => (
-                      <ListGroup.Item key={file.name} action href={file.link}>
+                      <ListGroup.Item
+                        key={file.name}
+                        action
+                        href={file.link}
+                        target="blank"
+                      >
                         {file.name}
                         &nbsp;&nbsp;
                         <FontAwesomeIcon
@@ -235,7 +254,11 @@ export const SubmitPage: FunctionComponent = () => {
               databases and repositories by a member of the PDX Finder team.
               Where raw data is available PDX Finder team can deposit
               corresponding fastq files to the{" "}
-              <a href="" target="_blank" rel="noreferrer">
+              <a
+                href="https://www.ebi.ac.uk/ena/browser/home"
+                target="_blank"
+                rel="noreferrer"
+              >
                 European Nucleotide Archive{" "}
                 <FontAwesomeIcon icon={faExternalLinkAlt} />
               </a>{" "}
