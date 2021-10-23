@@ -145,9 +145,7 @@ export const SearchPage: FunctionComponent = () => {
       loadingSearchResults={searchResultsQuery.isLoading}
       resultTableColumns={resultTableColumns}
       activePage={activePage}
-      totalPages={Math.ceil(
-        (searchResultsQuery?.data ? searchResultsQuery?.data[0] : 1) / pageSize
-      )}
+      totalResults={searchResultsQuery?.data ? searchResultsQuery?.data[0] : 0}
       pageSize={pageSize}
       onFacetSidebarChange={(
         facetSelection: IFacetSidebarSelection,
