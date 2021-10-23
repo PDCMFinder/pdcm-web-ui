@@ -30,7 +30,7 @@ export interface ISearchTemplateProps {
   loadingSearchResults: boolean;
   resultTableColumns: Array<ResultCol>;
   activePage: number;
-  totalPages: number;
+  totalResults: number;
   pageSize: number;
   onFacetSidebarChange: (
     facetSelection: IFacetSidebarSelection,
@@ -53,7 +53,7 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
   loadingSearchResults,
   resultTableColumns,
   activePage,
-  totalPages,
+  totalResults,
   pageSize,
   onSearchBarChange,
   onFacetSidebarChange,
@@ -141,7 +141,19 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                 }}
               ></QueryViewer>
             </Row>
-            <Row className="mx-auto pb-3 justify-content-end">
+            <Row className="mx-auto pb-3 justify-content-between">
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                }}
+              >
+                Showing {(activePage - 1) * pageSize + 1} to{" "}
+                {totalResults < (activePage - 1) * pageSize + pageSize
+                  ? totalResults
+                  : (activePage - 1) * pageSize + pageSize}{" "}
+                of {totalResults} results
+              </div>
               <div
                 style={{
                   maxWidth: "200px",
@@ -169,7 +181,9 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
             <Row className="mx-auto justify-content-end">
               <ResultsPagination
                 activePage={activePage}
-                totalPages={totalPages}
+                totalPages={
+                  totalResults !== 0 ? Math.ceil(totalResults / pageSize) : 1
+                }
                 onPageChange={onPaginationChange}
               ></ResultsPagination>
             </Row>
