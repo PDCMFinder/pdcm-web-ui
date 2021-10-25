@@ -96,7 +96,7 @@ export async function getSearchResults(
             facetColumn
           )
         )
-          apiOperator = "cs";
+          apiOperator = "ov";
         if (
           hasOperator &&
           facetOperators[key][facetColumn] &&
