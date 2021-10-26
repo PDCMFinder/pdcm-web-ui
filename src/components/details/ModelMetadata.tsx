@@ -1,39 +1,29 @@
 import {
   faAt,
   faDiagnoses,
-  faEnvelope,
-  faExternalLinkAlt,
-  faMailBulk,
   faMapMarkerAlt,
-  faMicroscope,
   faStethoscope,
   faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { FunctionComponent } from "react";
-import { Button, Col, ListGroup, Row } from "react-bootstrap";
+import { FunctionComponent } from "react";
+import { ListGroup } from "react-bootstrap";
 
 export interface IModelMetadataProps {
-  pdcmFinderModelId: string;
   modelId: string;
-  diagnosis: string;
+  histology: string;
   providerId: string;
   providerName: string;
-  providerContactEmails: Array<string>;
-  modelProviderUrl: string;
   cancerSystem: string;
   modelType: string;
 }
 
 export const ModelMetadata: FunctionComponent<IModelMetadataProps> = ({
-  pdcmFinderModelId,
   modelId,
-  diagnosis,
+  histology,
   providerName,
-  providerContactEmails,
   cancerSystem,
   modelType,
-  modelProviderUrl,
 }) => (
   <ListGroup variant="flush" style={{ fontSize: "large" }}>
     <ListGroup.Item>
@@ -43,7 +33,7 @@ export const ModelMetadata: FunctionComponent<IModelMetadataProps> = ({
       <FontAwesomeIcon icon={faMapMarkerAlt} /> Provider: {providerName}
     </ListGroup.Item>
     <ListGroup.Item>
-      <FontAwesomeIcon icon={faStethoscope} /> Diagnosis: {diagnosis}
+      <FontAwesomeIcon icon={faStethoscope} /> Diagnosis: {histology}
     </ListGroup.Item>
     <ListGroup.Item>
       <FontAwesomeIcon icon={faDiagnoses} /> Cancer system: {cancerSystem}
