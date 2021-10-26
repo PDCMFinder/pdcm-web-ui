@@ -60,15 +60,17 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
               <FontAwesomeIcon icon={faEnvelope} />
               &nbsp; Contact provider
             </Button>
-            <Button
-              variant="primary"
-              block
-              href={sourceDatabaseUrl}
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faExternalLinkAlt} />
-              &nbsp; View data at {providerId}
-            </Button>
+            {sourceDatabaseUrl && (
+              <Button
+                variant="primary"
+                block
+                href={sourceDatabaseUrl}
+                target="_blank"
+              >
+                <FontAwesomeIcon icon={faExternalLinkAlt} />
+                &nbsp; View data at {providerId}
+              </Button>
+            )}
           </Col>
         </Row>
 
