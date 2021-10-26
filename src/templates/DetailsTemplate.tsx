@@ -5,21 +5,42 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { IModelExtLinks } from "../apis/Details.api";
 import { DosingStudyTable } from "../components/details/DosingStudyTable";
-import { ModelMetadata } from "../components/details/ModelMetadata";
+import {
+  IModelMetadataProps,
+  ModelMetadata,
+} from "../components/details/ModelMetadata";
 import { MolecularDataTable } from "../components/details/MolecularDataTable";
-import { MolecularDataTracksChart } from "../components/details/MolecularDataTracksChart";
-import { PatientMetadata } from "../components/details/PatientMetadata";
+import {
+  IPatientMetadataProps,
+  PatientMetadata,
+} from "../components/details/PatientMetadata";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 
-export interface IDetailsTemplateProps {
-  modelId: string;
-  providerId: string;
-}
+export interface IDetailsTemplateProps
+  extends IModelMetadataProps,
+    IPatientMetadataProps,
+    IModelExtLinks {}
 
 export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   modelId,
   providerId,
+  providerName,
+  histology,
+  cancerSystem,
+  modelType,
+  patientSex,
+  patientAge,
+  patientEthnicity,
+  tumourType,
+  cancerGrade,
+  cancerGradingSystem,
+  cancerStage,
+  cancerStagingSystem,
+  collectionSite,
+  contactLink,
+  sourceDatabaseUrl,
 }) => {
   document.title = `PDCM Finder - Cancer Model: ${modelId} - Details`;
   return (
@@ -28,15 +49,23 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
         <Row>
           <Col>
             <h2>{modelId}</h2>
-            <h4>Lip and Oral Cavity Squamous Cell Carcinoma</h4>
-            <h5 className="text-muted">{providerId}</h5>
+            <h3>{histology}</h3>
+            <h5 className="text-muted">
+              {" "}
+              {providerName} - {providerId}
+            </h5>
           </Col>
           <Col xs={4}>
-            <Button variant="primary" block>
+            <Button variant="primary" block href={contactLink} target="_blank">
               <FontAwesomeIcon icon={faEnvelope} />
               &nbsp; Contact provider
             </Button>
-            <Button variant="primary" block>
+            <Button
+              variant="primary"
+              block
+              href={sourceDatabaseUrl}
+              target="_blank"
+            >
               <FontAwesomeIcon icon={faExternalLinkAlt} />
               &nbsp; View data at {providerId}
             </Button>
@@ -47,29 +76,27 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
           <Col>
             <h4>Model Metadata</h4>
             <ModelMetadata
-              pdcmFinderModelId="54544"
               modelId={modelId}
               providerId={providerId}
-              providerName="St Jude Children's Research Hospital"
-              diagnosis="Childhood Intraocular Retinoblastoma"
-              cancerSystem="Eye"
-              providerContactEmails={["andrea.bertotti@ircc.it"]}
-              modelProviderUrl="https://www.candiolo.it"
-              modelType="Patient derived xenograf"
+              providerName={providerName || ""}
+              histology={histology || ""}
+              cancerSystem={cancerSystem || ""}
+              modelType={modelType || ""}
             />
           </Col>
           <Col>
             <h4>Patient Metadata</h4>
             <PatientMetadata
-              sex="Male"
-              derivedModels={["CRM-574"]}
-              age={3}
-              diagnosis="Childhood Intraocular Retinoblastoma"
-              cancerType="Recurrent"
-              ethnicity="Caucasian"
-              cancerGrade="grade 3; Elston"
-              cancerStage="T3N2M1"
-              sampleCollectionSite="Eye"
+              patientSex={patientSex || ""}
+              derivedModels={[]}
+              patientAge={patientAge}
+              tumourType={tumourType || ""}
+              patientEthnicity={patientEthnicity || ""}
+              cancerGrade={cancerGrade || ""}
+              cancerGradingSystem={cancerGradingSystem || ""}
+              cancerStagingSystem={cancerStagingSystem || ""}
+              cancerStage={cancerStage || ""}
+              collectionSite={collectionSite || ""}
             />
           </Col>
         </Row>

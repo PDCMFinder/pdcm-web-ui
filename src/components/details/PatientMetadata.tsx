@@ -1,13 +1,5 @@
 import {
-  faAt,
-  faDiagnoses,
-  faEnvelope,
-  faExternalLinkAlt,
-  faMailBulk,
-  faMapMarkerAlt,
-  faMicroscope,
   faSignal,
-  faStethoscope,
   faTag,
   faTrafficLight,
   faUsers,
@@ -16,43 +8,46 @@ import {
   faVials,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { FunctionComponent } from "react";
-import { Button, Col, ListGroup, Row } from "react-bootstrap";
+import { FunctionComponent } from "react";
+import { ListGroup } from "react-bootstrap";
 
 export interface IPatientMetadataProps {
-  sex: string;
+  patientSex: string;
   derivedModels: Array<string>;
-  age: number;
-  diagnosis: string;
-  ethnicity: string;
-  cancerType: string;
+  patientAge: number;
+  patientEthnicity: string;
+  tumourType: string;
   cancerGrade: string;
+  cancerGradingSystem: string;
   cancerStage: string;
-  sampleCollectionSite: string;
+  cancerStagingSystem: string;
+  collectionSite: string;
 }
 
 export const PatientMetadata: FunctionComponent<IPatientMetadataProps> = ({
-  sex,
+  patientSex,
+  patientAge,
   derivedModels,
-  diagnosis,
-  ethnicity,
-  cancerType,
+  patientEthnicity,
+  tumourType,
   cancerGrade,
+  cancerGradingSystem,
   cancerStage,
-  sampleCollectionSite,
+  cancerStagingSystem,
+  collectionSite,
 }) => (
   <ListGroup variant="flush" style={{ fontSize: "large" }}>
     <ListGroup.Item>
-      <FontAwesomeIcon icon={faVenusMars} /> Sex: {sex}
+      <FontAwesomeIcon icon={faVenusMars} /> Sex: {patientSex}
     </ListGroup.Item>
     <ListGroup.Item>
-      <FontAwesomeIcon icon={faUsers} /> Ethnicity/Race: {ethnicity}
+      <FontAwesomeIcon icon={faUsers} /> Ethnicity/Race: {patientEthnicity}
     </ListGroup.Item>
     {/* <ListGroup.Item>
       <FontAwesomeIcon icon={faStethoscope} /> Diagnosis: {diagnosis}
     </ListGroup.Item> */}
     <ListGroup.Item>
-      <FontAwesomeIcon icon={faTag} /> Cancer type: {cancerType}
+      <FontAwesomeIcon icon={faTag} /> Cancer type: {tumourType}
     </ListGroup.Item>
     <ListGroup.Item>
       <FontAwesomeIcon icon={faSignal} /> Cancer grade: {cancerGrade}
@@ -61,8 +56,7 @@ export const PatientMetadata: FunctionComponent<IPatientMetadataProps> = ({
       <FontAwesomeIcon icon={faTrafficLight} /> Cancer stage: {cancerStage}
     </ListGroup.Item>
     <ListGroup.Item>
-      <FontAwesomeIcon icon={faVial} /> Sample collection site:{" "}
-      {sampleCollectionSite}
+      <FontAwesomeIcon icon={faVial} /> Sample collection site: {collectionSite}
     </ListGroup.Item>
     <ListGroup.Item>
       <FontAwesomeIcon icon={faVials} /> Other models from this patient:{" "}

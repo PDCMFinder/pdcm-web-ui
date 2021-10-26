@@ -16,10 +16,8 @@ const Template: Story<IModelMetadataProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   modelId: "CRC0163LM",
-  diagnosis: "Colorectal Carcinoma",
+  histology: "Colorectal Carcinoma",
   providerName: "Candiolo Cancer Institute - Colorectal",
   providerId: "IRCC-CRC",
-  providerContactEmails: ["andrea.bertotti@ircc.it"],
-  modelProviderUrl: "https://example.com",
   cancerSystem: "Digestive system",
 };
