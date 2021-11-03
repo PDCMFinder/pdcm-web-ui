@@ -3,15 +3,31 @@ import {
   faExternalLinkAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { FunctionComponent } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import React, { FunctionComponent, useState } from "react";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { IModelExtLinks } from "../apis/Details.api";
-import { DosingStudyTable } from "../components/details/DosingStudyTable";
+import {
+  DosingStudyTable,
+  IDosingStudyTableProps,
+} from "../components/details/DosingStudyTable";
+import {
+  IModelEngraftmentTableProps,
+  ModelEngraftmentTable,
+} from "../components/details/ModelEngraftmentTable";
 import {
   IModelMetadataProps,
   ModelMetadata,
 } from "../components/details/ModelMetadata";
-import { MolecularDataTable } from "../components/details/MolecularDataTable";
+import {
+  IModelQualityControlTableProps,
+  ModelQualityControlTable,
+} from "../components/details/ModelQualityControlTable";
+import { MolecularDataDetailTable } from "../components/details/MolecularDataDetailTable";
+import {
+  IMolecularCharacterization,
+  IMolecularDataTableProps,
+  MolecularDataTable,
+} from "../components/details/MolecularDataTable";
 import {
   IPatientMetadataProps,
   PatientMetadata,
@@ -21,7 +37,15 @@ import { GeneralTemplate } from "../templates/GeneralTemplate";
 export interface IDetailsTemplateProps
   extends IModelMetadataProps,
     IPatientMetadataProps,
-    IModelExtLinks {}
+    IModelExtLinks,
+    IMolecularDataTableProps,
+    IModelEngraftmentTableProps,
+    IModelQualityControlTableProps,
+    IDosingStudyTableProps {
+  selectedMolecularCharacterization?: IMolecularCharacterization;
+  molecularDetailLoading?: boolean;
+  molecularDetailData?: Array<any>;
+}
 
 export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   modelId,
@@ -41,8 +65,16 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   collectionSite,
   contactLink,
   sourceDatabaseUrl,
+  molecularCharacterizations,
+  engraftments,
+  qualityChecks,
+  treatments,
+  onSelectMolecularCharacterization,
+  selectedMolecularCharacterization,
 }) => {
   document.title = `PDCM Finder - Cancer Model: ${modelId} - Details`;
+  // TODO - Fix modal close operation to be more seamless
+
   return (
     <GeneralTemplate>
       <Container className="mt-5">
@@ -55,7 +87,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
               {providerName} - {providerId}
             </h5>
           </Col>
-          <Col xs={4}>
+          <Col xs={12} md={4} className="mt-2 mt-md-0">
             <Button variant="primary" block href={contactLink} target="_blank">
               <FontAwesomeIcon icon={faEnvelope} />
               &nbsp; Contact provider
@@ -102,24 +134,80 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             />
           </Col>
         </Row>
-        <h3>Dosing studies</h3>
-        <Row className="mb-5">
-          <Col>
-            <DosingStudyTable treatments={[]} />
-          </Col>
-        </Row>
+        {modelType === "xenograft model" && (
+          <>
+            <h3>PDX model engraftment</h3>{" "}
+            <Row className="mt-3 mb-5">
+              <Col>
+                <ModelEngraftmentTable engraftments={engraftments} />
+              </Col>
+            </Row>
+          </>
+        )}
+        {qualityChecks.length > 0 && (
+          <>
+            <h3>Model quality control</h3>{" "}
+            <Row className="mt-3 mb-5">
+              <Col>
+                <ModelQualityControlTable qualityChecks={qualityChecks} />
+              </Col>
+            </Row>
+          </>
+        )}
+        {treatments.length > 0 && (
+          <>
+            <h3>Dosing studies</h3>
+            <Row className="mb-5">
+              <Col>
+                <DosingStudyTable treatments={treatments} />
+              </Col>
+            </Row>
+          </>
+        )}
         <h3>Molecular data</h3>
         {/* <Row>
           <Col>
             <MolecularDataTracksChart />
           </Col>
         </Row> */}
-        <Row>
+        <Row className="mt-3 mb-5">
           <Col>
-            <MolecularDataTable molecularCharacterizations={[]} />
+            <MolecularDataTable
+              molecularCharacterizations={molecularCharacterizations}
+              onSelectMolecularCharacterization={
+                onSelectMolecularCharacterization
+              }
+            />
           </Col>
         </Row>
       </Container>
+      <Modal
+        show={selectedMolecularCharacterization !== undefined}
+        dialogClassName="modal-90w"
+        onHide={() => onSelectMolecularCharacterization(undefined)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {selectedMolecularCharacterization?.platformName}{" "}
+            {selectedMolecularCharacterization ? "data" : ""}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedMolecularCharacterization && (
+            <MolecularDataDetailTable
+              molecularCharacterization={selectedMolecularCharacterization}
+            ></MolecularDataDetailTable>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => onSelectMolecularCharacterization(undefined)}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </GeneralTemplate>
   );
 };
