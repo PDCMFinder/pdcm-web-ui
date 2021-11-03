@@ -101,3 +101,9 @@ th {
     @extend .table-striped;
   }
 }
+
+.modal-90w {
+  width: 90%;
+  max-width: none !important;
+  height: fit-content;
+}

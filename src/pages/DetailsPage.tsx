@@ -1,7 +1,15 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { getModelDetails, getModelExtLinks } from "../apis/Details.api";
+import {
+  getModelDetailsMetadata,
+  getModelDrugDosing,
+  getModelEngraftments,
+  getModelExtLinks,
+  getModelMolecularData,
+  getModelQualityData,
+} from "../apis/Details.api";
+import { IMolecularCharacterization } from "../components/details/MolecularDataTable";
 import { DetailsTemplate } from "../templates/DetailsTemplate";
 
 export const DetailsPage: FunctionComponent = () => {
@@ -13,12 +21,37 @@ export const DetailsPage: FunctionComponent = () => {
 
   const modelMetadataQuery = useQuery(
     ["model-metadata", { modelId, providerId }],
-    () => getModelDetails(modelId, providerId)
+    () => getModelDetailsMetadata(modelId, providerId)
   );
   const pdcmModelId = modelMetadataQuery.data?.pdcmModelId;
-  const modelExtLinks = useQuery(
+  const modelExtLinksQuery = useQuery(
     ["model-ext-links", { pdcmModelId, modelId }],
     () => getModelExtLinks(pdcmModelId, modelId)
+  );
+
+  const molecularDataQuery = useQuery(
+    ["model-molecular-data-summary", { pdcmModelId }],
+    () => getModelMolecularData(pdcmModelId)
+  );
+
+  const [
+    selectedMolecularCharacterization,
+    selectMolecularCharacterization,
+  ] = useState<IMolecularCharacterization>();
+
+  const modelType = modelMetadataQuery.data?.modelType;
+  const engraftmentQuery = useQuery(
+    ["model-engraftment-data", { pdcmModelId, modelType }],
+    () => getModelEngraftments(pdcmModelId, modelType)
+  );
+
+  const treatmentsQuery = useQuery(
+    ["model-drug-dosing-data", { pdcmModelId, modelType }],
+    () => getModelDrugDosing(pdcmModelId, modelType)
+  );
+
+  const qualityQuery = useQuery(["model-quality-data", { pdcmModelId }], () =>
+    getModelQualityData(pdcmModelId)
   );
 
   return (
@@ -39,8 +72,14 @@ export const DetailsPage: FunctionComponent = () => {
       cancerStage={modelMetadataQuery.data?.cancerStage}
       cancerStagingSystem={modelMetadataQuery.data?.cancerStagingSystem}
       collectionSite={modelMetadataQuery.data?.collectionSite}
-      contactLink={modelExtLinks.data?.contactLink}
-      sourceDatabaseUrl={modelExtLinks.data?.sourceDatabaseUrl}
+      contactLink={modelExtLinksQuery.data?.contactLink}
+      sourceDatabaseUrl={modelExtLinksQuery.data?.sourceDatabaseUrl}
+      molecularCharacterizations={molecularDataQuery.data}
+      engraftments={engraftmentQuery.data || []}
+      qualityChecks={qualityQuery.data || []}
+      onSelectMolecularCharacterization={selectMolecularCharacterization}
+      selectedMolecularCharacterization={selectedMolecularCharacterization}
+      treatments={treatmentsQuery.data || []}
     ></DetailsTemplate>
   );
 };

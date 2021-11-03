@@ -43,6 +43,11 @@ export async function getSearchFacets(): Promise<Array<IFacetSectionProps>> {
       name: "Patient / Tumor",
       facets: [],
     },
+    treatment_drug_dosing: {
+      key: "treatment_drug_dosing",
+      name: "Treatment / Drug dosing",
+      facets: [],
+    },
   };
 
   if (!response.ok) {
@@ -147,6 +152,8 @@ function mapApiFacet(apiFacet: any): IFacetProps {
     "makers_with_cna_data",
     "makers_with_expression_data",
     "makers_with_cytogenetics_data",
+    "treatment_list",
+    "model_treatment_list",
   ];
   let facetType = "check";
 
