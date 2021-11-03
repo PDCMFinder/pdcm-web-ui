@@ -134,7 +134,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             />
           </Col>
         </Row>
-        {modelType === "xenograft model" && (
+        {engraftments.length > 0 && (
           <>
             <h3>PDX model engraftment</h3>{" "}
             <Row className="mt-3 mb-5">
