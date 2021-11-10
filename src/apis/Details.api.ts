@@ -1,6 +1,7 @@
 import { Treatment } from "../components/details/DosingStudyTable";
 import { IEngraftment } from "../components/details/ModelEngraftmentTable";
 import { IMolecularCharacterization } from "../components/details/MolecularDataTable";
+import { camelCase } from "./Utils.api";
 
 export interface IModelExtLinks {
   contactLink?: string;
@@ -28,7 +29,7 @@ export async function getModelExtLinks(
     return {};
   }
   let response = await fetch(
-    `${process.env.REACT_APP_API_URL}/model?id=eq.${pdcmModelId}&select=id,contact_people(name_list,email_list),contact_form(form_url),source_database(database_url)`
+    `${process.env.REACT_APP_API_URL}/model_information?id=eq.${pdcmModelId}&select=id,contact_people(name_list,email_list),contact_form(form_url),source_database(database_url)`
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -68,7 +69,8 @@ export async function getModelMolecularData(pdcmModelId: string) {
     return [];
   }
   let response = await fetch(
-    `${process.env.REACT_APP_API_URL}/details_molecular_data?or=(patient_model_id.eq.${pdcmModelId},xenograft_model_id.eq.${pdcmModelId})`
+    `${process.env.REACT_APP_API_URL}/details_molecular_data?or=(patient_model_id.eq.${pdcmModelId},xenograft_model_id.eq.${pdcmModelId})`,
+    { headers: { Prefer: "count=exact" } }
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -82,7 +84,7 @@ export async function getModelMolecularDataColumns(
   molecularCharacterizationId: number,
   dataType: string
 ) {
-  if (!molecularCharacterizationId) {
+  if (!molecularCharacterizationId || dataType === "cytogenetics") {
     return [];
   }
   const typeEndpointMap: any = {
@@ -134,7 +136,7 @@ export async function getModelMolecularDataDetails(
       request += `.${sortDirection}`;
     }
   }
-  let response = await fetch(request);
+  let response = await fetch(request, { headers: { Prefer: "count=exact" } });
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -189,7 +191,7 @@ export async function getModelEngraftments(
     return [];
   }
   let response = await fetch(
-    `${process.env.REACT_APP_API_URL}/specimen?model_id=eq.${pdcmModelId}&select=host_strain(name, nomenclature),engraftment_site(name),engraftment_type(name),engraftment_sample_type(name),engraftment_sample_state(name),passage_number`
+    `${process.env.REACT_APP_API_URL}/xenograft_model_specimen?model_id=eq.${pdcmModelId}&select=host_strain(name, nomenclature),engraftment_site(name),engraftment_type(name),engraftment_sample_type(name),engraftment_sample_state(name),passage_number`
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -236,18 +238,22 @@ export async function getModelDrugDosing(
   });
 }
 
-function camelCase(obj: any) {
-  var newObj: any = {};
-  for (let d in obj) {
-    if (obj.hasOwnProperty(d)) {
-      newObj[
-        d.replace(/(\_\w)/g, function (k) {
-          return k[1].toUpperCase();
-        })
-      ] = obj[d];
-    }
+export async function getExpressionHeatmap(
+  molecularCharacterizationId: number,
+  dataType: string
+): Promise<Array<any>> {
+  if (!molecularCharacterizationId || dataType !== "expression") {
+    return [];
   }
-  return newObj;
+  let response = await fetch(
+    `${process.env.PUBLIC_URL}/static/expression_heatmap.json`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json().then((d) => {
+    return d.map((item: any) => camelCase(item));
+  });
 }
 
 function createMailToLink(emails: string, externalModelId: string) {

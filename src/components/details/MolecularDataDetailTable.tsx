@@ -2,11 +2,13 @@ import React, { FunctionComponent, useState, useRef } from "react";
 import { CSVLink } from "react-csv";
 import { useQuery } from "react-query";
 import {
+  getExpressionHeatmap,
   getModelMolecularDataColumns,
   getModelMolecularDataDetails,
   getMolecularDataDownload,
 } from "../../apis/Details.api";
 import { DataTable } from "./DataTable";
+import { ExpressionHeatmap } from "./ExpressionHeatmap";
 import { IMolecularCharacterization } from "./MolecularDataTable";
 
 export interface IMolecularDataDetailTableProps {
@@ -53,6 +55,19 @@ export const MolecularDataDetailTable: FunctionComponent<IMolecularDataDetailTab
         pageSize,
         sortColumn,
         sortDirection
+      )
+  );
+
+  const { data: expressionData, isLoading: isLoadingHeatmap } = useQuery(
+    [
+      "get-expression-data-heatmap",
+      molecularCharacterization.id,
+      molecularCharacterization.dataType,
+    ],
+    () =>
+      getExpressionHeatmap(
+        molecularCharacterization.id,
+        molecularCharacterization.dataType
       )
   );
 
@@ -109,6 +124,31 @@ export const MolecularDataDetailTable: FunctionComponent<IMolecularDataDetailTab
           (column) =>
             columns.includes(column.key) || column.key === "hgnc_symbol"
         );
+        const sampleIds = [
+          "CRC0018LMX0B02201TUMR01R01",
+          "CRC0018LMX0B02204TUMR01R01",
+        ];
+        // return (
+        //   <div style={{ height: "10000px" }}>
+        //     <ExpressionHeatmap
+        //       chromosome="1"
+        //       sampleIds={sampleIds}
+        //       expression={
+        //         expressionData
+        //           ?.sort((e1: any, e2: any) => {
+        //             let exp1Value = 0;
+        //             let exp2Value = 0;
+        //             sampleIds.forEach((sampleId) => {
+        //               exp1Value += Math.abs(e1[sampleId]) || 0;
+        //               exp2Value += Math.abs(e2[sampleId]) || 0;
+        //             });
+        //             return exp2Value - exp1Value;
+        //           })
+        //           .slice(0, 1000) || []
+        //       }
+        //     />
+        //   </div>
+        // );
         break;
       case "copy number alteration":
         columnsToDisplay = [
@@ -125,14 +165,8 @@ export const MolecularDataDetailTable: FunctionComponent<IMolecularDataDetailTab
       case "cytogenetics":
         columnsToDisplay = [
           { key: "hgnc_symbol", name: "HGNC Symbol" },
-          { key: "amino_acid_change", name: "Amino Acid Change" },
-          { key: "consequence", name: "Consequence" },
-          { key: "read_depth", name: "Read Depth" },
-          { key: "allele_frequency", name: "Allele Frequency" },
-          { key: "seq_start_position", name: "Seq. Start Position" },
-          { key: "ref_allele", name: "Ref. Allele" },
-          { key: "alt_allele", name: "Alt. Allele" },
-        ].filter((column) => columns.includes(column.key));
+          { key: "result", name: "Result" },
+        ];
         break;
     }
   }
