@@ -49,7 +49,11 @@ export const HomePage: FunctionComponent = () => {
         </Container>
         <small
           className="text-dark"
-          style={{ backgroundColor: "rgb(247 251 255 / 50%)" }}
+          style={{
+            backgroundColor: "rgb(247 251 255 / 50%)",
+            float: "right",
+            marginTop: "30px",
+          }}
         >
           <a href="https://commons.wikimedia.org/wiki/File:Small_cell_lung_carcinoma_vs._benign_mesothelial_cells_(4703634468).jpg">
             Ed Uthman from Houston, TX, USA
