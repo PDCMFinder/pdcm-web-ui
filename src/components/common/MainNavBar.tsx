@@ -7,7 +7,7 @@ import "./MainNavBar.scss";
 
 export const MENU = [
   {
-    link: "/home",
+    link: "/",
     name: "Home",
   },
   {
@@ -60,10 +60,10 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
       className="py-1 py-md-3 shadow-sm main-nav"
     >
       <Container fluid="xl" className="w-100">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img
             src={`${process.env.PUBLIC_URL}/pdcm-hor.png`}
-            height="40px"
+            height="55px"
             className="d-inline-block align-top"
             alt="PDCM Finder logo"
           />
