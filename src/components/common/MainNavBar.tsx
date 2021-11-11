@@ -60,7 +60,7 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
       className="py-1 py-md-3 shadow-sm main-nav"
     >
       <Container fluid="xl" className="w-100">
-        <Navbar.Brand href="/">
+        <Navbar.Brand as={Link} to="/">
           <img
             src={`${process.env.PUBLIC_URL}/pdcm-hor.png`}
             height="55px"
