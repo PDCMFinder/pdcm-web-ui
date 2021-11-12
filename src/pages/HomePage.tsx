@@ -43,7 +43,7 @@ export const HomePage: FunctionComponent = () => {
             className="text-center text-dark"
             style={{ backgroundColor: "rgb(247 251 255 / 50%)" }}
           >
-            PDCM Finder is your open global cancer research platform for Cancer
+            PDCM Finder is your open global cancer research platform for Patient
             Derived Cancer Models
           </h1>
         </Container>
