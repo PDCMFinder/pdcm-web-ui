@@ -9,7 +9,9 @@ export async function getCancerHierarchy(): Promise<any> {
   }
   return response.json().then((d) => {
     let hierarchy: any = {};
-    d.filter((i: any) => i.cancer_system !== null).forEach((element: any) => {
+    d.filter(
+      (i: any) => i.cancer_system !== null && i.cancer_system !== i.histology
+    ).forEach((element: any) => {
       if (hierarchy[element.cancer_system] === undefined) {
         hierarchy[element.cancer_system] = {
           name: element.cancer_system,
