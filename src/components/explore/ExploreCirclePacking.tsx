@@ -1,7 +1,9 @@
+// @ts-nocheck
 // install (please make sure versions match peerDependencies)
 // yarn add @nivo/core @nivo/circle-packing
 import { ResponsiveCirclePacking } from "@nivo/circle-packing";
 import { FunctionComponent } from "react";
+import { animated } from "@react-spring/web";
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
@@ -23,8 +25,19 @@ export const ExploreCirclePacking: FunctionComponent<{ data: any }> = ({
     labelsFilter={function (e) {
       return 2 === e.node.depth;
     }}
+    theme={{ labels: { text: { fontSize: "12px" } } }}
     labelsSkipRadius={10}
     labelTextColor={{ from: "color", modifiers: [["darker", 4]] }}
+    // labelComponent={({ datum, label, style }) => (
+    //   <animated.foreignObject
+    //     transform={style.transform}
+    //     style={{ pointerEvents: "none" }}
+    //     width="150"
+    //     height="200"
+    //   >
+    //     <p xmlns="http://www.w3.org/1999/xhtml">{label}</p>
+    //   </animated.foreignObject>
+    // )}
     borderWidth={1}
     borderColor={{ from: "color", modifiers: [["darker", 0.5]] }}
     defs={[
