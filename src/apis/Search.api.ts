@@ -14,13 +14,14 @@ export async function getSearchOptions() {
   }
   return response.json().then((d: any) => {
     return d[0].facet_options
+      .filter((option: any) => option !== "")
       .sort((a: String, b: String) =>
         a.toLocaleLowerCase().trim() > b.toLocaleLowerCase().trim() ? 1 : -1
       )
       .map((option: any) => {
         return {
           key: option.replace(/[\W_]+/g, "_").toLowerCase(),
-          name: option,
+          name: option.trim(),
         };
       });
   });
