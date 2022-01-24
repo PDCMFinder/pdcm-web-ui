@@ -1,0 +1,549 @@
+[
+    {
+        "key": "model",
+        "name": "Model",
+        "facets": [
+            {
+                "key": "data_available",
+                "name": "Data available",
+                "options": [
+                    {
+                        "key": "gene_mutation",
+                        "name": "Gene Mutation"
+                    },
+                    {
+                        "key": "cytogenetics",
+                        "name": "Cytogenetics"
+                    },
+                    {
+                        "key": "copy_number_alteration",
+                        "name": "Copy Number Alteration"
+                    },
+                    {
+                        "key": "dosing_studies",
+                        "name": "Dosing Studies"
+                    },
+                    {
+                        "key": "patient_treatment",
+                        "name": "Patient Treatment"
+                    },
+                    {
+                        "key": "expression",
+                        "name": "Expression"
+                    }
+                ],
+                "type": "check"
+            },
+            {
+                "key": "datasource",
+                "name": "Datasource",
+                "options": [
+                    {
+                        "key": "caldas_lab_university_of_cambridge",
+                        "name": "Caldas Lab - University of Cambridge"
+                    },
+                    {
+                        "key": "candiolo_cancer_institute_colorectal",
+                        "name": "Candiolo Cancer Institute - Colorectal"
+                    },
+                    {
+                        "key": "candiolo_cancer_institute_gastric_cancer",
+                        "name": "Candiolo Cancer Institute-Gastric Cancer"
+                    },
+                    {
+                        "key": "charles_river_laboratories",
+                        "name": "Charles River Laboratories"
+                    },
+                    {
+                        "key": "curie_institute_breast_cancer",
+                        "name": "Curie Institute - Breast Cancer"
+                    },
+                    {
+                        "key": "curie_institute_lung_cancer",
+                        "name": "Curie Institute - Lung Cancer"
+                    },
+                    {
+                        "key": "curie_institute_ovarian_cancer",
+                        "name": "Curie Institute - Ovarian Cancer"
+                    },
+                    {
+                        "key": "dana_farber_cancer_institute",
+                        "name": "Dana-Farber Cancer Institute"
+                    },
+                    {
+                        "key": "hci_baylor_college_of_medicine",
+                        "name": "HCI-Baylor College of Medicine"
+                    },
+                    {
+                        "key": "luxembourg_institute_of_health_glioma",
+                        "name": "Luxembourg Institute of Health-Glioma"
+                    },
+                    {
+                        "key": "md_anderson_cancer_center",
+                        "name": "MD Anderson Cancer Center"
+                    },
+                    {
+                        "key": "netherlands_cancer_institute",
+                        "name": "Netherlands Cancer Institute"
+                    },
+                    {
+                        "key": "patient_derived_models_repository",
+                        "name": "Patient-Derived Models Repository"
+                    },
+                    {
+                        "key": "pediatric_preclinical_tumor_consortium",
+                        "name": "Pediatric Preclinical Tumor Consortium"
+                    },
+                    {
+                        "key": "princess_margaret_living_biobank",
+                        "name": "Princess Margaret Living Biobank"
+                    },
+                    {
+                        "key": "st_jude_children_s_research_hospital",
+                        "name": "St Jude Children's Research Hospital"
+                    },
+                    {
+                        "key": "trace_pdtx_platform",
+                        "name": "TRACE-PDTX platform"
+                    },
+                    {
+                        "key": "the_jackson_laboratory",
+                        "name": "The Jackson Laboratory"
+                    },
+                    {
+                        "key": "university_medical_center_groningen",
+                        "name": "University Medical Center Groningen"
+                    },
+                    {
+                        "key": "university_of_manchester_breast_cancer",
+                        "name": "University of Manchester - Breast Cancer"
+                    },
+                    {
+                        "key": "vall_d_hebron_institute_of_oncology_breast_cancer",
+                        "name": "Vall d'Hebron Institute of Oncology - Breast Cancer"
+                    },
+                    {
+                        "key": "vall_d_hebron_institute_of_oncology_colorectal_cancer",
+                        "name": "Vall d'Hebron Institute of Oncology - Colorectal Cancer"
+                    },
+                    {
+                        "key": "vall_d_hebron_institute_of_oncology_pancreatic_cancer",
+                        "name": "Vall d'Hebron Institute of Oncology - Pancreatic Cancer"
+                    },
+                    {
+                        "key": "washington_university_in_st_louis",
+                        "name": "Washington University in St. Louis"
+                    },
+                    {
+                        "key": "wistar_md_anderson_penn",
+                        "name": "Wistar/MD Anderson/Penn"
+                    }
+                ],
+                "type": "check"
+            }
+        ]
+    },
+    {
+        "key": "molecular_data",
+        "name": "Molecular Data",
+        "facets": []
+    },
+    {
+        "key": "treatment_drug_dosing",
+        "name": "Treatment - Drug Dosing",
+        "facets": [
+            {
+                "key": "patient_treatment",
+                "name": "Patient Treatment",
+                "type": "autocomplete",
+                "options": [
+                    {
+                        "key": "docetaxel_and_gemcitabine",
+                        "name": "Docetaxel and Gemcitabine"
+                    },
+                    {
+                        "key": "gemcitabine_and_pimasertib",
+                        "name": "Gemcitabine and Pimasertib"
+                    },
+                    {
+                        "key": "radiation_therapy_and_temozolomide",
+                        "name": "Radiation Therapy and Temozolomide"
+                    },
+                    {
+                        "key": "carboplatin_and_paclitaxel",
+                        "name": "Carboplatin and Paclitaxel"
+                    },
+                    {
+                        "key": "octreotide",
+                        "name": "Octreotide"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_doxorubicin_and_prednisolone_and_rituximab_and_vincristine",
+                        "name": "Cyclophosphamide and Doxorubicin and Prednisolone and Rituximab and Vincristine"
+                    },
+                    {
+                        "key": "bendamustine_and_etoposide_and_pixantrone_and_rituximab",
+                        "name": "Bendamustine and Etoposide and Pixantrone and Rituximab"
+                    },
+                    {
+                        "key": "doxorubicin",
+                        "name": "Doxorubicin"
+                    },
+                    {
+                        "key": "carboplatin_and_gemcitabine",
+                        "name": "Carboplatin and Gemcitabine"
+                    },
+                    {
+                        "key": "chlorambucil_and_prednisone_and_procarbazine_and_vincristine",
+                        "name": "Chlorambucil and Prednisone and Procarbazine and Vincristine"
+                    },
+                    {
+                        "key": "etoposide_and_ifosfamide_and_mitoxantrone_and_rituximab",
+                        "name": "Etoposide and Ifosfamide and Mitoxantrone and Rituximab"
+                    },
+                    {
+                        "key": "fulvestrant",
+                        "name": "Fulvestrant"
+                    },
+                    {
+                        "key": "bevacizumab",
+                        "name": "Bevacizumab"
+                    },
+                    {
+                        "key": "methotrexate_and_rituximab",
+                        "name": "Methotrexate and Rituximab"
+                    },
+                    {
+                        "key": "dacarbazine",
+                        "name": "Dacarbazine"
+                    },
+                    {
+                        "key": "goserelin_and_tamoxifen",
+                        "name": "Goserelin and Tamoxifen"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_doxorubicin_and_prednisone_and_vincristine",
+                        "name": "Cyclophosphamide and Doxorubicin and Prednisone and Vincristine"
+                    },
+                    {
+                        "key": "bevacizumab_and_fluorouracil_and_oxaliplatin",
+                        "name": "Bevacizumab and Fluorouracil and Oxaliplatin"
+                    },
+                    {
+                        "key": "pamidronate_disodium",
+                        "name": "Pamidronate Disodium"
+                    },
+                    {
+                        "key": "lomustine",
+                        "name": "Lomustine"
+                    },
+                    {
+                        "key": "ibandronic_acid",
+                        "name": "Ibandronic Acid"
+                    },
+                    {
+                        "key": "doxorubicin_and_evofosfamide",
+                        "name": "Doxorubicin and Evofosfamide"
+                    },
+                    {
+                        "key": "lapatinib",
+                        "name": "Lapatinib"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_doxorubicin",
+                        "name": "Cyclophosphamide and Doxorubicin"
+                    },
+                    {
+                        "key": "cisplatin_and_vindesine",
+                        "name": "Cisplatin and Vindesine"
+                    },
+                    {
+                        "key": "everolimus",
+                        "name": "Everolimus"
+                    },
+                    {
+                        "key": "cetuximab_and_fluorouracil_and_irinotecan_and_leucovorin",
+                        "name": "Cetuximab and Fluorouracil and Irinotecan and Leucovorin"
+                    },
+                    {
+                        "key": "pazopanib",
+                        "name": "Pazopanib"
+                    },
+                    {
+                        "key": "carboplatin_and_gemcitabine_and_paclitaxel",
+                        "name": "Carboplatin and Gemcitabine and Paclitaxel"
+                    },
+                    {
+                        "key": "eribulin",
+                        "name": "Eribulin"
+                    },
+                    {
+                        "key": "interferon_alpha",
+                        "name": "Interferon Alpha"
+                    },
+                    {
+                        "key": "ifosfamide",
+                        "name": "Ifosfamide"
+                    },
+                    {
+                        "key": "docetaxel",
+                        "name": "Docetaxel"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_epirubicin",
+                        "name": "Cyclophosphamide and Epirubicin"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_doxorubicin_and_fluorouracil_and_trastuzumab",
+                        "name": "Cyclophosphamide and Doxorubicin and Fluorouracil and Trastuzumab"
+                    },
+                    {
+                        "key": "zoledronic_acid",
+                        "name": "Zoledronic Acid"
+                    },
+                    {
+                        "key": "denosumab",
+                        "name": "Denosumab"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_epirubicin_and_fec_regimen",
+                        "name": "Cyclophosphamide and Epirubicin and FEC Regimen"
+                    },
+                    {
+                        "key": "exemestane",
+                        "name": "Exemestane"
+                    },
+                    {
+                        "key": "bevacizumab_and_irinotecan_hydrochloride",
+                        "name": "Bevacizumab and Irinotecan Hydrochloride"
+                    },
+                    {
+                        "key": "chemotherapy",
+                        "name": "Chemotherapy"
+                    },
+                    {
+                        "key": "cyclophosphamide",
+                        "name": "Cyclophosphamide"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_doxorubicin_and_vincristine",
+                        "name": "Cyclophosphamide and Doxorubicin and Vincristine"
+                    },
+                    {
+                        "key": "sorafenib",
+                        "name": "Sorafenib"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_epirubicin_and_fluorouracil",
+                        "name": "Cyclophosphamide and Epirubicin and Fluorouracil"
+                    },
+                    {
+                        "key": "elmustine",
+                        "name": "Elmustine"
+                    },
+                    {
+                        "key": "gefitinib_and_tamoxifen",
+                        "name": "Gefitinib and Tamoxifen"
+                    },
+                    {
+                        "key": "temozolomide",
+                        "name": "Temozolomide"
+                    },
+                    {
+                        "key": "capecitabine_and_epirubicin_and_oxaliplatin",
+                        "name": "Capecitabine and Epirubicin and Oxaliplatin"
+                    },
+                    {
+                        "key": "goserelin",
+                        "name": "Goserelin"
+                    },
+                    {
+                        "key": "letrozole",
+                        "name": "Letrozole"
+                    },
+                    {
+                        "key": "trastuzumab",
+                        "name": "Trastuzumab"
+                    },
+                    {
+                        "key": "fluorouracil_and_leucovorin_and_oxaliplatin",
+                        "name": "Fluorouracil and Leucovorin and Oxaliplatin"
+                    },
+                    {
+                        "key": "interleukin_2",
+                        "name": "Interleukin-2"
+                    },
+                    {
+                        "key": "gemcitabine",
+                        "name": "Gemcitabine"
+                    },
+                    {
+                        "key": "capecitabine",
+                        "name": "Capecitabine"
+                    },
+                    {
+                        "key": "bevacizumab_and_fluorouracil_and_irinotecan_and_leucovorin",
+                        "name": "Bevacizumab and Fluorouracil and Irinotecan and Leucovorin"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_dacarbazine_and_doxorubicin_and_vincristine",
+                        "name": "Cyclophosphamide and Dacarbazine and Doxorubicin and Vincristine"
+                    },
+                    {
+                        "key": "bevacizumab_and_capecitabine_and_ixabepilone",
+                        "name": "Bevacizumab and Capecitabine and Ixabepilone"
+                    },
+                    {
+                        "key": "autologous_hematopoietic_stem_cell_transplantation_and_external_beam_radiation_therapy",
+                        "name": "Autologous Hematopoietic Stem Cell Transplantation and External Beam Radiation Therapy"
+                    },
+                    {
+                        "key": "gemcitabine_and_oxaliplatin_and_rituximab",
+                        "name": "Gemcitabine and Oxaliplatin and Rituximab"
+                    },
+                    {
+                        "key": "trabectedin",
+                        "name": "Trabectedin"
+                    },
+                    {
+                        "key": "fluorouracil_and_leucovorin",
+                        "name": "Fluorouracil and Leucovorin"
+                    },
+                    {
+                        "key": "fluorouracil_and_oxaliplatin",
+                        "name": "Fluorouracil and Oxaliplatin"
+                    },
+                    {
+                        "key": "oxaliplatin",
+                        "name": "Oxaliplatin"
+                    },
+                    {
+                        "key": "cytarabine",
+                        "name": "Cytarabine"
+                    },
+                    {
+                        "key": "bcg_vaccine",
+                        "name": "BCG Vaccine"
+                    },
+                    {
+                        "key": "therapeutic_estradiol",
+                        "name": "Therapeutic Estradiol"
+                    },
+                    {
+                        "key": "paclitaxel",
+                        "name": "Paclitaxel"
+                    },
+                    {
+                        "key": "fluorouracil_and_irinotecan_and_leucovorin_and_oxaliplatin",
+                        "name": "Fluorouracil and Irinotecan and Leucovorin and Oxaliplatin"
+                    },
+                    {
+                        "key": "cisplatin_and_fu_lv_regimen",
+                        "name": "Cisplatin and FU-LV Regimen"
+                    },
+                    {
+                        "key": "capecitabine_and_cisplatin_and_epirubicin",
+                        "name": "Capecitabine and Cisplatin and Epirubicin"
+                    },
+                    {
+                        "key": "epirubicin",
+                        "name": "Epirubicin"
+                    },
+                    {
+                        "key": "bevacizumab_and_capecitabine_and_oxaliplatin",
+                        "name": "Bevacizumab and Capecitabine and Oxaliplatin"
+                    },
+                    {
+                        "key": "medroxyprogesterone_acetate",
+                        "name": "Medroxyprogesterone Acetate"
+                    },
+                    {
+                        "key": "cisplatin_and_gemcitabine",
+                        "name": "Cisplatin and Gemcitabine"
+                    },
+                    {
+                        "key": "fluorouracil",
+                        "name": "Fluorouracil"
+                    },
+                    {
+                        "key": "tegafur_gimeracil_oteracil_potassium",
+                        "name": "Tegafur-gimeracil-oteracil Potassium"
+                    },
+                    {
+                        "key": "carboplatin_and_etoposide_and_ifosfamide_and_rituximab",
+                        "name": "Carboplatin and Etoposide and Ifosfamide and Rituximab"
+                    },
+                    {
+                        "key": "capecitabine_and_docetaxel_and_oxaliplatin",
+                        "name": "Capecitabine and Docetaxel and Oxaliplatin"
+                    },
+                    {
+                        "key": "anastrozole",
+                        "name": "Anastrozole"
+                    },
+                    {
+                        "key": "cisplatin_and_docetaxel_and_fluorouracil",
+                        "name": "Cisplatin and Docetaxel and Fluorouracil"
+                    },
+                    {
+                        "key": "cisplatinfluorouracil_regimen_and_epirubicin",
+                        "name": "CisplatinFluorouracil Regimen and Epirubicin"
+                    },
+                    {
+                        "key": "chemotherapy_and_radiation_therapy",
+                        "name": "Chemotherapy and Radiation Therapy"
+                    },
+                    {
+                        "key": "tamoxifen",
+                        "name": "Tamoxifen"
+                    },
+                    {
+                        "key": "docetaxel_and_epirubicin",
+                        "name": "Docetaxel and Epirubicin"
+                    },
+                    {
+                        "key": "cisplatin",
+                        "name": "Cisplatin"
+                    },
+                    {
+                        "key": "cisplatin_and_fluorouracil",
+                        "name": "Cisplatin and Fluorouracil"
+                    },
+                    {
+                        "key": "radiation_therapy",
+                        "name": "Radiation Therapy"
+                    },
+                    {
+                        "key": "cytarabine_and_dexamethasone_and_oxaliplatin_and_rituximab",
+                        "name": "Cytarabine and Dexamethasone and Oxaliplatin and Rituximab"
+                    },
+                    {
+                        "key": "cisplatin_and_pemetrexed",
+                        "name": "Cisplatin and Pemetrexed"
+                    },
+                    {
+                        "key": "cyclophosphamide_and_doxorubicin_and_etoposide_and_prednisolone_and_rituximab_and_vincristine",
+                        "name": "Cyclophosphamide and Doxorubicin and Etoposide and Prednisolone and Rituximab and Vincristine"
+                    },
+                    {
+                        "key": "cisplatin_and_epirubicin_and_fluorouracil",
+                        "name": "Cisplatin and Epirubicin and Fluorouracil"
+                    },
+                    {
+                        "key": "interferon",
+                        "name": "Interferon"
+                    },
+                    {
+                        "key": "vinorelbine",
+                        "name": "Vinorelbine"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "patient_tumor",
+        "name": "Patient - Tumor",
+        "facets": []
+    }
+]
