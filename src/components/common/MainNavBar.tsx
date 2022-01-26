@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import "./MainNavBar.scss";
@@ -62,7 +62,7 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
       <Container fluid="xl" className="w-100">
         <Navbar.Brand as={Link} to="/">
           <img
-            src={`${process.env.PUBLIC_URL}/pdcm-hor.png`}
+            src={`${process.env.PUBLIC_URL}/img/pdcm-hor.png`}
             height="55px"
             className="d-inline-block align-top"
             alt="PDCM Finder logo"

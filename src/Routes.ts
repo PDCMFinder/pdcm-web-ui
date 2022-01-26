@@ -47,4 +47,8 @@ export const routes = [
     path: "/about/minimum-information-standard",
     name: "PDX - MI Standard",
   },
+  {
+    path: "/about/provider/:providerId",
+    name: "Provider",
+  },
 ];

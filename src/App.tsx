@@ -10,7 +10,6 @@ import { SubmitPage } from "./pages/SubmitPage";
 import { TermsOfUsePage } from "./pages/about/TermsOfUsePage";
 import { routes } from "./Routes";
 import CookieConsent from "react-cookie-consent";
-import { Button } from "react-bootstrap";
 import { ObjectivesPage } from "./pages/about/ObjectivesPage";
 import { HowToCitePage } from "./pages/about/HowToCitePage";
 import { DataFlowPage } from "./pages/about/DataFlowPage";
