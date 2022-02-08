@@ -32,7 +32,7 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
         <Row>
           <Col xs={12} md={2} className="text-center">
             <img
-              src={`${process.env.PUBLIC_URL}/pdcm-dark.png`}
+              src={`${process.env.PUBLIC_URL}/img/pdcm-dark.png`}
               style={{ width: "100%", maxWidth: "200px" }}
               className="d-inline-block align-top"
               alt="PDCM logo"

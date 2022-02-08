@@ -120,7 +120,7 @@ export const DataFlowPage: FunctionComponent = () => {
           <Col>
             <div className="text-center">
               <img
-                src={process.env.PUBLIC_URL + "data_flow_figure.png"}
+                src={process.env.PUBLIC_URL + "/img/data_flow_figure.png"}
                 alt="Flow diagram for PDCM data submission process"
                 style={{ width: "100%" }}
               />

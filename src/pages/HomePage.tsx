@@ -35,7 +35,7 @@ export const HomePage: FunctionComponent = () => {
     <GeneralTemplate>
       <Jumbotron
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/cancer_cells.jpg)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/img/cancer_cells.jpg)`,
         }}
       >
         <Container>
