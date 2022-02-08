@@ -44,7 +44,7 @@ stages:
   - build
   - deploy
 
-build_main_image:
+build_dev_image:
   stage: build
   services:
     - name: $CI_REGISTRY/mouse-informatics/dind:latest
@@ -75,6 +75,37 @@ build_main_image:
     refs:
       - main
 
+build_prod_image:
+  stage: build
+  services:
+    - name: $CI_REGISTRY/mouse-informatics/dind:latest
+      alias: docker
+  except:
+    - schedules
+  before_script:
+    - mkdir -p "$MOUNT_POINT"
+    - echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin  ${CI_REGISTRY}
+  script:
+    - |
+      if [[ "${REQUIRES_REBUILD_IMAGE}" == "true" ]]; then
+          echo "Building prod image" 
+          docker build -t "${CI_REGISTRY_IMAGE}":prod -f Dockerfile .  | tee ${MOUNT_POINT}/build.log
+          docker push "${CI_REGISTRY_IMAGE}":prod  | tee ${MOUNT_POINT}/push.log
+          docker logout ${CI_REGISTRY}
+          echo "Pushing to docker hub"
+          echo "${DOCKER_HUB_PWD}" | docker login --username "${DOCKER_HUB_USER}" --password-stdin
+          docker tag "${CI_REGISTRY_IMAGE}":prod "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":prod
+          docker push "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":prod  | tee ${MOUNT_POINT}/dockerhub-push-latest.log
+      fi
+    - docker logout
+
+  artifacts:
+    paths:
+      - "$MOUNT_POINT/"
+  only:
+    refs:
+      - main
+
 deploy-HH-WP-WEBADMIN-dev:
   stage: deploy
   image: dtzar/helm-kubectl:2.13.0
@@ -90,6 +121,29 @@ deploy-HH-WP-WEBADMIN-dev:
       if kubectl apply -f k8-deploy/nodeport_deploy/dev/deployment-dev.yml --record | grep -q unchanged; then
           echo "=> Patching deployment to force image update."
           kubectl patch -f k8-deploy/nodeport_deploy/dev/deployment-dev.yml --record -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"ci-last-updated\":\"$(date +'%s')\"}}}}}"
+      else
+        echo "=> Deployment apply has changed the object, no need to force image update."
+      fi
+    - kubectl get pods,service,deploy,replicaset,ing
+  only:
+    refs:
+      - main
+
+deploy-HH-WP-WEBADMIN-prod:
+  stage: deploy
+  image: dtzar/helm-kubectl:2.13.0
+  script:
+    - kubectl config set-cluster local --server="${HH_WP_WEBADMIN_ENDPOINT}"
+    - kubectl config set clusters.local.certificate-authority-data "${HH_WP_WEBADMIN_CERTIFICATE_AUTHORITY}"
+    - kubectl config set-credentials ${HH_WP_WEBADMIN_PROD_USER} --token="${HH_WP_WEBADMIN_PROD_USER_TOKEN}"
+    - kubectl config set-context "${HH_WP_WEBADMIN_PROD_NAMESPACE}" --cluster=local --user=${HH_WP_WEBADMIN_PROD_USER} --namespace="${HH_WP_WEBADMIN_PROD_NAMESPACE}"
+    - kubectl config use-context "${HH_WP_WEBADMIN_PROD_NAMESPACE}"
+    - kubectl version
+
+    - |
+      if kubectl apply -f k8-deploy/nodeport_deploy/prod/deployment-prod.yml --record | grep -q unchanged; then
+          echo "=> Patching deployment to force image update."
+          kubectl patch -f k8-deploy/nodeport_deploy/prod/deployment-prod.yml --record -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"ci-last-updated\":\"$(date +'%s')\"}}}}}"
       else
         echo "=> Deployment apply has changed the object, no need to force image update."
       fi
