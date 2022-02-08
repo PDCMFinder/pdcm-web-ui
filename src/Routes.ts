@@ -5,6 +5,7 @@ export interface IRoute {
 
 export const routes = [
   { path: "/", name: "Home" },
+  { path: "/about/under-construction", name: "Under construction" },
   { path: "/data", name: "Data" },
   { path: "/data/search", name: "Search" },
   {

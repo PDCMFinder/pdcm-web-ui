@@ -14,6 +14,7 @@ import { ObjectivesPage } from "./pages/about/ObjectivesPage";
 import { HowToCitePage } from "./pages/about/HowToCitePage";
 import { DataFlowPage } from "./pages/about/DataFlowPage";
 import { MISPage } from "./pages/about/MISPage";
+import { UnderConstructionPage } from "./pages/UnderConstructionPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,7 @@ const routeComponentMap: any = {
   "How to cite?": HowToCitePage,
   "Data flow": DataFlowPage,
   "PDX - MI Standard": MISPage,
+  "Under construction": UnderConstructionPage,
 };
 
 function App() {
