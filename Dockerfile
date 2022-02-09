@@ -1,4 +1,4 @@
-FROM node:15.8.0-alpine3.10 AS compile-image
+FROM node:latest AS compile-image
 
 WORKDIR /opt/react
 COPY package.json yarn.lock ./
