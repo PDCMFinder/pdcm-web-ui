@@ -19,7 +19,7 @@ variables:
   DOCKER_HOST: tcp://docker:2375/
   # When using dind, it's wise to use the overlayfs driver for
   # improved performance.
-  DOCKER_DRIVER: overlay2
+  # DOCKER_DRIVER: overlay2
 
   # Since the docker:dind container and the runner container don’t share their root
   # filesystem, the job’s working directory can be used as a mount point for children
