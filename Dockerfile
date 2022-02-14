@@ -1,8 +1,8 @@
-FROM node:lts-buster-slim AS compile-image
+FROM node:lts-buster AS compile-image
 
 WORKDIR /opt/react
 COPY package.json yarn.lock ./
-RUN yarn install
+RUN yarn install && yarn cache clean
 
 ENV PATH="./node_modules/.bin:$PATH"
 
