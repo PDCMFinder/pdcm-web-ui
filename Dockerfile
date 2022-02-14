@@ -1,13 +1,11 @@
 FROM node:lts-buster AS compile-image
 
-
-COPY package.json yarn.lock ./
-RUN yarn install && mkdir /pdcm && cp -R ./node_modules ./pdcm
-
-
+VOLUME pdcm
 WORKDIR /pdcm
-COPY . .
+COPY package.json yarn.lock ./
+RUN df -h && yarn install
 
+COPY . .
 RUN yarn run build
 
 FROM nginx:latest
