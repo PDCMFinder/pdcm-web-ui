@@ -1,14 +1,15 @@
-FROM node:lts-buster AS compile-image
+FROM node:lts-buster-slim AS compile-image
 
-VOLUME pdcm
-WORKDIR /pdcm
+WORKDIR /opt/react
 COPY package.json yarn.lock ./
-RUN df -h && yarn install
+RUN yarn install
 
-COPY . .
+ENV PATH="./node_modules/.bin:$PATH"
+
+COPY . ./
 RUN yarn run build
 
 FROM nginx:latest
 RUN rm -rf /usr/share/nginx/html/*
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=compile-image /pdcm/build/ /usr/share/nginx/html
+COPY --from=compile-image /opt/react/build/ /usr/share/nginx/html
