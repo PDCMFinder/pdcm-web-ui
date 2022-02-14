@@ -52,4 +52,8 @@ export const routes = [
     path: "/about/provider/:providerId",
     name: "Provider",
   },
+  {
+    path: "/articles/:fileName",
+    name: "Articles",
+  },
 ];

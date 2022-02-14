@@ -20,7 +20,8 @@ export const Breadcrumbs: FunctionComponent<RouteComponentProps> = ({
 
   return crumbs.length > 1 &&
     match.path !== "/data" &&
-    !match.path.includes("/under-construction") ? (
+    !match.path.includes("/under-construction") &&
+    !match.path.includes("/articles") ? (
     <div style={{ backgroundColor: "#e9ecef" }}>
       <Container>
         <Breadcrumb>

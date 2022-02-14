@@ -9,6 +9,7 @@ import {
   getFrequentlyMutatedGenes,
   getModelsByDatasetAvailability,
 } from "../apis/Explore.api";
+import { NewsFeed } from "../components/common/NewsFeed";
 import { ExploreBarChart } from "../components/explore/ExploreBarChart";
 import { ExploreCirclePacking } from "../components/explore/ExploreCirclePacking";
 import { ExplorePieChart } from "../components/explore/ExplorePieChart";
@@ -105,6 +106,14 @@ export const HomePage: FunctionComponent = () => {
               )}
             </div>
           </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row className="mb-3">
+          <Col>
+            <NewsFeed />
+          </Col>
+          <Col></Col>
         </Row>
       </Container>
     </GeneralTemplate>
