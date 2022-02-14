@@ -1,15 +1,16 @@
 FROM node:latest AS compile-image
 
-WORKDIR /opt/react
+
 COPY package.json yarn.lock ./
-RUN yarn install
+RUN yarn install && mkdir /pdcm && cp -R ./node_modules ./pdcm
 
-ENV PATH="./node_modules/.bin:$PATH"
 
-COPY . ./
+WORKDIR /pdcm
+COPY . .
+
 RUN yarn run build
 
 FROM nginx:latest
 RUN rm -rf /usr/share/nginx/html/*
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=compile-image /opt/react/build/ /usr/share/nginx/html
+COPY --from=compile-image /pdcm/build/ /usr/share/nginx/html
