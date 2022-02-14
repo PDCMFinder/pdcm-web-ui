@@ -41,11 +41,13 @@ variables:
   DOCKER_TLS_CERTDIR: ""
 
 stages:
-  - build
-  - deploy
+  - build-dev
+  - deploy-dev
+  - build-prod
+  - deploy-prod
 
 build_dev_image:
-  stage: build
+  stage: build-dev
   services:
     - name: $CI_REGISTRY/mouse-informatics/dind:latest
       alias: docker
@@ -78,7 +80,7 @@ build_dev_image:
       - main
 
 build_prod_image:
-  stage: build
+  stage: build-prod
   services:
     - name: $CI_REGISTRY/mouse-informatics/dind:latest
       alias: docker
@@ -111,7 +113,7 @@ build_prod_image:
       - main
 
 deploy-HH-WP-WEBADMIN-dev:
-  stage: deploy
+  stage: deploy-dev
   image: dtzar/helm-kubectl:2.13.0
   script:
     - kubectl config set-cluster local --server="${HH_WP_WEBADMIN_ENDPOINT}"
@@ -134,7 +136,7 @@ deploy-HH-WP-WEBADMIN-dev:
       - main
 
 deploy-HH-WP-WEBADMIN-prod:
-  stage: deploy
+  stage: deploy-prod
   image: dtzar/helm-kubectl:2.13.0
   script:
     - kubectl config set-cluster local --server="${HH_WP_WEBADMIN_ENDPOINT}"
