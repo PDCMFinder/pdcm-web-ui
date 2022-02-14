@@ -8,7 +8,7 @@ export default {
 } as Meta;
 
 const Template: Story = (args) => (
-  <div style={{ width: "100%", backgroundColor: "#fff", marginTop: "20px" }}>
+  <div style={{ width: "30%", backgroundColor: "#fff", marginTop: "20px" }}>
     <NewsFeed {...args} />
   </div>
 );
