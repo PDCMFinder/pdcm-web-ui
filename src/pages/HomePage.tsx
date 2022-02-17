@@ -2,7 +2,7 @@ import { faCompass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { url } from "inspector";
 import React, { FunctionComponent } from "react";
-import { Jumbotron, Button, Container, Col, Row } from "react-bootstrap";
+import { Button, Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "react-query";
 import {
   getCancerHierarchy,
@@ -34,7 +34,7 @@ export const HomePage: FunctionComponent = () => {
 
   return (
     <GeneralTemplate>
-      <Jumbotron
+      <div
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/img/cancer_cells.jpg)`,
         }}
@@ -62,7 +62,7 @@ export const HomePage: FunctionComponent = () => {
           , <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>,
           via Wikimedia Commons
         </small>
-      </Jumbotron>
+      </div>
       <Container>
         <Row className="mb-3">
           <Col>
@@ -76,7 +76,7 @@ export const HomePage: FunctionComponent = () => {
             <h2 className="text-right">Models by cancer type</h2>
           </Col>
           <Col xs={8}>
-            <div style={{ height: "600px" }}>
+            <div style={{ height: "550px" }}>
               {cancerHierarchy.data && (
                 <ExploreCirclePacking data={cancerHierarchy.data} />
               )}
