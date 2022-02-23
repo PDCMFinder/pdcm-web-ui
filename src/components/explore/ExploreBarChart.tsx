@@ -13,7 +13,7 @@ export const ExploreBarChart: FunctionComponent<{ data: any }> = ({ data }) => (
     data={data}
     keys={["count"]}
     indexBy="mutatedGene"
-    margin={{ top: 50, right: 130, bottom: 50, left: 120 }}
+    margin={{ top: 0, right: 10, bottom: 30, left: 60 }}
     padding={0.3}
     valueScale={{ type: "linear" }}
     indexScale={{ type: "band", round: true }}
@@ -60,17 +60,17 @@ export const ExploreBarChart: FunctionComponent<{ data: any }> = ({ data }) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "Model count",
-      legendPosition: "middle",
-      legendOffset: 32,
+      // legend: "Model count",
+      // legendPosition: "middle",
+      // legendOffset: 32,
     }}
     axisLeft={{
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "Mutated gene",
-      legendPosition: "middle",
-      legendOffset: -80,
+      // legend: "Mutated gene",
+      // legendPosition: "middle",
+      // legendOffset: -80,
     }}
     labelSkipWidth={12}
     labelSkipHeight={12}

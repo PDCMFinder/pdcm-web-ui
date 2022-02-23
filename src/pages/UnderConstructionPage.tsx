@@ -1,11 +1,11 @@
 import React from "react";
-import { Jumbotron, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 
 export const UnderConstructionPage = () => {
   return (
     <GeneralTemplate>
-      <Jumbotron
+      <div
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/img/cancer_cells.jpg)`,
         }}
@@ -33,7 +33,7 @@ export const UnderConstructionPage = () => {
           , <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>,
           via Wikimedia Commons
         </small>
-      </Jumbotron>
+      </div>
       <Container className="text-center">
         <h1 className="mb-5">Under Construction</h1>
         <h4 className="mb-5">

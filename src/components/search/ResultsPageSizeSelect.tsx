@@ -14,7 +14,6 @@ export const ResultsPageSizeSelect: React.FC<ResultsPageSizeSelectProps> = ({
     <div>
       <Form.Control
         as="select"
-        custom
         value={pageSize}
         onChange={(e) => onChange(+e.target.value)}
       >

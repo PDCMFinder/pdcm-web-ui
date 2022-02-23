@@ -1,0 +1,58 @@
+.hero-title {
+  font-weight: 500;
+}
+
+.home-banner {
+  background-position: 60%;
+}
+
+.home-banner-text {
+  min-height: 180px;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#explore-pie-chart > div > div > svg > g > circle:first-of-type {
+  filter: drop-shadow(3px 6px 4px #586a83);
+}
+
+#explore-pie-chart {
+  aspect-ratio: 1;
+  margin: auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .home-banner {
+    background-position: 0%;
+  }
+
+  .home-banner-text {
+    min-height: 200px;
+    align-items: end;
+    justify-content: end;
+  }
+  #explore-pie-chart {
+    margin-top: -8%;
+    margin-left: -2%;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, 1fr);
+    grid-gap: 3rem;
+  }
+}
+
+.bottom-bg {
+  position: sticky;
+  bottom: 0;
+  z-index: -1;
+  display: none;
+}

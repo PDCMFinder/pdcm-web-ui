@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { parseArticleMetadata } from "../../apis/StaticArticles.api";
@@ -15,7 +15,11 @@ export const NewsFeed: React.FC = () => {
       <h1 className="mb-4">News Feed</h1>
       {newsArticles.keys().map((k: string) => {
         return (
-          <NewsFeedItem articlePath={newsArticles(k).default} fileName={k} />
+          <NewsFeedItem
+            key={k}
+            articlePath={newsArticles(k).default}
+            fileName={k}
+          />
         );
       })}
     </div>

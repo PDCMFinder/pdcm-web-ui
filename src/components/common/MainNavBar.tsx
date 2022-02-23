@@ -1,4 +1,13 @@
-import React, { FunctionComponent, useState } from "react";
+import {
+  faCaretDown,
+  faCompass,
+  faInfo,
+  faInfoCircle,
+  faSearch,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { Fragment, FunctionComponent, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -7,14 +16,22 @@ import "./MainNavBar.scss";
 
 export const MENU = [
   {
-    link: "/",
-    name: "Home",
+    link: "/data/search",
+    name: "SEARCH",
+    icon: faSearch,
   },
   {
-    link: "/data",
-    name: "Data",
+    link: "/data/explore",
+    name: "EXPLORE",
+    icon: faCompass,
   },
   {
+    link: "/submit",
+    name: "SUBMIT",
+    icon: faUpload,
+  },
+  {
+    icon: faInfoCircle,
     link: "/about",
     name: "About",
     children: [
@@ -29,14 +46,6 @@ export const MENU = [
       { link: "/about/privacy-policy", name: "Privacy policy" },
       { link: "/about/terms-of-use", name: "Terms of use" },
     ],
-  },
-  {
-    link: "/submit",
-    name: "Submit",
-  },
-  {
-    link: "/contact",
-    name: "Contact",
   },
 ];
 
@@ -57,13 +66,13 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
       bg="white"
       collapseOnSelect
       expand="md"
-      className="py-1 py-md-3 shadow-sm main-nav"
+      className="py-1 py-md-3 main-nav"
+      sticky="top"
     >
-      <Container fluid="xl" className="w-100">
+      <Container fluid className="px-0">
         <Navbar.Brand as={Link} to="/">
           <img
-            src={`${process.env.PUBLIC_URL}/img/pdcm-hor.png`}
-            height="55px"
+            src={`${process.env.PUBLIC_URL}/img/pdcm-hor.svg`}
             className="d-inline-block align-top"
             alt="PDCM Finder logo"
           />
@@ -78,43 +87,64 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
           <span className="icon-bar"></span>
         </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto text" activeKey={location?.pathname}>
+          <Nav
+            activeKey={location?.pathname}
+            className="w-100"
+            style={{ justifyContent: "space-between" }}
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
             {MENU.map((menuItem) => {
               if (!menuItem.children) {
                 return (
                   <Nav.Link
-                    key={menuItem.link}
-                    active={location?.pathname.includes(menuItem.link)}
+                    key={menuItem.link + menuItem.name}
+                    //active={location?.pathname.includes(menuItem.link)}
                     as={Link}
                     to={menuItem.link}
                   >
-                    {menuItem.name}
+                    <FontAwesomeIcon icon={menuItem.icon} />
+                    {"  "} {menuItem.name}
                   </Nav.Link>
                 );
               } else {
                 const key = menuItem.link;
                 return (
-                  <NavDropdown
-                    title={menuItem.name}
-                    active={location?.pathname.includes(key)}
-                    key={key}
-                    id={`${key}-dropdown`}
-                    show={show}
-                    onMouseEnter={showDropdown}
-                    onMouseLeave={hideDropdown}
-                  >
-                    {menuItem.children.map((childItem) => {
-                      return (
-                        <NavDropdown.Item
-                          as={Link}
-                          key={childItem.link}
-                          to={childItem.link}
-                        >
-                          {childItem.name}
-                        </NavDropdown.Item>
-                      );
-                    })}
-                  </NavDropdown>
+                  <Fragment key={key}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <NavDropdown
+                      title={
+                        <span>
+                          {" "}
+                          <FontAwesomeIcon icon={menuItem.icon} /> {"  "}
+                          {menuItem.name}
+                        </span>
+                      }
+                      active={location?.pathname.includes(key)}
+                      key={key}
+                      id={`${key}-dropdown`}
+                      show={show}
+                      onMouseEnter={showDropdown}
+                      onMouseLeave={hideDropdown}
+                    >
+                      {menuItem.children.map((childItem) => {
+                        return (
+                          <NavDropdown.Item
+                            as={Link}
+                            key={childItem.link}
+                            to={childItem.link}
+                          >
+                            {childItem.name}
+                          </NavDropdown.Item>
+                        );
+                      })}
+                    </NavDropdown>
+                  </Fragment>
                 );
               }
             })}

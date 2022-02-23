@@ -1,6 +1,6 @@
 @import "variables";
 
-@import url("https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&family=Mate&family=Maven+Pro:wght@400;500;600;700&display=swap");
 
 .pdcm-heading {
   font-family: $font-family-headings;
@@ -12,6 +12,14 @@ h1 {
 
 th {
   font-family: $font-family-headings;
+}
+
+.text-secondary-dark {
+  color: darken($secondary, 25%);
+}
+
+.shadow-secondary {
+  box-shadow: 1px 3px 6px darken($secondary, 30%);
 }
 
 /* ANIMATED TOGGLE Collapsible NAVS */
