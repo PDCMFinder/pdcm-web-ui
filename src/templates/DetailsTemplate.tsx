@@ -3,7 +3,7 @@ import {
   faExternalLinkAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { IModelExtLinks } from "../apis/Details.api";
 import {
@@ -88,14 +88,19 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             </h5>
           </Col>
           <Col xs={12} md={4} className="mt-2 mt-md-0">
-            <Button variant="primary" block href={contactLink} target="_blank">
+            <Button
+              variant="primary"
+              size="lg"
+              href={contactLink}
+              target="_blank"
+            >
               <FontAwesomeIcon icon={faEnvelope} />
               &nbsp; Contact provider
             </Button>
             {sourceDatabaseUrl && (
               <Button
                 variant="primary"
-                block
+                size="lg"
                 href={sourceDatabaseUrl}
                 target="_blank"
               >

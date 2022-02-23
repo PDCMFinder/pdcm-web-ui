@@ -11,7 +11,7 @@ import { FunctionComponent } from "react";
 export const ExplorePieChart: FunctionComponent<{ data: any }> = ({ data }) => (
   <ResponsivePie
     data={data}
-    margin={{ top: 40, right: 120, bottom: 80, left: 120 }}
+    margin={{ top: 10, right: 80, bottom: 10, left: 60 }}
     innerRadius={0.5}
     padAngle={0.7}
     cornerRadius={3}
@@ -19,11 +19,13 @@ export const ExplorePieChart: FunctionComponent<{ data: any }> = ({ data }) => (
     activeOuterRadiusOffset={8}
     borderWidth={1}
     borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
-    arcLinkLabelsSkipAngle={10}
+    arcLabelsSkipAngle={10}
     arcLinkLabelsTextColor="#333333"
     arcLinkLabelsThickness={2}
     arcLinkLabelsColor={{ from: "color" }}
-    arcLabelsSkipAngle={5}
     arcLabelsTextColor={{ from: "color", modifiers: [["darker", 5]] }}
+    arcLinkLabelsStraightLength={5}
+    arcLinkLabelsDiagonalLength={10}
+    arcLinkLabelsSkipAngle={10}
   />
 );

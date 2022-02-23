@@ -3,15 +3,30 @@
 .main-nav {
   transition: all 0.5s ease;
 }
+
 .nav-link {
   text-transform: uppercase;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  color: $dark;
+  &hover {
+    border-bottom: 4px solid $secondary;
+    padding-bottom: 4px;
+    max-width: max-content;
+  }
+  padding: 0.5rem 0rem;
 }
 
-.nav-link:hover {
-  border-bottom: 4px solid $secondary;
-  padding-bottom: 4px;
-  max-width: max-content;
+.navbar-brand > img {
+  height: 52px;
 }
+
+// .nav-link:hover {
+//   border-bottom: 4px solid $secondary;
+//   padding-bottom: 4px;
+//   max-width: max-content;
+// }
 
 .dropdown-toggle::after {
   transition: transform 0.3s linear;
@@ -67,8 +82,41 @@
   .dropdown.show .dropdown-menu {
     border: 3px solid rgba(0, 0, 0, 0.15);
   }
+  .nav-link {
+    text-transform: uppercase;
+    border-radius: 5px;
+    color: #fff !important;
+    background-color: $primary;
+    &:hover {
+      background-color: darken($primary, 15%) !important;
+    }
+  }
+  .nav-item.dropdown > .nav-link {
+    background-color: $secondary !important;
+    color: $dark !important;
+    &:hover {
+      background-color: lighten($secondary, 15%) !important;
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+  .nav-link {
+    padding: 0.25rem 1.5rem !important;
+  }
+  .navbar-brand > img {
+    height: 70px;
+  }
 }
 
 .dropdown-item {
   text-transform: uppercase;
+  text-align: center;
+}
+
+.navbar-light .navbar-toggler {
+  border-color: none;
+}
+.navbar-toggler:focus {
+  box-shadow: none;
 }

@@ -1,19 +1,18 @@
-import { faCompass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { url } from "inspector";
-import React, { FunctionComponent } from "react";
-import { Jumbotron, Button, Container, Col, Row } from "react-bootstrap";
+import "./HomePage.scss";
+import { FunctionComponent } from "react";
+import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import {
   getCancerHierarchy,
   getFrequentlyMutatedGenes,
   getModelsByDatasetAvailability,
 } from "../apis/Explore.api";
 import { NewsFeed } from "../components/common/NewsFeed";
+import { Stats } from "../components/common/Stats";
 import { ExploreBarChart } from "../components/explore/ExploreBarChart";
 import { ExploreCirclePacking } from "../components/explore/ExploreCirclePacking";
 import { ExplorePieChart } from "../components/explore/ExplorePieChart";
-import { ExploreTreeMap } from "../components/explore/ExploreTreeMap";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 
 export const HomePage: FunctionComponent = () => {
@@ -34,88 +33,103 @@ export const HomePage: FunctionComponent = () => {
 
   return (
     <GeneralTemplate>
-      <Jumbotron
-        style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/img/cancer_cells.jpg)`,
-        }}
-      >
-        <Container>
-          <h1
-            className="text-center text-dark"
-            style={{ backgroundColor: "rgb(247 251 255 / 50%)" }}
-          >
-            PDCM Finder is your open global cancer research platform for Patient
-            Derived Cancer Models
-          </h1>
-        </Container>
-        <small
-          className="text-dark"
+      <section className="pb-5">
+        <div
+          className="home-banner"
           style={{
-            backgroundColor: "rgb(247 251 255 / 50%)",
-            float: "right",
-            marginTop: "30px",
+            backgroundImage: `url(${process.env.PUBLIC_URL}/img/banners/home-banner.png)`,
           }}
         >
-          <a href="https://commons.wikimedia.org/wiki/File:Small_cell_lung_carcinoma_vs._benign_mesothelial_cells_(4703634468).jpg">
-            Ed Uthman from Houston, TX, USA
-          </a>
-          , <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>,
-          via Wikimedia Commons
-        </small>
-      </Jumbotron>
-      <Container>
-        <Row className="mb-3">
-          <Col>
-            <h1 className="display-4">
-              Explore <FontAwesomeIcon icon={faCompass} />
-            </h1>
-          </Col>
-        </Row>
-        <Row className="align-items-center">
-          <Col xs={4}>
-            <h2 className="text-right">Models by cancer type</h2>
-          </Col>
-          <Col xs={8}>
-            <div style={{ height: "600px" }}>
+          <Container fluid className="home-banner-text">
+            <h1 className="text-white display-1 hero-title">PDCM Finder</h1>
+          </Container>
+        </div>
+        <Container fluid className="px-0">
+          <Row className="mx-0 w-100 d-flex justify-content-between">
+            <Col xs={12} md={5} id="explore-pie-chart">
               {cancerHierarchy.data && (
                 <ExploreCirclePacking data={cancerHierarchy.data} />
               )}
-            </div>
-          </Col>
-        </Row>
-        <Row className="align-items-center">
-          <Col xs={8}>
-            <div style={{ height: "600px" }}>
-              {frequentlyMutatedGenes.data && (
-                <ExploreBarChart data={frequentlyMutatedGenes.data} />
-              )}
-            </div>
-          </Col>
-          <Col xs={4}>
-            <h2>Most frequently mutated genes</h2>
-          </Col>
-        </Row>
-        <Row className="align-items-center">
-          <Col xs={4}>
-            <h2>Models by dataset availability</h2>
-          </Col>
-          <Col xs={8}>
-            <div style={{ height: "600px" }}>
-              {modelsByDatasetAvailability.data && (
-                <ExplorePieChart data={modelsByDatasetAvailability.data} />
-              )}
-            </div>
-          </Col>
-        </Row>
-      </Container>
-      <Container>
-        <Row className="mb-3">
-          <Col>
-            <NewsFeed />
-          </Col>
-          <Col></Col>
-        </Row>
-      </Container>
+            </Col>
+            <Col xs={12} md={7} className="text-end">
+              <h2 className="display-4 mt-2" style={{ fontFamily: "Mate" }}>
+                The open global research platform for Patient Derived Cancer
+                Models
+              </h2>
+              <div className="py-5 stats-grid">
+                <div className="d-none d-sm-block"></div>
+                <Stats count={3000} title="Xenograft models" />
+                <Stats count={2500} title="Cell-line models" />
+                <Stats count={500} title="Organoid models" />
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                tristique metus ac nisl pretium dignissim. Proin dui ligula,
+                ultricies ac ornare quis, mollis ac libero. Duis diam dui,
+                porttitor ac felis ut, accumsan scelerisque risus. Mauris
+                pellentesque quis lectus et mattis. Fusce maximus maximus quam,
+                id pharetra est porta ac. Cras lacinia tortor id lacus tincidunt
+                euismod. Mauris iaculis sed elit ullamcorper pulvinar. Sed purus
+                est, laoreet vel dignissim ac, posuere in sem.
+              </p>
+              <p>
+                <Link to="/about">Read more</Link>
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+      <section className="pb-5">
+        <Container fluid className="px-0">
+          <Row>
+            <h2 className="display-3">Our data in a nutshell</h2>
+          </Row>
+          <Row className="align-items-center">
+            <Col xs={12} md={4}>
+              <h3>Top mutated genes</h3>
+              <div style={{ height: "400px" }}>
+                {frequentlyMutatedGenes.data && (
+                  <ExploreBarChart data={frequentlyMutatedGenes.data} />
+                )}
+              </div>
+            </Col>
+            <Col xs={12} md={4}>
+              <h3>Top used drug treatments</h3>
+              <div style={{ height: "400px" }}>
+                {frequentlyMutatedGenes.data && (
+                  <ExploreBarChart data={frequentlyMutatedGenes.data} />
+                )}
+              </div>
+            </Col>
+            <Col xs={12} md={4}>
+              <h3>Models by dataset availability</h3>
+              <div style={{ height: "400px" }}>
+                {modelsByDatasetAvailability.data && (
+                  <ExplorePieChart data={modelsByDatasetAvailability.data} />
+                )}
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+      <section className="pb-5">
+        <Container fluid className="px-0">
+          <Row className="mb-3">
+            <Col xs={12} md={4}>
+              <NewsFeed />
+            </Col>
+            <Col xs={12} md={4}>
+              <NewsFeed />
+            </Col>
+            <Col xs={12} md={4}></Col>
+          </Row>
+        </Container>
+      </section>
+
+      <img
+        src={process.env.PUBLIC_URL + "/img/bottom-bg.png"}
+        className="w-100 bottom-bg"
+      />
     </GeneralTemplate>
   );
 };

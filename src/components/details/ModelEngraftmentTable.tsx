@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from "react";
+import React, { FunctionComponent } from "react";
 import { OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 
 export interface IModelEngraftmentTableProps {
@@ -15,9 +15,9 @@ export interface IEngraftment {
   passageNumber: string;
 }
 
-export const ModelEngraftmentTable: FunctionComponent<IModelEngraftmentTableProps> = ({
-  engraftments,
-}) => {
+export const ModelEngraftmentTable: FunctionComponent<
+  IModelEngraftmentTableProps
+> = ({ engraftments }) => {
   return (
     <Table responsive>
       <thead>

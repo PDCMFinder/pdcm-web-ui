@@ -14,7 +14,7 @@ export async function getCancerHierarchy(): Promise<any> {
     ).forEach((element: any) => {
       if (hierarchy[element.cancer_system] === undefined) {
         hierarchy[element.cancer_system] = {
-          name: element.cancer_system,
+          name: element.cancer_system.replace("Cancer", ""),
           children: [],
         };
       }

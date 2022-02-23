@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { Container, Button, Modal } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { GeneralTemplate } from "../../templates/GeneralTemplate";
 

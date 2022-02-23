@@ -36,7 +36,6 @@ export const SearchPage: FunctionComponent = () => {
   );
   let [activePage, setActivePage] = useState<number>(1);
   let [pageSize, setPageSize] = useState<number>(10);
-  let [totalPages, setTotalPages] = useState<number>(20);
 
   const searchOptionsQuery = useQuery("search-options", getSearchOptions);
   const searchFacetsQuery = useQuery("search-facets", getSearchFacets);

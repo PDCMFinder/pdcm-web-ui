@@ -18,7 +18,7 @@ export const StaticArticleTemplate: FunctionComponent<
       <Container className="my-5">
         <h1>
           {title}{" "}
-          <Badge pill variant="info">
+          <Badge pill bg="info">
             {date}
           </Badge>
         </h1>

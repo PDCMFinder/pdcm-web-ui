@@ -25,7 +25,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
   const ref = useRef();
   return (
     <>
-      <Form.Row className="align-items-center">
+      <div className="align-items-center">
         <Form.Group as={Col} xs={12}>
           <InputGroup>
             <Typeahead
@@ -43,19 +43,17 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
               size="sm"
               ref={ref}
             />
-            <InputGroup.Append
-              className="bg-primary text-white"
+            <InputGroup.Text
+              className="text-center bg-primary text-white"
               onClick={() => ref.current.focus()}
             >
-              <InputGroup.Text className="text-center bg-primary text-white">
-                <FontAwesomeIcon icon={faSearch} />
-              </InputGroup.Text>
-            </InputGroup.Append>
+              <FontAwesomeIcon icon={faSearch} />
+            </InputGroup.Text>
           </InputGroup>
         </Form.Group>
-      </Form.Row>
+      </div>
       {displayOperators ? (
-        <Form.Row className="justify-content-end mr-1 mb-1">
+        <div className="justify-content-end mr-1 mb-1">
           <ToggleButtonGroup
             type="radio"
             name="operator"
@@ -74,7 +72,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
               ALL
             </ToggleButton>
           </ToggleButtonGroup>
-        </Form.Row>
+        </div>
       ) : null}
       <div className="form-control-sm" style={{ height: "inherit" }}>
         {values.map((value) =>

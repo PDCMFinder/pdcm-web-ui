@@ -39,9 +39,8 @@ export const FacetSidebar: FunctionComponent<IFacetSidebarProps> = ({
           <Button
             variant="outline-danger"
             className="mt-2 mt-lg-0 mw-50 border-0"
-            size="sm"
+            size="lg"
             onClick={() => onReset()}
-            block
             disabled={Object.keys(sidebarSelection).length === 0}
           >
             <FontAwesomeIcon icon={faTimes} />
@@ -56,9 +55,8 @@ export const FacetSidebar: FunctionComponent<IFacetSidebarProps> = ({
               <Button
                 variant="outline-danger"
                 className="mt-3 mt-lg-0 mw-50 d-md-none"
-                size="sm"
+                size="lg"
                 onClick={() => onReset()}
-                block
                 disabled={Object.keys(sidebarSelection).length === 0}
               >
                 <FontAwesomeIcon icon={faTimes} />
