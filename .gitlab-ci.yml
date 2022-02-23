@@ -136,7 +136,7 @@ deploy-HH-WP-WEBADMIN-dev:
       - main
 
 deploy-HH-WP-WEBADMIN-prod:
-  stage: deploy-prod-hh-wp-webadmin
+  stage: deploy-prod
   image: dtzar/helm-kubectl:2.13.0
   script:
     - kubectl config set-cluster local --server="${HH_WP_WEBADMIN_ENDPOINT}"
@@ -159,7 +159,7 @@ deploy-HH-WP-WEBADMIN-prod:
       - main
 
 deploy-HX-WP-WEBADMIN-prod:
-  stage: deploy-prod-hx-wp-webadmin
+  stage: deploy-prod
   image: dtzar/helm-kubectl:2.13.0
   script:
     - kubectl config set-cluster local --server="${HX_WP_WEBADMIN_ENDPOINT}"
