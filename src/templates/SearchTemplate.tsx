@@ -114,7 +114,7 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                   onSearchBarChange(values);
                 }}
                 isLoading={loadingSearchBarOptions}
-              ></SearchBar>
+              />
             </Row>
             <Row className="mb-3 mx-auto">
               <QueryViewer
@@ -127,9 +127,8 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                   newFacetSelection[sectionKey][facetKey] = newFacetSelection[
                     sectionKey
                   ][facetKey].filter((option) => option.key !== optionKey);
-                  newFacetSelection = deleteEmptyFacetSelection(
-                    newFacetSelection
-                  );
+                  newFacetSelection =
+                    deleteEmptyFacetSelection(newFacetSelection);
                   onFacetSidebarChange(newFacetSelection, facetOperators);
                 }}
                 onRemoveSearchTerm={(searchTermKey) => {
