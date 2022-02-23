@@ -136,7 +136,7 @@ deploy-HH-WP-WEBADMIN-dev:
       - main
 
 deploy-HH-WP-WEBADMIN-prod:
-  stage: deploy-prod
+  stage: deploy-prod-hh-wp-webadmin
   image: dtzar/helm-kubectl:2.13.0
   script:
     - kubectl config set-cluster local --server="${HH_WP_WEBADMIN_ENDPOINT}"
@@ -144,6 +144,29 @@ deploy-HH-WP-WEBADMIN-prod:
     - kubectl config set-credentials ${HH_WP_WEBADMIN_PROD_USER} --token="${HH_WP_WEBADMIN_PROD_USER_TOKEN}"
     - kubectl config set-context "${HH_WP_WEBADMIN_PROD_NAMESPACE}" --cluster=local --user=${HH_WP_WEBADMIN_PROD_USER} --namespace="${HH_WP_WEBADMIN_PROD_NAMESPACE}"
     - kubectl config use-context "${HH_WP_WEBADMIN_PROD_NAMESPACE}"
+    - kubectl version
+
+    - |
+      if kubectl apply -f k8-deploy/nodeport_deploy/prod/deployment-prod.yml --record | grep -q unchanged; then
+          echo "=> Patching deployment to force image update."
+          kubectl patch -f k8-deploy/nodeport_deploy/prod/deployment-prod.yml --record -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"ci-last-updated\":\"$(date +'%s')\"}}}}}"
+      else
+        echo "=> Deployment apply has changed the object, no need to force image update."
+      fi
+    - kubectl get pods,service,deploy,replicaset,ing
+  only:
+    refs:
+      - main
+
+deploy-HX-WP-WEBADMIN-prod:
+  stage: deploy-prod-hx-wp-webadmin
+  image: dtzar/helm-kubectl:2.13.0
+  script:
+    - kubectl config set-cluster local --server="${HX_WP_WEBADMIN_ENDPOINT}"
+    - kubectl config set clusters.local.certificate-authority-data "${HX_WP_WEBADMIN_CERTIFICATE_AUTHORITY}"
+    - kubectl config set-credentials ${HX_WP_WEBADMIN_PROD_USER} --token="${HX_WP_WEBADMIN_PROD_USER_TOKEN}"
+    - kubectl config set-context "${HX_WP_WEBADMIN_PROD_NAMESPACE}" --cluster=local --user=${HX_WP_WEBADMIN_PROD_USER} --namespace="${HX_WP_WEBADMIN_PROD_NAMESPACE}"
+    - kubectl config use-context "${HX_WP_WEBADMIN_PROD_NAMESPACE}"
     - kubectl version
 
     - |
