@@ -25,7 +25,7 @@ export const SearchBar: FunctionComponent<ISearchBarProps> = ({
 }) => {
   return (
     <Form className="w-100">
-      <Form.Row className="align-items-center">
+      <div className="align-items-center">
         <Form.Group as={Col} xs={12}>
           <InputGroup>
             <Typeahead
@@ -45,17 +45,15 @@ export const SearchBar: FunctionComponent<ISearchBarProps> = ({
               isLoading={isLoading}
               caseSensitive={false}
             />
-            <InputGroup.Append className="bg-primary text-white">
-              <InputGroup.Text
-                style={{ width: "50px" }}
-                className="text-center bg-primary text-white"
-              >
-                <FontAwesomeIcon icon={faSearch} style={{ fontSize: "25px" }} />
-              </InputGroup.Text>
-            </InputGroup.Append>
+            <InputGroup.Text
+              className="bg-primary text-white text-center"
+              style={{ width: "50px" }}
+            >
+              <FontAwesomeIcon icon={faSearch} style={{ fontSize: "25px" }} />
+            </InputGroup.Text>
           </InputGroup>
         </Form.Group>
-      </Form.Row>
+      </div>
     </Form>
   );
 };

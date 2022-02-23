@@ -15,9 +15,9 @@ export interface IMolecularDataDetailTableProps {
   molecularCharacterization: IMolecularCharacterization;
 }
 
-export const MolecularDataDetailTable: FunctionComponent<IMolecularDataDetailTableProps> = ({
-  molecularCharacterization,
-}) => {
+export const MolecularDataDetailTable: FunctionComponent<
+  IMolecularDataDetailTableProps
+> = ({ molecularCharacterization }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortColumn, setSortSortColumn] = useState<string>("");

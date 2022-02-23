@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Col, Container, Jumbotron, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import { ExplorePieChart } from "../components/explore/ExplorePieChart";
 import { GeneralTemplate } from "./GeneralTemplate";
 
@@ -24,7 +24,7 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
 }) => {
   return (
     <GeneralTemplate>
-      <Jumbotron className="bg-primary text-white">
+      <div className="bg-primary text-white">
         <Container>
           <Row>
             <Col xs={12} md={9}>
@@ -54,7 +54,7 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
             </Col>
           </Row>
         </Container>
-      </Jumbotron>
+      </div>
       <Container className="my-5">
         <Row>
           <Col xs={12} md={6}>

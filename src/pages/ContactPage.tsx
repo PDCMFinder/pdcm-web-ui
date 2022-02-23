@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Container } from "react-bootstrap";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 
-export const ContactPage: FunctionComponent = ({}) => {
+export const ContactPage: FunctionComponent = () => {
   document.title = "PDCM Finder - Contact us";
   return (
     <GeneralTemplate>

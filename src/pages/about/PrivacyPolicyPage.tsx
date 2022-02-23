@@ -12,26 +12,23 @@ const PRIVACY_POLICY_LINKS = [
     title: "PDCM Finder Analytics",
     description:
       "applies to usage of anonymous usage statistics the PDCM Finder portal gathers",
-    link:
-      "http://www.ebi.ac.uk/data-protection/privacy-notice/pdx-finder-analytics",
+    link: "http://www.ebi.ac.uk/data-protection/privacy-notice/pdx-finder-analytics",
   },
   {
     title: "PDCM Finder Submissions",
     description:
       "applies to the data submitted to the PDCM Finder resource (e.g,. PDCM model metadata). This also applies to any personal data acquired from publications, or from communication with authors (including author names, e-mails and addresses) that the PDCM Finder uses to provide contact information for providers and to make publication information available as part of the PDCM Finder resource",
-    link:
-      "http://www.ebi.ac.uk/data-protection/privacy-notice/pdx-finder-submissionservices",
+    link: "http://www.ebi.ac.uk/data-protection/privacy-notice/pdx-finder-submissionservices",
   },
   {
     title: "PDCM Finder Mail Services",
     description:
       "applies to email contact such as our public e-mail lists (e.g., pdxfinder-announce@ebi.ac.uk) and helpdesk helpdesk@pdxfinder.org",
-    link:
-      "http://www.ebi.ac.uk/data-protection/privacy-notice/pdx-finder-mailservices",
+    link: "http://www.ebi.ac.uk/data-protection/privacy-notice/pdx-finder-mailservices",
   },
 ];
 
-export const PrivacyPolicyPage: FunctionComponent = ({}) => {
+export const PrivacyPolicyPage: FunctionComponent = () => {
   document.title = "PDCM Finder - Privacy Policy";
   return (
     <GeneralTemplate>

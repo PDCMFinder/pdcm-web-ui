@@ -1,22 +1,19 @@
-import React, { Fragment, FunctionComponent } from "react";
-import { Breadcrumb, Container } from "react-bootstrap";
-import { useRouteMatch, withRouter } from "react-router";
-import { Link } from "react-router-dom";
+import { Fragment, FunctionComponent } from "react";
+import { withRouter } from "react-router";
 import { Footer } from "../components/common/Footer";
 import { MainNavBar } from "../components/common/MainNavBar";
 import "./GeneralTemplate.scss";
-import { routes } from "../Routes";
 import { Breadcrumbs } from "../components/common/Breadcrumbs";
 
 export const GeneralTemplate: FunctionComponent = ({ children }) => {
   const MainNavBarWithRouter = withRouter(MainNavBar);
   const BreadcrumbsWithRouter = withRouter(Breadcrumbs);
   return (
-    <Fragment>
+    <div className="px-5 m-auto" style={{ height: "100%", maxWidth: "2000px" }}>
       <MainNavBarWithRouter />
       <BreadcrumbsWithRouter />
       <main className="main-content">{children}</main>
       <Footer className="footer"></Footer>
-    </Fragment>
+    </div>
   );
 };

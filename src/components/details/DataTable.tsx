@@ -9,9 +9,6 @@ import React from "react";
 import { Button, FormControl, InputGroup, Table } from "react-bootstrap";
 import { ResultsPageSizeSelect } from "../search/ResultsPageSizeSelect";
 import { ResultsPagination } from "../search/ResultsPagination";
-import { CSVLink } from "react-csv";
-import { useRef } from "@storybook/addons";
-import { getMolecularDataDownload } from "../../apis/Details.api";
 
 export interface IDataTableProps {
   columns: { key: string; name: string }[];
@@ -55,22 +52,18 @@ export const DataTable: React.FC<IDataTableProps> = ({
           />
         </div>
         <InputGroup style={{ width: "50%", maxWidth: "500px" }}>
-          <InputGroup.Prepend>
-            <Button variant="outline-primary mr-2" onClick={onDownload}>
-              Download molecular data <FontAwesomeIcon icon={faFileDownload} />
-            </Button>
-          </InputGroup.Prepend>
+          <Button variant="outline-primary mr-2" onClick={onDownload}>
+            Download molecular data <FontAwesomeIcon icon={faFileDownload} />
+          </Button>
           <FormControl
             placeholder="Filter"
             aria-label="Filter table"
             value={filter}
             onChange={(e) => onFilterChange(e.target.value)}
           />
-          <InputGroup.Append>
-            <InputGroup.Text className="text-center bg-primary text-white">
-              <FontAwesomeIcon icon={faSearch} />
-            </InputGroup.Text>
-          </InputGroup.Append>
+          <InputGroup.Text className="text-center bg-primary text-white">
+            <FontAwesomeIcon icon={faSearch} />
+          </InputGroup.Text>
         </InputGroup>
       </div>
       <Table responsive bordered>
