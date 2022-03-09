@@ -52,7 +52,11 @@ function App() {
               exact
               path={path}
               key={name}
-              component={routeComponentMap[name]}
+              component={
+                process.env.REACT_APP_UNDER_CONSTRUCTION === "true"
+                  ? UnderConstructionPage
+                  : routeComponentMap[name]
+              }
             />
           ))}
         </Switch>

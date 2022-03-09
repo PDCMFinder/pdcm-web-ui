@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pdcm-web-ui-ingress
+  namespace: pdcm-web-ui
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+spec:
+  rules:
+    - host: cancermodels.org
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: pdcm-web-ui-service
+              servicePort: 80

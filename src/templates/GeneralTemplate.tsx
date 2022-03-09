@@ -11,7 +11,9 @@ export const GeneralTemplate: FunctionComponent = ({ children }) => {
   return (
     <div className="px-5 m-auto" style={{ height: "100%", maxWidth: "2000px" }}>
       <MainNavBarWithRouter />
-      <BreadcrumbsWithRouter />
+      {process.env.REACT_APP_UNDER_CONSTRUTION === "true" ? (
+        <BreadcrumbsWithRouter />
+      ) : null}
       <main className="main-content">{children}</main>
       <Footer className="footer"></Footer>
     </div>
