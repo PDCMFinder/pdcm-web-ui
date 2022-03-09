@@ -58,6 +58,7 @@ build_dev_image:
     - sed -i "s|FROM nginx|FROM ${LOCAL_GITLAB_NGINX_IMAGE}|g" Dockerfile
     - mkdir -p "$MOUNT_POINT"
     - echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin  ${CI_REGISTRY}
+    - rm .env.production && cp .env.development .env.production
   script:
     - |
       if [[ "${REQUIRES_REBUILD_IMAGE}" == "true" ]]; then
