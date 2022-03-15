@@ -66,7 +66,7 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
       bg="white"
       collapseOnSelect
       expand="md"
-      className="py-1 py-md-3 main-nav"
+      className="py-1 py-md-2 main-nav px-5"
       sticky="top"
     >
       <Container fluid className="px-0">
