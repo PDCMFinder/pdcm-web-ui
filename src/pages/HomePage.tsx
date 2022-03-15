@@ -14,6 +14,7 @@ import { ExploreBarChart } from "../components/explore/ExploreBarChart";
 import { ExploreCirclePacking } from "../components/explore/ExploreCirclePacking";
 import { ExplorePieChart } from "../components/explore/ExplorePieChart";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
+import { SearchBar } from "../components/search/SearchBar";
 
 export const HomePage: FunctionComponent = () => {
   let cancerHierarchy = useQuery("cancerHierarchy", () => {
@@ -33,19 +34,33 @@ export const HomePage: FunctionComponent = () => {
 
   return (
     <GeneralTemplate>
-      <section className="pb-5">
+      <section className="mb-5">
         <div
           className="home-banner"
           style={{
             backgroundImage: `url(${process.env.PUBLIC_URL}/img/banners/home-banner.png)`,
           }}
         >
-          <Container fluid className="home-banner-text">
-            <h1 className="text-white display-1 hero-title">PDCM Finder</h1>
+          <Container fluid className="home-banner-text py-4">
+            <Row>
+              <Col md={5} xs={0}></Col>
+              <Col md={7} xs={12}>
+                <h1 className="text-white display-1 hero-title text-right">
+                  PDCM Finder
+                </h1>
+              </Col>
+            </Row>
+            <Row>
+              {" "}
+              <Col md={4} xs={0}></Col>
+              <Col md={8} xs={0}>
+                <SearchBar isLoading={false} />
+              </Col>
+            </Row>
           </Container>
         </div>
-        <Container fluid className="px-0">
-          <Row className="mx-0 w-100 d-flex justify-content-between">
+        <Container fluid className="pr-1">
+          <Row className="mx-0 w-100 d-flex justify-content-between g-0">
             <Col xs={12} md={5} id="explore-pie-chart">
               {cancerHierarchy.data && (
                 <ExploreCirclePacking data={cancerHierarchy.data} />
@@ -82,7 +97,7 @@ export const HomePage: FunctionComponent = () => {
       <section className="pb-5">
         <Container fluid className="px-0">
           <Row>
-            <h2 className="display-3">Our data in a nutshell</h2>
+            <h2 className="display-3">Data overview</h2>
           </Row>
           <Row className="align-items-center">
             <Col xs={12} md={4}>

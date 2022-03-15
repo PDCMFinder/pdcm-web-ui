@@ -22,7 +22,7 @@ export const Stats: FunctionComponent<IStatsProps> = ({
       }}
     >
       <p
-        className="py-0 my-0 display-5 text-secondary"
+        className="py-0 my-0 display-5 text-secondary-dark"
         style={{ fontWeight: "400" }}
       >
         {count}

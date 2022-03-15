@@ -28,7 +28,7 @@ export const ExploreCirclePacking: FunctionComponent<{ data: any }> = ({
           (zoomedId !== null && zoomedId !== "PDCM Models")
         );
       }}
-      margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+      margin={{ top: 0, right: 15, bottom: 10, left: 0 }}
       zoomedId={zoomedId}
       theme={{
         labels: {
