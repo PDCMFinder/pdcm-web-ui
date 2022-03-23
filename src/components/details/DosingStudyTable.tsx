@@ -6,7 +6,7 @@ export interface IDosingStudyTableProps {
 }
 
 export interface Treatment {
-  treamentName: string;
+  treatmentName: string;
   treatmentDose: string;
   treatmentResponse: string;
 }
@@ -26,7 +26,7 @@ export const DosingStudyTable: FunctionComponent<IDosingStudyTableProps> = ({
       <tbody>
         {treatments.map((treatment: Treatment) => (
           <tr>
-            <td>{treatment.treamentName}</td>
+            <td>{treatment.treatmentName}</td>
             <td>{treatment.treatmentDose}</td>
             <td>{treatment.treatmentResponse}</td>
           </tr>
