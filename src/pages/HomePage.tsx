@@ -2,11 +2,12 @@ import "./HomePage.scss";
 import { FunctionComponent } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   getCancerHierarchy,
   getFrequentlyMutatedGenes,
   getModelsByDatasetAvailability,
+  getModelsByTreatment,
 } from "../apis/Explore.api";
 import { NewsFeed } from "../components/common/NewsFeed";
 import { Stats } from "../components/common/Stats";
@@ -16,7 +17,13 @@ import { ExplorePieChart } from "../components/explore/ExplorePieChart";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 import { SearchBar } from "../components/search/SearchBar";
 
+import { Timeline } from "react-twitter-widgets";
+import { getSearchOptions } from "../apis/Search.api";
+import { IOptionProps } from "../models/Facet.model";
+
 export const HomePage: FunctionComponent = () => {
+  const searchOptionsQuery = useQuery("search-options", getSearchOptions);
+
   let cancerHierarchy = useQuery("cancerHierarchy", () => {
     return getCancerHierarchy();
   });
@@ -31,6 +38,12 @@ export const HomePage: FunctionComponent = () => {
       return getModelsByDatasetAvailability();
     }
   );
+
+  let modelsByTreatment = useQuery("modelsByTreatment", () => {
+    return getModelsByTreatment();
+  });
+
+  let history = useHistory();
 
   return (
     <GeneralTemplate>
@@ -54,7 +67,18 @@ export const HomePage: FunctionComponent = () => {
               {" "}
               <Col md={4} xs={0}></Col>
               <Col md={8} xs={0}>
-                <SearchBar isLoading={false} />
+                <SearchBar
+                  isLoading={searchOptionsQuery.isLoading}
+                  searchOptions={searchOptionsQuery.data}
+                  onSearchChange={(searchValues: Array<IOptionProps>) => {
+                    const search =
+                      "?q=" + searchValues.map((o) => o.key).join(",");
+                    history.push({
+                      pathname: "/data/",
+                      search: search,
+                    });
+                  }}
+                />
               </Col>
             </Row>
           </Container>
@@ -99,28 +123,45 @@ export const HomePage: FunctionComponent = () => {
           <Row>
             <h2 className="display-3">Data overview</h2>
           </Row>
-          <Row className="align-items-center">
-            <Col xs={12} md={4}>
+          {/* <Row>
+            <img
+              src={`${process.env.PUBLIC_URL}/img/banners/data-provider-map-banner.png`}
+              className="img-fluid"
+              height={200}
+              alt=""
+            />
+          </Row> */}
+          <Row className="align-items-center gx-5">
+            <Col xs={12} md={4} className="overview-card">
               <h3>Top mutated genes</h3>
               <div style={{ height: "400px" }}>
                 {frequentlyMutatedGenes.data && (
-                  <ExploreBarChart data={frequentlyMutatedGenes.data} />
+                  <ExploreBarChart
+                    data={frequentlyMutatedGenes.data}
+                    indexKey="mutatedGene"
+                  />
                 )}
               </div>
             </Col>
-            <Col xs={12} md={4}>
-              <h3>Top used drug treatments</h3>
-              <div style={{ height: "400px" }}>
-                {frequentlyMutatedGenes.data && (
-                  <ExploreBarChart data={frequentlyMutatedGenes.data} />
-                )}
-              </div>
-            </Col>
-            <Col xs={12} md={4}>
+
+            <Col xs={12} md={4} className="overview-card">
               <h3>Models by dataset availability</h3>
               <div style={{ height: "400px" }}>
                 {modelsByDatasetAvailability.data && (
                   <ExplorePieChart data={modelsByDatasetAvailability.data} />
+                )}
+              </div>
+            </Col>
+            <Col xs={12} md={4} className="overview-card">
+              <h3>Top used drug treatments</h3>
+
+              <div style={{ height: "400px" }}>
+                {modelsByTreatment.data && (
+                  <ExploreBarChart
+                    data={modelsByTreatment.data}
+                    indexKey="treatment"
+                    leftMargin={150}
+                  />
                 )}
               </div>
             </Col>
@@ -136,7 +177,17 @@ export const HomePage: FunctionComponent = () => {
             <Col xs={12} md={4}>
               <NewsFeed />
             </Col>
-            <Col xs={12} md={4}></Col>
+            <Col xs={12} md={4}>
+              <Timeline
+                dataSource={{
+                  sourceType: "profile",
+                  screenName: "PDXFinder",
+                }}
+                options={{
+                  height: "600",
+                }}
+              />
+            </Col>
           </Row>
         </Container>
       </section>

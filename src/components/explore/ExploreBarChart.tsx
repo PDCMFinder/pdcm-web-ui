@@ -8,12 +8,21 @@ import { FunctionComponent } from "react";
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-export const ExploreBarChart: FunctionComponent<{ data: any }> = ({ data }) => (
+export const ExploreBarChart: FunctionComponent<{
+  data: any;
+  indexKey: string;
+  leftMargin?: number;
+}> = ({ data, indexKey, leftMargin }) => (
   <ResponsiveBar
     data={data}
     keys={["count"]}
-    indexBy="mutatedGene"
-    margin={{ top: 0, right: 10, bottom: 30, left: 60 }}
+    indexBy={indexKey}
+    margin={{
+      top: 0,
+      right: 10,
+      bottom: 30,
+      left: leftMargin ? leftMargin : 60,
+    }}
     padding={0.3}
     valueScale={{ type: "linear" }}
     indexScale={{ type: "band", round: true }}
