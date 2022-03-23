@@ -39,6 +39,18 @@ export async function getFrequentlyMutatedGenes() {
     .then((d: Array<any>) => d.reverse().map((i: any) => camelCase(i)));
 }
 
+export async function getModelsByTreatment() {
+  let response = await fetch(
+    `${process.env.REACT_APP_API_URL}/models_by_treatment?order=count.desc&limit=20`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response
+    .json()
+    .then((d: Array<any>) => d.reverse().map((i: any) => camelCase(i)));
+}
+
 export async function getModelsByDatasetAvailability() {
   let response = await fetch(
     `${process.env.REACT_APP_API_URL}/models_by_dataset_availability?order=count.desc`
