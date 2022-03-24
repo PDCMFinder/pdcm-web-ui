@@ -101,15 +101,14 @@ export const HomePage: FunctionComponent = () => {
                 <Stats count={2500} title="Cell-line models" />
                 <Stats count={500} title="Organoid models" />
               </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                tristique metus ac nisl pretium dignissim. Proin dui ligula,
-                ultricies ac ornare quis, mollis ac libero. Duis diam dui,
-                porttitor ac felis ut, accumsan scelerisque risus. Mauris
-                pellentesque quis lectus et mattis. Fusce maximus maximus quam,
-                id pharetra est porta ac. Cras lacinia tortor id lacus tincidunt
-                euismod. Mauris iaculis sed elit ullamcorper pulvinar. Sed purus
-                est, laoreet vel dignissim ac, posuere in sem.
+              <p className="lead">
+                PDCM Finder is the largest open catalog of harmonised
+                patient-derived cancer models and associated data from academic
+                and commercial providers.
+              </p>
+              <p className="lead">
+                Find the perfect model for your next project. Explore and
+                analyse the data. Connect with model providers.
               </p>
               <p>
                 <Link to="/about">Read more</Link>
@@ -168,7 +167,7 @@ export const HomePage: FunctionComponent = () => {
           </Row>
         </Container>
       </section>
-      <section className="pb-5">
+      {/* <section className="pb-5">
         <Container fluid className="px-0">
           <Row className="mb-3">
             <Col xs={12} md={4}>
@@ -195,7 +194,7 @@ export const HomePage: FunctionComponent = () => {
       <img
         src={process.env.PUBLIC_URL + "/img/bottom-bg.png"}
         className="w-100 bottom-bg"
-      />
+      /> */}
     </GeneralTemplate>
   );
 };

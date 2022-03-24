@@ -1,7 +1,5 @@
 import {
-  faCaretDown,
-  faCompass,
-  faInfo,
+  faEnvelope,
   faInfoCircle,
   faSearch,
   faUpload,
@@ -21,28 +19,28 @@ export const MENU = [
     icon: faSearch,
   },
   {
-    link: "/data/explore",
-    name: "EXPLORE",
-    icon: faCompass,
-  },
-  {
     link: "/submit",
     name: "SUBMIT",
     icon: faUpload,
+  },
+  {
+    link: "/about/contact",
+    name: "CONTACT",
+    icon: faEnvelope,
   },
   {
     icon: faInfoCircle,
     link: "/about",
     name: "About",
     children: [
-      { link: "/about/objectives", name: "Objectives" },
-      { link: "/about/data-summary", name: "Data summary" },
-      { link: "/about/how-to-cite", name: "How to cite?" },
-      {
-        link: "/about/minimum-information-standard",
-        name: "PDX - MI Standard",
-      },
-      { link: "/about/data-flow", name: "Data flow" },
+      { link: "/about/", name: "PDCM Project" },
+      // { link: "/about/data-summary", name: "Data summary" },
+      // { link: "/about/how-to-cite", name: "How to cite?" },
+      // {
+      //   link: "/about/minimum-information-standard",
+      //   name: "PDX - MI Standard",
+      // },
+      // { link: "/about/data-flow", name: "Data flow" },
       { link: "/about/privacy-policy", name: "Privacy policy" },
       { link: "/about/terms-of-use", name: "Terms of use" },
     ],

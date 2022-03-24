@@ -6,11 +6,11 @@ const MENU = [
   {
     name: "Quick links",
     children: [
-      { name: "How to cite PDCM Finder?", link: "/about/how-to-cite" },
-      {
-        name: "PDCM Minimum Information standard publication",
-        link: "/about/minimum-information-standard",
-      },
+      // { name: "How to cite PDCM Finder?", link: "/about/how-to-cite" },
+      // {
+      //   name: "PDCM Minimum Information standard publication",
+      //   link: "/about/minimum-information-standard",
+      // },
       { name: "PDCM Finder Privacy Policy", link: "/about/privacy-policy" },
       { name: "PDCM Finder Terms of Use", link: "/about/terms-of-use" },
     ],
@@ -27,7 +27,7 @@ export interface IFooterProps {
 
 export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
   return (
-    <footer className={`py-5 bg-dark text-light ${className}`}>
+    <footer className={`py-5 bg-dark text-white ${className}`}>
       <Container>
         <Row>
           <Col xs={12} md={2} className="text-center">
@@ -35,10 +35,10 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
               src={`${process.env.PUBLIC_URL}/img/pdcm-dark.png`}
               style={{ width: "100%", maxWidth: "200px" }}
               className="d-inline-block align-top"
-              alt="PDCM logo"
+              alt="PDCM Finder logo"
             />
             <small className="d-block mb-3 text-muted text-right">
-              &copy; 2017-2021
+              &copy; 2017-2022
             </small>
           </Col>
           {MENU.map((menu) => (
@@ -48,7 +48,7 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
               <ul className="list-unstyled text-small">
                 {menu.children.map((menuItem) => (
                   <li key={menuItem.link}>
-                    <a className="text-muted" href={menuItem.link}>
+                    <a className="text-white" href={menuItem.link}>
                       {menuItem.name}
                     </a>
                   </li>
@@ -57,7 +57,7 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
             </Col>
           ))}
           <Col xs={6} md={4}>
-            <p className="text-muted">
+            <p className="text-white">
               <a
                 href="https://www.ebi.ac.uk/about/people/helen-parkinson"
                 className="text-light"
