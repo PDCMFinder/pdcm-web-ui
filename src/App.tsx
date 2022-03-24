@@ -16,6 +16,11 @@ import { DataFlowPage } from "./pages/about/DataFlowPage";
 import { MISPage } from "./pages/about/MISPage";
 import { UnderConstructionPage } from "./pages/UnderConstructionPage";
 import { StaticArticlePage } from "./pages/StaticArticlePage";
+import RouteChangeTracker from "./components/common/RouteChangeTracker";
+import ReactGA from "react-ga";
+
+const TRACKING_ID = "G-34S5KH94SX";
+ReactGA.initialize(TRACKING_ID);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +50,9 @@ const routeComponentMap: any = {
 function App() {
   return (
     <HashRouter basename="/">
+      {process.env.REACT_APP_ENV === "production" ? (
+        <RouteChangeTracker />
+      ) : null}
       <QueryClientProvider client={queryClient}>
         <Switch>
           {routes.map(({ path, name }) => (
