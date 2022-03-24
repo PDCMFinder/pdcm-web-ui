@@ -222,18 +222,20 @@ export async function getModelDrugDosing(
     return [];
   }
   let response = await fetch(
-    `${process.env.REACT_APP_API_URL}/model_drug_dosing?model_id=eq.${pdcmModelId}&select=*,treatment(name),response(name)`
+    `${process.env.REACT_APP_API_URL}/dosing_studies?model_id=eq.${pdcmModelId}&select=*`
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
   return response.json().then((d) => {
     return d.map((item: any) => {
-      const treatment: Treatment = camelCase(item);
       const itemCamelCase: any = camelCase(item);
-      treatment.treamentName = itemCamelCase.treatment.name;
-      treatment.treatmentResponse = itemCamelCase.response.name;
-      return treatment;
+      let treatment: Treatment = {
+        treatmentName: itemCamelCase.treatment,
+        treatmentDose: itemCamelCase.dose,
+        treatmentResponse: itemCamelCase.response
+      };
+      return treatment
     });
   });
 }
