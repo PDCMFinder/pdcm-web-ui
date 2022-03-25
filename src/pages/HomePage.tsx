@@ -8,6 +8,7 @@ import {
   getFrequentlyMutatedGenes,
   getModelsByDatasetAvailability,
   getModelsByTreatment,
+  getModelsByType,
 } from "../apis/Explore.api";
 import { NewsFeed } from "../components/common/NewsFeed";
 import { Stats } from "../components/common/Stats";
@@ -41,6 +42,10 @@ export const HomePage: FunctionComponent = () => {
 
   let modelsByTreatment = useQuery("modelsByTreatment", () => {
     return getModelsByTreatment();
+  });
+
+  let modelsByType = useQuery("modelsByType", () => {
+    return getModelsByType();
   });
 
   let history = useHistory();
@@ -97,16 +102,32 @@ export const HomePage: FunctionComponent = () => {
               </h2>
               <div className="py-5 stats-grid">
                 <div className="d-none d-sm-block"></div>
-                <Stats count={3000} title="Xenograft models" />
-                <Stats count={2500} title="Cell-line models" />
-                <Stats count={500} title="Organoid models" />
+                {modelsByType.data ? (
+                  <>
+                    {" "}
+                    {modelsByType.data
+                      .reverse()
+                      .filter(({ modelType }: any) => modelType !== "other")
+                      .map(
+                        ({
+                          modelType,
+                          count,
+                        }: {
+                          modelType: string;
+                          count: number;
+                        }) => (
+                          <Stats count={count} title={`${modelType} models`} />
+                        )
+                      )}
+                  </>
+                ) : null}
               </div>
               <p className="lead">
                 PDCM Finder is the largest open catalog of harmonised
                 patient-derived cancer models and associated data from academic
                 and commercial providers.
               </p>
-              <p className="lead">
+              <p>
                 Find the perfect model for your next project. Explore and
                 analyse the data. Connect with model providers.
               </p>

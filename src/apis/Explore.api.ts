@@ -48,6 +48,18 @@ export async function getModelsByTreatment() {
   }
   return response
     .json()
+    .then((d: Array<any>) => d.map((i: any) => camelCase(i)));
+}
+
+export async function getModelsByType() {
+  let response = await fetch(
+    `${process.env.REACT_APP_API_URL}/models_by_type?order=count.desc&limit=20`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response
+    .json()
     .then((d: Array<any>) => d.reverse().map((i: any) => camelCase(i)));
 }
 
