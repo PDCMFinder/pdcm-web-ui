@@ -11,7 +11,7 @@ import { FunctionComponent } from "react";
 export const ExplorePieChart: FunctionComponent<{ data: any }> = ({ data }) => (
   <ResponsivePie
     data={data}
-    margin={{ top: 10, right: 80, bottom: 10, left: 60 }}
+    margin={{ top: 20, right: 80, bottom: 20, left: 60 }}
     innerRadius={0.5}
     padAngle={0.7}
     cornerRadius={3}
