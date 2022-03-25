@@ -19,8 +19,18 @@ import { StaticArticlePage } from "./pages/StaticArticlePage";
 import RouteChangeTracker from "./components/common/RouteChangeTracker";
 import ReactGA from "react-ga";
 
-const TRACKING_ID = "G-34S5KH94SX";
-ReactGA.initialize(TRACKING_ID);
+const trackers = [
+  {
+    trackingId: "UA-100003949-2",
+    gaOptions: { name: "main" },
+  },
+  {
+    trackingId: "G-34S5KH94SX",
+    gaOptions: { name: "actions" },
+  },
+];
+
+ReactGA.initialize(trackers);
 
 const queryClient = new QueryClient({
   defaultOptions: {
