@@ -33,7 +33,7 @@ export const MENU = [
     link: "/about",
     name: "About",
     children: [
-      { link: "/about/", name: "PDCM Project" },
+      { link: "/about/", name: "PDCM Finder" },
       // { link: "/about/data-summary", name: "Data summary" },
       // { link: "/about/how-to-cite", name: "How to cite?" },
       // {
