@@ -106,7 +106,6 @@ export const HomePage: FunctionComponent = () => {
                   <>
                     {" "}
                     {modelsByType.data
-                      .reverse()
                       .filter(({ modelType }: any) => modelType !== "other")
                       .map(
                         ({
