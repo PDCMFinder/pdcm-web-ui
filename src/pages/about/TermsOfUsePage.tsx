@@ -9,9 +9,9 @@ export const TermsOfUsePage: FunctionComponent = () => {
       <Container className="mt-5">
         <h1 className="mb-5">Terms of Use</h1>
         <p>
-          PDX Finder is a joint effort by the EMBL-EBI and the Jackson
+          PDCM Finder is a joint effort by the EMBL-EBI and the Jackson
           Laboratory. Please, check their terms of use and legal notice in order
-          to follow them in the usage of the PDX Finder website.
+          to follow them in the usage of the PDCM Finder website.
         </p>
         <p>
           <a href="https://www.ebi.ac.uk/about/terms-of-use">

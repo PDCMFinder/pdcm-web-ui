@@ -99,10 +99,10 @@ export const SubmitPage: FunctionComponent = () => {
       <Container className="mt-5">
         <h1>Submit</h1>
         <h4>
-          Submit your PDX data to the PDX Finder to increase their visibility
+          Submit your PDCM data to the PDCM Finder to increase their visibility
         </h4>
         <p>
-          To start the process please contact PDX Finder team:&nbsp;
+          To start the process please contact PDCM Finder team:&nbsp;
           <a href="mailto:submissions@pdxfinder.org?subject=PDX%20producer:%20Data%20Submission%20request">
             submissions&nbsp; <FontAwesomeIcon icon={faEnvelope} />
           </a>
@@ -200,7 +200,7 @@ export const SubmitPage: FunctionComponent = () => {
               models for their studies.
             </p>
             <p>
-              PDX Finder is built with the help of and for the benefit of the
+              PDCM Finder is built with the help of and for the benefit of the
               community, our service is{" "}
               <b>completely free to providers and users</b>.
             </p>
@@ -240,19 +240,19 @@ export const SubmitPage: FunctionComponent = () => {
         <Row>
           <Col>
             <p>
-              When you are ready to submit your PDX models, you will be
-              supported through the process by a member of the PDX Finder team.
-              We currently use spreadsheets for the metadata. In addition to
-              metadata, we encourage producers to upload associated data making
-              models more valuable and discoverable for the users. Currently, we
-              support the following data types: gene expression, gene mutation,
-              copy number alterations, cytogenetics, drug dosing studies, and
-              patient treatment.
+              When you are ready to submit your Patient Derived Cancer models,
+              you will be supported through the process by a member of the PDCM
+              Finder team. We currently use spreadsheets for the metadata. In
+              addition to metadata, we encourage producers to upload associated
+              data making models more valuable and discoverable for the users.
+              Currently, we support the following data types: gene expression,
+              gene mutation, copy number alterations, cytogenetics, drug dosing
+              studies, and patient treatment.
             </p>
             <p>
               Data can be directly uploaded from other file collections,
-              databases and repositories by a member of the PDX Finder team.
-              Where raw data is available PDX Finder team can deposit
+              databases and repositories by a member of the PDCM Finder team.
+              Where raw data is available PDCM Finder team can deposit
               corresponding fastq files to the{" "}
               <a
                 href="https://www.ebi.ac.uk/ena/browser/home"
@@ -265,7 +265,7 @@ export const SubmitPage: FunctionComponent = () => {
               and link to the submitted models.
             </p>
             <p>
-              To start the process please contact PDX Finder team:{" "}
+              To start the process please contact PDCM Finder team:{" "}
               <a href="mailto:submissions@pdxfinder.org?subject=PDX%20producer:%20Data%20Submission%20request">
                 submissions&nbsp; <FontAwesomeIcon icon={faEnvelope} />
               </a>
