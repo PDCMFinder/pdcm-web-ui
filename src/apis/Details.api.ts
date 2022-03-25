@@ -218,7 +218,7 @@ export async function getModelDrugDosing(
   pdcmModelId: string,
   modelType: string
 ): Promise<Array<Treatment>> {
-  if (!pdcmModelId || modelType !== "xenograft model") {
+  if (!pdcmModelId || modelType !== "xenograft") {
     return [];
   }
   let response = await fetch(
