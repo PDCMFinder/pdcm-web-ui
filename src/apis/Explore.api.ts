@@ -48,7 +48,7 @@ export async function getModelsByTreatment() {
   }
   return response
     .json()
-    .then((d: Array<any>) => d.map((i: any) => camelCase(i)));
+    .then((d: Array<any>) => d.reverse().map((i: any) => camelCase(i)));
 }
 
 export async function getModelsByType() {
@@ -60,7 +60,7 @@ export async function getModelsByType() {
   }
   return response
     .json()
-    .then((d: Array<any>) => d.reverse().map((i: any) => camelCase(i)));
+    .then((d: Array<any>) => d.map((i: any) => camelCase(i)));
 }
 
 export async function getModelsByDatasetAvailability() {
