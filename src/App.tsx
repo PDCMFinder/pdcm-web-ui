@@ -17,20 +17,9 @@ import { MISPage } from "./pages/about/MISPage";
 import { UnderConstructionPage } from "./pages/UnderConstructionPage";
 import { StaticArticlePage } from "./pages/StaticArticlePage";
 import RouteChangeTracker from "./components/common/RouteChangeTracker";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 
-const trackers = [
-  {
-    trackingId: "UA-100003949-2",
-    gaOptions: { name: "main" },
-  },
-  {
-    trackingId: "G-34S5KH94SX",
-    gaOptions: { name: "actions" },
-  },
-];
-
-ReactGA.initialize(trackers);
+ReactGA.initialize("G-34S5KH94SX");
 
 const queryClient = new QueryClient({
   defaultOptions: {
