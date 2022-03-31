@@ -24,7 +24,7 @@ export const MENU = [
     icon: faUpload,
   },
   {
-    link: "/about/contact",
+    link: "/contact",
     name: "CONTACT",
     icon: faEnvelope,
   },

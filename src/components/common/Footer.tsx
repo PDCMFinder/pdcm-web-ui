@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./Footer.scss";
 
 const MENU = [
@@ -17,7 +18,10 @@ const MENU = [
   },
   {
     name: "Contacts",
-    children: [{ name: "Submit models / Feedback", link: "#" }],
+    children: [
+      { name: "Submit models", link: "/submit" },
+      { name: "Feedback", link: "/contact" },
+    ],
   },
 ];
 
@@ -48,9 +52,9 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
               <ul className="list-unstyled text-small">
                 {menu.children.map((menuItem) => (
                   <li key={menuItem.link}>
-                    <a className="text-white" href={menuItem.link}>
+                    <Link className="text-white" to={menuItem.link}>
                       {menuItem.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
