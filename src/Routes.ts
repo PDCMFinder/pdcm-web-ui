@@ -33,7 +33,7 @@ export const routes = [
     name: "Terms of use",
   },
   {
-    path: "/about/objectives",
+    path: "/about/",
     name: "About",
   },
   {

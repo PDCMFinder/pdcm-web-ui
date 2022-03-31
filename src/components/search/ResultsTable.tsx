@@ -8,7 +8,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import { Table, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
+import {
+  Table,
+  OverlayTrigger,
+  Tooltip,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { SearchResult, ResultCol } from "../../models/Search.model";
 
@@ -66,11 +72,27 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
         </tr>
       </thead>
       <tbody>
-        {results.length === 0 ? (
+        {results.length === 0 && !loading ? (
           <tr>
             <td colSpan={displayColumns.length}>
               <Alert variant="warning" className="mt-0 text-center">
                 Your query/filter did not return any results!
+              </Alert>
+            </td>
+          </tr>
+        ) : null}
+        {results.length === 0 && loading ? (
+          <tr>
+            <td colSpan={displayColumns.length}>
+              <Alert variant="info" className="mt-0 text-center">
+                Loading search results...{" "}
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
               </Alert>
             </td>
           </tr>
@@ -93,34 +115,37 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
             <td>{result.collection}</td>
             <td>{result.type}</td>
             <td>
-              {dataTypes.map((dataType) => (
-                <OverlayTrigger
-                  key={dataType.name}
-                  overlay={
-                    <Tooltip id={`tooltip-${dataType.name}`}>
-                      <strong className="text-capitalize">
-                        {dataType.name}
-                      </strong>{" "}
-                      data{" "}
-                      {result.dataAvailable?.includes(dataType.key)
-                        ? "available"
-                        : "not available"}
-                      .
-                    </Tooltip>
-                  }
-                >
-                  <FontAwesomeIcon
-                    icon={dataType.icon}
-                    style={{ fontSize: "xx-large" }}
-                    className={
-                      "mr-3 " +
-                      (result.dataAvailable?.includes(dataType.key)
-                        ? "text-primary"
-                        : "text-muted")
-                    }
-                  />
-                </OverlayTrigger>
-              ))}
+              {dataTypes.map((dataType) => {
+                const tooltipComponent = (props: any) => (
+                  <Tooltip id={`tooltip-${dataType.name}`} {...props}>
+                    <strong className="text-capitalize">{dataType.name}</strong>{" "}
+                    data{" "}
+                    {result.dataAvailable?.includes(dataType.key)
+                      ? "available"
+                      : "not available"}
+                    .
+                  </Tooltip>
+                );
+                return (
+                  <OverlayTrigger
+                    key={dataType.name}
+                    overlay={tooltipComponent}
+                  >
+                    <div style={{ margin: "2px", display: "inline-block" }}>
+                      <FontAwesomeIcon
+                        icon={dataType.icon}
+                        style={{ fontSize: "xx-large" }}
+                        className={
+                          "mr-3 " +
+                          (result.dataAvailable?.includes(dataType.key)
+                            ? "text-primary"
+                            : "text-muted")
+                        }
+                      />
+                    </div>
+                  </OverlayTrigger>
+                );
+              })}
             </td>
           </tr>
         ))}

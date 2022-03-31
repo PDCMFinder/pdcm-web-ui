@@ -23,7 +23,6 @@ export const Facet: FunctionComponent<IFacetProps> = ({
           return (
             <Form.Check
               key={option.key}
-              custom
               type="checkbox"
               label={option.name}
               id={option.key}

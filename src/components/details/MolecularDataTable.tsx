@@ -20,12 +20,12 @@ export interface IMolecularCharacterization {
   dataType: string;
   platformId: string;
   platformName: string;
+  dataAvailability: boolean;
 }
 
-export const MolecularDataTable: FunctionComponent<IMolecularDataTableProps> = ({
-  molecularCharacterizations,
-  onSelectMolecularCharacterization,
-}) => {
+export const MolecularDataTable: FunctionComponent<
+  IMolecularDataTableProps
+> = ({ molecularCharacterizations, onSelectMolecularCharacterization }) => {
   return (
     <Table responsive>
       <thead>
@@ -65,6 +65,7 @@ export const MolecularDataTable: FunctionComponent<IMolecularDataTableProps> = (
                       )
                     }
                     variant="link"
+                    disabled={!molecularCharacterization.dataAvailability}
                   >
                     VIEW DATA
                   </Button>

@@ -1,6 +1,9 @@
+import { useLocation } from "react-router-dom";
 import {
   IFacetProps,
   IFacetSectionProps,
+  IFacetSidebarOperators,
+  IFacetSidebarSelection,
   IOptionProps,
 } from "../models/Facet.model";
 import { SearchResult } from "../models/Search.model";
@@ -27,9 +30,11 @@ export async function getSearchOptions() {
   });
 }
 
-export async function getSearchFacets(): Promise<Array<IFacetSectionProps>> {
+export async function getSearchFacets(
+  noOptions = false
+): Promise<Array<IFacetSectionProps>> {
   let response = await fetch(
-    `${API_URL}/search_facet?facet_section=neq.search`
+    `${API_URL}/search_facet?facet_section=neq.search&${"&select=facet_section,facet_column,facet_name"}`
   );
 
   const sections: any = {
@@ -61,6 +66,16 @@ export async function getSearchFacets(): Promise<Array<IFacetSectionProps>> {
       if (section) section.facets.push(mapApiFacet(element));
     });
     return Object.values(sections);
+  });
+}
+
+export async function getFacetOptions(facetColumn: string) {
+  let response = await fetch(
+    `${API_URL}/search_facet?facet_column=eq.${facetColumn}`
+  );
+  return response.json().then((d: Array<any>) => {
+    const mappedFacet = mapApiFacet(d[0]);
+    return mappedFacet.options;
   });
 }
 
@@ -108,7 +123,7 @@ export async function getSearchResults(
           facetOperators[key][facetColumn] &&
           facetOperators[key][facetColumn] === "all"
         )
-          apiOperator = "cd";
+          apiOperator = "cs";
 
         let optionsQuery =
           apiOperator === "in"
@@ -193,4 +208,110 @@ function mapApiFacet(apiFacet: any): IFacetProps {
           })
       : [],
   };
+}
+
+export function getSearchParams(
+  searchValues: Array<IOptionProps>,
+  facetSelection: any,
+  facetOperators: any
+) {
+  let search = "";
+  if (searchValues.length > 0) {
+    search += "?q=" + searchValues.map((o) => o.key).join(",");
+  }
+  let facetString = "";
+  Object.keys(facetSelection).forEach((facetSectionKey) => {
+    Object.keys(facetSelection[facetSectionKey]).forEach((facetKey) => {
+      if (facetSelection[facetSectionKey][facetKey].length === 0) return;
+      facetString += `${
+        facetString === "" ? "" : " AND "
+      }${facetSectionKey}.${facetKey}:${facetSelection[facetSectionKey][
+        facetKey
+      ].map((o: IOptionProps) => o.key)}`;
+    });
+  });
+  if (facetString !== "")
+    search += `${search === "" ? "?" : "&"}facets=${facetString}`;
+
+  let facetOperatorString = "";
+  Object.keys(facetOperators).forEach((facetSectionKey) => {
+    Object.keys(facetOperators[facetSectionKey]).forEach((facetKey) => {
+      if (
+        facetOperators[facetSectionKey][facetKey]?.length === 0 ||
+        facetOperators[facetSectionKey][facetKey] === undefined
+      )
+        return;
+      facetOperatorString += `${
+        facetOperatorString === "" ? "" : " AND "
+      }${facetSectionKey}.${facetKey}:${
+        facetOperators[facetSectionKey][facetKey]
+      }`;
+    });
+  });
+  if (facetOperatorString !== "")
+    search += `${
+      search === "" ? "?" : "&"
+    }facet.operators=${facetOperatorString}`;
+  return search;
+}
+
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+export function useQueryParams() {
+  const search = new URLSearchParams(useLocation().search);
+  let searchTermKeys: Array<string> = [];
+  const queryParam = search.get("q");
+  if (queryParam !== null) {
+    searchTermKeys = queryParam.split(",");
+  }
+  let facetSelection: any = {};
+  const facets = search.get("facets")?.split(" AND ") || [];
+  facets.forEach((facetString) => {
+    const [key, values] = facetString.split(":");
+    facetSelection[key] = values.split(",");
+  });
+  let facetOperators: any = {};
+  const facetOperatorParam =
+    search.get("facet.operators")?.split(" AND ") || [];
+  facetOperatorParam.forEach((facetString) => {
+    const [key, value] = facetString.split(":");
+    facetOperators[key] = value;
+  });
+  return [searchTermKeys, facetSelection, facetOperators];
+}
+
+export function parseSelectedFacetFromUrl(
+  facetSections: Array<IFacetSectionProps>,
+  facetsByKey: any
+): IFacetSidebarSelection {
+  const facetSidebarSelection: IFacetSidebarSelection = {};
+  Object.keys(facetsByKey).forEach((compoundKey: string) => {
+    const [sectionKey, facetKey] = compoundKey.split(".");
+    const urlFacetSelection = facetsByKey[compoundKey];
+    const facetSection = facetSections?.find(({ key }) => sectionKey === key);
+    const facet = facetSection?.facets?.find(({ key }) => facetKey === key);
+    if (!facetSidebarSelection[sectionKey]) {
+      facetSidebarSelection[sectionKey] = {};
+    }
+    facetSidebarSelection[sectionKey][facetKey] =
+      facet?.options.filter((option) =>
+        urlFacetSelection.includes(option.key)
+      ) || [];
+  });
+  return facetSidebarSelection;
+}
+
+export function parseOperatorsFromUrl(
+  operatorsByKey: any
+): IFacetSidebarOperators {
+  const facetSidebarSelection: IFacetSidebarOperators = {};
+  Object.keys(operatorsByKey).forEach((compoundKey: string) => {
+    const [sectionKey, facetKey] = compoundKey.split(".");
+    const urlOperator = operatorsByKey[compoundKey];
+    if (!facetSidebarSelection[sectionKey]) {
+      facetSidebarSelection[sectionKey] = {};
+    }
+    facetSidebarSelection[sectionKey][facetKey] = urlOperator;
+  });
+  return facetSidebarSelection;
 }

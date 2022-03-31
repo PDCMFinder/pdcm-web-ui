@@ -16,6 +16,7 @@ import { IFacetProps } from "./Facet";
 import "./TypeaheadFacet.scss";
 
 export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
+  name,
   values,
   options,
   operator,
@@ -56,19 +57,34 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
         <div className="justify-content-end mr-1 mb-1">
           <ToggleButtonGroup
             type="radio"
-            name="operator"
+            name={`${name}-operator-group`}
             value={operator}
+            defaultValue="any"
+            size="sm"
             onChange={(newOperator: string) => {
               onSelectionChange(values, newOperator);
             }}
           >
-            <ToggleButton value="any" variant="light" size="sm" disabled>
+            <ToggleButton
+              id={`${name}-contains-toggle`}
+              value="contains"
+              variant="light"
+              disabled
+            >
               Contains
             </ToggleButton>
-            <ToggleButton value="any" variant="outline-primary" size="sm">
+            <ToggleButton
+              id={`${name}-any-toggle`}
+              value="any"
+              variant="outline-primary"
+            >
               ANY
             </ToggleButton>
-            <ToggleButton value="all" variant="outline-primary" size="sm">
+            <ToggleButton
+              id={`${name}-all-toggle`}
+              value="all"
+              variant="outline-primary"
+            >
               ALL
             </ToggleButton>
           </ToggleButtonGroup>
