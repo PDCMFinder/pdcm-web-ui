@@ -10,7 +10,7 @@ import { SubmitPage } from "./pages/SubmitPage";
 import { TermsOfUsePage } from "./pages/about/TermsOfUsePage";
 import { routes } from "./Routes";
 import CookieConsent from "react-cookie-consent";
-import { ObjectivesPage } from "./pages/about/ObjectivesPage";
+import { AboutPage } from "./pages/about/AboutPage";
 import { HowToCitePage } from "./pages/about/HowToCitePage";
 import { DataFlowPage } from "./pages/about/DataFlowPage";
 import { MISPage } from "./pages/about/MISPage";
@@ -38,7 +38,7 @@ const routeComponentMap: any = {
   Submit: SubmitPage,
   "Privacy policy": PrivacyPolicyPage,
   "Terms of use": TermsOfUsePage,
-  About: ObjectivesPage,
+  About: AboutPage,
   "How to cite?": HowToCitePage,
   "Data flow": DataFlowPage,
   "PDX - MI Standard": MISPage,
@@ -69,7 +69,7 @@ function App() {
         </Switch>
       </QueryClientProvider>
       <CookieConsent
-        buttonText="I agree, dismiss this banner"
+        buttonText="I agree, dismiss this banner."
         containerClasses="p-lg-5 p-3 bg-white text-dark border-top border-primary"
         style={{ borderWidth: "5px !important" }}
         buttonClasses="btn btn-primary"

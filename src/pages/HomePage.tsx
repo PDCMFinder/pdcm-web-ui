@@ -115,7 +115,11 @@ export const HomePage: FunctionComponent = () => {
                           modelType: string;
                           count: number;
                         }) => (
-                          <Stats count={count} title={`${modelType} models`} />
+                          <Stats
+                            key={modelType}
+                            count={count}
+                            title={`${modelType} models`}
+                          />
                         )
                       )}
                   </>

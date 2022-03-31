@@ -1,17 +1,22 @@
 import { FunctionComponent, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   getSearchFacets,
   getSearchOptions,
+  getSearchParams,
   getSearchResults,
+  parseSelectedFacetFromUrl,
+  parseOperatorsFromUrl,
+  useQueryParams,
+  getFacetOptions,
 } from "../apis/Search.api";
+
 import {
-  IFacetSectionProps,
   IFacetSidebarOperators,
   IFacetSidebarSelection,
   IOptionProps,
 } from "../models/Facet.model";
-import { useQuery } from "react-query";
+import { useQueries, useQuery } from "react-query";
 import { SearchTemplate } from "../templates/SearchTemplate";
 
 const resultTableColumns = [
@@ -38,7 +43,34 @@ export const SearchPage: FunctionComponent = () => {
   let [pageSize, setPageSize] = useState<number>(10);
 
   const searchOptionsQuery = useQuery("search-options", getSearchOptions);
-  const searchFacetsQuery = useQuery("search-facets", getSearchFacets);
+  const searchFacetSectionsQuery = useQuery("search-facet-sections", () =>
+    getSearchFacets()
+  );
+  const searchFacetSections = searchFacetSectionsQuery.data;
+  const searchFacetQueries = useQueries(
+    searchFacetSections
+      ? searchFacetSections
+          .flatMap((facetSection) => facetSection.facets)
+          .map((facet) => {
+            return {
+              queryKey: ["facet", facet?.key],
+              queryFn: () => getFacetOptions(facet?.key || ""),
+            };
+          })
+      : []
+  );
+  searchFacetSections
+    ?.flatMap((facetSection) => facetSection.facets)
+    .forEach((facet, index) => {
+      if (
+        facet &&
+        !searchFacetQueries[index].isLoading &&
+        !searchFacetQueries[index].isError &&
+        searchFacetQueries[index].data
+      ) {
+        facet.options = searchFacetQueries[index].data || [];
+      }
+    });
   const searchResultsQuery = useQuery(
     [
       "search-results",
@@ -66,18 +98,20 @@ export const SearchPage: FunctionComponent = () => {
   }
 
   if (
-    !searchFacetsQuery.isLoading &&
+    !searchFacetSectionsQuery.isLoading &&
     Object.keys(facetsByKey).length > 0 &&
-    Object.keys(facetSelection).length === 0
+    Object.keys(facetSelection).length === 0 &&
+    searchFacetQueries.every((query) => !query.isLoading)
   ) {
-    const sections = searchFacetsQuery.data || [];
+    const sections = searchFacetSectionsQuery.data || [];
     setFacetSelection(parseSelectedFacetFromUrl(sections, facetsByKey));
   }
 
   if (
-    !searchFacetsQuery.isLoading &&
+    !searchFacetSectionsQuery.isLoading &&
     Object.keys(operatorsByKey).length > 0 &&
-    Object.keys(facetOperators).length === 0
+    Object.keys(facetOperators).length === 0 &&
+    searchFacetQueries.every((query) => !query.isLoading)
   ) {
     setFacetOperators(parseOperatorsFromUrl(operatorsByKey));
   }
@@ -87,56 +121,21 @@ export const SearchPage: FunctionComponent = () => {
     facetSelection: any,
     facetOperators: any
   ) => {
-    let search = "";
-    if (searchValues.length > 0) {
-      search += "?q=" + searchValues.map((o) => o.key).join(",");
-    }
-    let facetString = "";
-    Object.keys(facetSelection).forEach((facetSectionKey) => {
-      Object.keys(facetSelection[facetSectionKey]).forEach((facetKey) => {
-        if (facetSelection[facetSectionKey][facetKey].length === 0) return;
-        facetString += `${
-          facetString === "" ? "" : " AND "
-        }${facetSectionKey}.${facetKey}:${facetSelection[facetSectionKey][
-          facetKey
-        ].map((o: IOptionProps) => o.key)}`;
-      });
-    });
-    if (facetString !== "")
-      search += `${search === "" ? "?" : "&"}facets=${facetString}`;
-
-    let facetOperatorString = "";
-    Object.keys(facetOperators).forEach((facetSectionKey) => {
-      Object.keys(facetOperators[facetSectionKey]).forEach((facetKey) => {
-        if (
-          facetOperators[facetSectionKey][facetKey]?.length === 0 ||
-          facetOperators[facetSectionKey][facetKey] === undefined
-        )
-          return;
-        facetOperatorString += `${
-          facetOperatorString === "" ? "" : " AND "
-        }${facetSectionKey}.${facetKey}:${
-          facetOperators[facetSectionKey][facetKey]
-        }`;
-      });
-    });
-    if (facetOperatorString !== "")
-      search += `${
-        search === "" ? "?" : "&"
-      }facet.operators=${facetOperatorString}`;
     setActivePage(1);
     history.push({
       pathname: "/data/",
-      search: search,
+      search: getSearchParams(searchValues, facetSelection, facetOperators),
     });
   };
 
   return (
     <SearchTemplate
-      facetSections={searchFacetsQuery.data ? searchFacetsQuery.data : []}
+      facetSections={
+        searchFacetSectionsQuery.data ? searchFacetSectionsQuery.data : []
+      }
       facetSelection={facetSelection}
       facetOperators={facetOperators}
-      loadingFacetSidebar={searchFacetsQuery.isLoading}
+      loadingFacetSidebar={searchFacetSectionsQuery.isLoading}
       searchValues={searchValues}
       searchOptions={searchOptionsQuery.data}
       loadingSearchBarOptions={searchOptionsQuery.isLoading}
@@ -170,62 +169,3 @@ export const SearchPage: FunctionComponent = () => {
     ></SearchTemplate>
   );
 };
-
-// A custom hook that builds on useLocation to parse
-// the query string for you.
-function useQueryParams() {
-  const search = new URLSearchParams(useLocation().search);
-  let searchTermKeys: Array<string> = [];
-  const queryParam = search.get("q");
-  if (queryParam !== null) {
-    searchTermKeys = queryParam.split(",");
-  }
-  let facetSelection: any = {};
-  const facets = search.get("facets")?.split(" AND ") || [];
-  facets.forEach((facetString) => {
-    const [key, values] = facetString.split(":");
-    facetSelection[key] = values.split(",");
-  });
-  let facetOperators: any = {};
-  const facetOperatorParam =
-    search.get("facet.operators")?.split(" AND ") || [];
-  facetOperatorParam.forEach((facetString) => {
-    const [key, value] = facetString.split(":");
-    facetOperators[key] = value;
-  });
-  return [searchTermKeys, facetSelection, facetOperators];
-}
-
-function parseSelectedFacetFromUrl(
-  facetSections: Array<IFacetSectionProps>,
-  facetsByKey: any
-): IFacetSidebarSelection {
-  const facetSidebarSelection: IFacetSidebarSelection = {};
-  Object.keys(facetsByKey).forEach((compoundKey: string) => {
-    const [sectionKey, facetKey] = compoundKey.split(".");
-    const urlFacetSelection = facetsByKey[compoundKey];
-    const facetSection = facetSections?.find(({ key }) => sectionKey === key);
-    const facet = facetSection?.facets?.find(({ key }) => facetKey === key);
-    if (!facetSidebarSelection[sectionKey]) {
-      facetSidebarSelection[sectionKey] = {};
-    }
-    facetSidebarSelection[sectionKey][facetKey] =
-      facet?.options.filter((option) =>
-        urlFacetSelection.includes(option.key)
-      ) || [];
-  });
-  return facetSidebarSelection;
-}
-
-function parseOperatorsFromUrl(operatorsByKey: any): IFacetSidebarOperators {
-  const facetSidebarSelection: IFacetSidebarOperators = {};
-  Object.keys(operatorsByKey).forEach((compoundKey: string) => {
-    const [sectionKey, facetKey] = compoundKey.split(".");
-    const urlOperator = operatorsByKey[compoundKey];
-    if (!facetSidebarSelection[sectionKey]) {
-      facetSidebarSelection[sectionKey] = {};
-    }
-    facetSidebarSelection[sectionKey][facetKey] = urlOperator;
-  });
-  return facetSidebarSelection;
-}

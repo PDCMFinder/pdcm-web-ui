@@ -30,7 +30,7 @@ export const MENU = [
   },
   {
     icon: faInfoCircle,
-    link: "/about",
+    link: "/about-menu",
     name: "About",
     children: [
       { link: "/about/", name: "PDCM Finder" },
