@@ -23,3 +23,9 @@ export interface Patient {
   treatmentHistory?: string;
   originalDiagnosis: string;
 }
+
+export interface Treatment {
+  treatmentName: string;
+  treatmentDose: string;
+  treatmentResponse: string;
+}

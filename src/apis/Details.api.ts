@@ -1,6 +1,6 @@
-import { Treatment } from "../components/details/DosingStudyTable";
 import { IEngraftment } from "../components/details/ModelEngraftmentTable";
 import { IMolecularCharacterization } from "../components/details/MolecularDataTable";
+import { Treatment } from "../models/PDCModel.model";
 import { camelCase } from "./Utils.api";
 
 export interface IModelExtLinks {
@@ -214,6 +214,34 @@ export async function getModelEngraftments(
   });
 }
 
+export async function getPatientTreatment(
+  pdcmModelId: string,
+  modelType: string
+): Promise<Array<Treatment>> {
+  if (!pdcmModelId || modelType !== "xenograft") {
+    return [];
+  }
+  let response = await fetch(
+    `${process.env.REACT_APP_API_URL}/patient_treatment?model_id=eq.${pdcmModelId}&select=*`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json().then((d) => {
+    return d.flatMap((item: any) => {
+      const itemCamelCase: any = camelCase(item);
+
+      return itemCamelCase.treatment.split(" And ").map((name: string) => {
+        return {
+          treatmentName: name,
+          treatmentDose: itemCamelCase.dose,
+          treatmentResponse: itemCamelCase.response,
+        };
+      });
+    });
+  });
+}
+
 export async function getModelDrugDosing(
   pdcmModelId: string,
   modelType: string
@@ -233,9 +261,9 @@ export async function getModelDrugDosing(
       let treatment: Treatment = {
         treatmentName: itemCamelCase.treatment,
         treatmentDose: itemCamelCase.dose,
-        treatmentResponse: itemCamelCase.response
+        treatmentResponse: itemCamelCase.response,
       };
-      return treatment
+      return treatment;
     });
   });
 }

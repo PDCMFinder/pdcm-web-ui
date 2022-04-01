@@ -32,6 +32,10 @@ import {
   IPatientMetadataProps,
   PatientMetadata,
 } from "../components/details/PatientMetadata";
+import {
+  IPatientTreatmentTableProps,
+  PatientTreatmentTable,
+} from "../components/details/PatientTreatmentTable";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 
 export interface IDetailsTemplateProps
@@ -41,7 +45,8 @@ export interface IDetailsTemplateProps
     IMolecularDataTableProps,
     IModelEngraftmentTableProps,
     IModelQualityControlTableProps,
-    IDosingStudyTableProps {
+    IDosingStudyTableProps,
+    IPatientTreatmentTableProps {
   selectedMolecularCharacterization?: IMolecularCharacterization;
   molecularDetailLoading?: boolean;
   molecularDetailData?: Array<any>;
@@ -68,7 +73,8 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   molecularCharacterizations,
   engraftments,
   qualityChecks,
-  treatments,
+  dosingStudies,
+  patientTreatments,
   onSelectMolecularCharacterization,
   selectedMolecularCharacterization,
 }) => {
@@ -159,16 +165,6 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             </Row>
           </>
         )}
-        {treatments.length > 0 && (
-          <>
-            <h3>Dosing studies</h3>
-            <Row className="mb-5">
-              <Col>
-                <DosingStudyTable treatments={treatments} />
-              </Col>
-            </Row>
-          </>
-        )}
         <h3>Molecular data</h3>
         {/* <Row>
           <Col>
@@ -185,6 +181,26 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             />
           </Col>
         </Row>
+        {dosingStudies.length > 0 && (
+          <>
+            <h3>Dosing studies</h3>
+            <Row className="mb-5">
+              <Col>
+                <DosingStudyTable dosingStudies={dosingStudies} />
+              </Col>
+            </Row>
+          </>
+        )}
+        {patientTreatments.length > 0 && (
+          <>
+            <h3>Patient treatment</h3>
+            <Row className="mb-5">
+              <Col>
+                <PatientTreatmentTable patientTreatments={patientTreatments} />
+              </Col>
+            </Row>
+          </>
+        )}
       </Container>
       <Modal
         show={selectedMolecularCharacterization !== undefined}
