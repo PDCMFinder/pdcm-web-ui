@@ -43,5 +43,6 @@ Default.args = {
   molecularCharacterizations: [],
   engraftments: [],
   qualityChecks: [],
-  treatments: [],
+  dosingStudies: [],
+  patientTreatments: [],
 };

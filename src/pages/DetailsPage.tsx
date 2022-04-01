@@ -8,6 +8,7 @@ import {
   getModelExtLinks,
   getModelMolecularData,
   getModelQualityData,
+  getPatientTreatment,
 } from "../apis/Details.api";
 import { IMolecularCharacterization } from "../components/details/MolecularDataTable";
 import { DetailsTemplate } from "../templates/DetailsTemplate";
@@ -34,10 +35,8 @@ export const DetailsPage: FunctionComponent = () => {
     () => getModelMolecularData(pdcmModelId)
   );
 
-  const [
-    selectedMolecularCharacterization,
-    selectMolecularCharacterization,
-  ] = useState<IMolecularCharacterization>();
+  const [selectedMolecularCharacterization, selectMolecularCharacterization] =
+    useState<IMolecularCharacterization>();
 
   const modelType = modelMetadataQuery.data?.modelType;
   const engraftmentQuery = useQuery(
@@ -45,9 +44,14 @@ export const DetailsPage: FunctionComponent = () => {
     () => getModelEngraftments(pdcmModelId, modelType)
   );
 
-  const treatmentsQuery = useQuery(
+  const dosingStudiesQuery = useQuery(
     ["model-drug-dosing-data", { pdcmModelId, modelType }],
     () => getModelDrugDosing(pdcmModelId, modelType)
+  );
+
+  const patientTreatmentQuery = useQuery(
+    ["model-patient-treatment-data", { pdcmModelId, modelType }],
+    () => getPatientTreatment(pdcmModelId, modelType)
   );
 
   const qualityQuery = useQuery(["model-quality-data", { pdcmModelId }], () =>
@@ -79,7 +83,8 @@ export const DetailsPage: FunctionComponent = () => {
       qualityChecks={qualityQuery.data || []}
       onSelectMolecularCharacterization={selectMolecularCharacterization}
       selectedMolecularCharacterization={selectedMolecularCharacterization}
-      treatments={treatmentsQuery.data || []}
+      dosingStudies={dosingStudiesQuery.data || []}
+      patientTreatments={patientTreatmentQuery.data || []}
     ></DetailsTemplate>
   );
 };
