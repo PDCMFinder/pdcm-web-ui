@@ -18,6 +18,7 @@ import { UnderConstructionPage } from "./pages/UnderConstructionPage";
 import { StaticArticlePage } from "./pages/StaticArticlePage";
 import RouteChangeTracker from "./components/common/RouteChangeTracker";
 import ReactGA from "react-ga4";
+import { ProviderPage } from "./pages/ProviderPage";
 
 ReactGA.initialize("G-34S5KH94SX");
 
@@ -44,6 +45,7 @@ const routeComponentMap: any = {
   "PDX - MI Standard": MISPage,
   "Under construction": UnderConstructionPage,
   Articles: StaticArticlePage,
+  Provider: ProviderPage,
 };
 
 function App() {

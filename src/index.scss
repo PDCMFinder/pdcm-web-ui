@@ -108,6 +108,9 @@ th {
     @extend .table-bordered;
     @extend .table-striped;
   }
+  img {
+    max-width: 100%;
+  }
 }
 
 .modal-90w {

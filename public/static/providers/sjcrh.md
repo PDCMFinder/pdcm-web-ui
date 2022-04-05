@@ -6,7 +6,7 @@ logo: img/providers/sjcrh.png
 
 The Developmental Biology and Solid Tumor Program created the Childhood Solid Tumor Network (CSTN) to accelerate discovery and improve outcomes for children with solid tumors. All samples and data are shared free of charge with no obligation to collaborate even for unpublished samples and data.
 
-The mission of St. Jude Children's Research Hospital is to advance cures, and means of prevention, for pediatric catastrophic diseases through research and treatment. [The Childhood Solid Tumor Network (CSTN)](http://www.stjude.org/cstn) was created to share resources and data to stimulate basic research and speeding translation to the clinic. The CSTN houses hundreds of orthotopic patient derived xenografts (O-PDXs) from more than 20 different types of pediatric solid tumors. Importantly, all patients consented to donate their tumor tissue for xenografting and profiling. All samples and data are shared free of charge with no obligation to collaborate.
+The mission of St. Jude Children's Research Hospital is to advance cures, and means of prevention, for pediatric catastrophic diseases through research and treatment. [The Childhood Solid Tumor Network\\n (CSTN)](http://www.stjude.org/cstn) was created to share resources and data to stimulate basic research and speeding translation to the clinic. The CSTN houses hundreds of orthotopic patient derived xenografts (O-PDXs) from more than 20 different types of pediatric solid tumors. Importantly, all patients consented to donate their tumor tissue for xenografting and profiling. All samples and data are shared free of charge with no obligation to collaborate.
 
 The following resources are available:
 
