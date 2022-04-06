@@ -103,7 +103,7 @@ export const SubmitPage: FunctionComponent = () => {
         </h4>
         <p>
           To start the process please contact PDCM Finder team:&nbsp;
-          <a href="mailto:submissions@pdxfinder.org?subject=PDX%20producer:%20Data%20Submission%20request">
+          <a href="mailto:helpdesk@cancermodels.org?subject=PDCM%20producer:%20Data%20Submission%20request">
             submissions&nbsp; <FontAwesomeIcon icon={faEnvelope} />
           </a>
         </p>
@@ -266,7 +266,7 @@ export const SubmitPage: FunctionComponent = () => {
             </p>
             <p>
               To start the process please contact PDCM Finder team:{" "}
-              <a href="mailto:submissions@pdxfinder.org?subject=PDX%20producer:%20Data%20Submission%20request">
+              <a href="mailto:helpdesk@cancermodels.org?subject=PDCM%20producer:%20Data%20Submission%20request">
                 submissions&nbsp; <FontAwesomeIcon icon={faEnvelope} />
               </a>
             </p>
