@@ -16,8 +16,8 @@ export const ContactPage: FunctionComponent = () => {
         <p>
           Please email us&nbsp;to ask questions, report issues or request
           features:&nbsp;
-          <a href="mailto:helpdesk@pdxfinder.org?subject=PDCM%20Finder%20general%20inquiry">
-            helpdesk&nbsp;
+          <a href="mailto:info@cancermodels.org?subject=PDCM%20Finder%20general%20inquiry">
+            info@cancermodels.org&nbsp;
           </a>
         </p>
       </Container>

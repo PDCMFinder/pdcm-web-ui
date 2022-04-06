@@ -105,7 +105,9 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
               </Link>
               <br />
               <span className="text-muted font-weight-lighter">
-                {result.sourceId}
+                <Link to={`/about/provider/${result.sourceId}`}>
+                  {result.sourceId}
+                </Link>
               </span>
             </td>
             <td style={{ wordWrap: "break-word", maxWidth: "150px" }}>
