@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import { ExplorePieChart } from "../components/explore/ExplorePieChart";
 import { GeneralTemplate } from "./GeneralTemplate";
 import gfm from "remark-gfm";
+import { Link } from "react-router-dom";
 
 export interface IProviderTemplateProps {
   providerId: string;
@@ -27,16 +28,27 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
   return (
     <GeneralTemplate>
       <Container>
-        <Row>
+        <Row className="my-5">
           <Col xs={12} md={9}>
             <h1>{providerName}</h1>
           </Col>
         </Row>
-        <Row>
+        <Row className="my-5">
           <Col xs={12} md={9}>
             <ReactMarkdown remarkPlugins={[gfm]} className="pdcm-mark-down">
               {providerDescription}
             </ReactMarkdown>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <Link
+              role="button"
+              className="btn btn-primary btn-lg btn-block"
+              to={`/data?facets=model.data_source:${providerId.toLowerCase()}`}
+            >
+              See all {providerId} models
+            </Link>
           </Col>
         </Row>
       </Container>
@@ -76,7 +88,6 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
                 </div>
               </Col>
             </Row>
-            <Row></Row>
           </Container>
         )}
     </GeneralTemplate>
