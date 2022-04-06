@@ -11,7 +11,7 @@ export const ContactPage: FunctionComponent = () => {
         <h4>PDCM Finder Feedback</h4>
         <p>
           PDCM Finder is continuously developed in response to community&rsquo;s
-          needs. We need your feedback to improve and refine the PDX Finder.
+          needs. We need your feedback to improve and refine the PDCM Finder.
         </p>
         <p>
           Please email us&nbsp;to ask questions, report issues or request
