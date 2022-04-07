@@ -58,9 +58,11 @@ export const PatientMetadata: FunctionComponent<IPatientMetadataProps> = ({
     <ListGroup.Item>
       <FontAwesomeIcon icon={faVial} /> Sample collection site: {collectionSite}
     </ListGroup.Item>
-    <ListGroup.Item>
-      <FontAwesomeIcon icon={faVials} /> Other models from this patient:{" "}
-      {derivedModels}
-    </ListGroup.Item>
+    {derivedModels.length > 0 && (
+      <ListGroup.Item>
+        <FontAwesomeIcon icon={faVials} /> Other models from this patient:{" "}
+        {derivedModels}
+      </ListGroup.Item>
+    )}
   </ListGroup>
 );

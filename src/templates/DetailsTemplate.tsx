@@ -99,6 +99,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
               size="lg"
               href={contactLink}
               target="_blank"
+              className="mb-3"
             >
               <FontAwesomeIcon icon={faEnvelope} />
               &nbsp; Contact provider
@@ -165,22 +166,27 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             </Row>
           </>
         )}
-        <h3>Molecular data</h3>
-        {/* <Row>
+        {molecularCharacterizations?.length > 0 && (
+          <>
+            <h3>Molecular data</h3>
+            {/* <Row>
           <Col>
             <MolecularDataTracksChart />
           </Col>
         </Row> */}
-        <Row className="mt-3 mb-5">
-          <Col>
-            <MolecularDataTable
-              molecularCharacterizations={molecularCharacterizations}
-              onSelectMolecularCharacterization={
-                onSelectMolecularCharacterization
-              }
-            />
-          </Col>
-        </Row>
+            <Row className="mt-3 mb-5">
+              <Col>
+                <MolecularDataTable
+                  molecularCharacterizations={molecularCharacterizations}
+                  onSelectMolecularCharacterization={
+                    onSelectMolecularCharacterization
+                  }
+                />
+              </Col>
+            </Row>
+          </>
+        )}
+
         {dosingStudies.length > 0 && (
           <>
             <h3>Dosing studies</h3>
