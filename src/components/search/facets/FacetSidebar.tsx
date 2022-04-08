@@ -1,7 +1,7 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent, useState } from "react";
-import { Button, Col, Row, Collapse, Form } from "react-bootstrap";
+import { Button, Col, Row, Collapse, Form, Spinner } from "react-bootstrap";
 import { IFacetSidebarProps } from "../../../models/Facet.model";
 import { FacetSection } from "./FacetSection";
 import "./FacetSidebar.scss";
@@ -10,6 +10,7 @@ export const FacetSidebar: FunctionComponent<IFacetSidebarProps> = ({
   facetSections = [],
   sidebarSelection = {},
   sidebarOperators = {},
+  loading = false,
   onSelectionChange,
   onReset,
 }) => {
@@ -65,6 +66,19 @@ export const FacetSidebar: FunctionComponent<IFacetSidebarProps> = ({
             </Col>
           </Row>
           <Form>
+            {loading && (
+              <div>
+                {" "}
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />{" "}
+                Loading filter sections...
+              </div>
+            )}
             {facetSections.map((section) => {
               return (
                 <div className="my-3 facet-section" key={section.key}>

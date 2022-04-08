@@ -75,6 +75,7 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
               facetSections={facetSections}
               sidebarSelection={facetSelection}
               sidebarOperators={facetOperators}
+              loading={loadingFacetSidebar}
               onSelectionChange={(section, facet, options, operator) => {
                 let newSelection = {
                   ...facetSelection,
@@ -140,35 +141,37 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                 }}
               ></QueryViewer>
             </Row>
-            <Row className="mx-auto pb-3 justify-content-between">
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                }}
-              >
-                Showing {(activePage - 1) * pageSize + 1} to{" "}
-                {totalResults < (activePage - 1) * pageSize + pageSize
-                  ? totalResults
-                  : (activePage - 1) * pageSize + pageSize}{" "}
-                of {totalResults} results
-              </div>
-              <div
-                style={{
-                  maxWidth: "200px",
-                  width: "30%",
-                  display: "inline-flex",
-                  justifyContent: "space-between",
-                  whiteSpace: "nowrap",
-                  alignItems: "center",
-                }}
-              >
-                Models per page:{" "}
-                <ResultsPageSizeSelect
-                  pageSize={pageSize}
-                  onChange={onPageSizeChange}
-                ></ResultsPageSizeSelect>
-              </div>
+            <Row className="mx-auto pb-3">
+              <Col className="d-flex justify-content-between">
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                  }}
+                >
+                  Showing {(activePage - 1) * pageSize + 1} to{" "}
+                  {totalResults < (activePage - 1) * pageSize + pageSize
+                    ? totalResults
+                    : (activePage - 1) * pageSize + pageSize}{" "}
+                  of {totalResults} results
+                </div>
+                <div
+                  style={{
+                    maxWidth: "200px",
+                    width: "30%",
+                    display: "inline-flex",
+                    justifyContent: "space-between",
+                    whiteSpace: "nowrap",
+                    alignItems: "center",
+                  }}
+                >
+                  Models per page:{" "}
+                  <ResultsPageSizeSelect
+                    pageSize={pageSize}
+                    onChange={onPageSizeChange}
+                  ></ResultsPageSizeSelect>
+                </div>
+              </Col>
             </Row>
             <Row className="mx-auto">
               <ResultsTable

@@ -189,6 +189,7 @@ export const MolecularDataDetailTable: FunctionComponent<
         }}
         pageSize={pageSize}
         total={total}
+        loadingResults={isLoading}
         onPageSizeChange={setPageSize}
         onDownload={getDataDownload}
       />

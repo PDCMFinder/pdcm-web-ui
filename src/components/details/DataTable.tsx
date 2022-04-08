@@ -6,7 +6,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Button, FormControl, InputGroup, Table } from "react-bootstrap";
+import {
+  Button,
+  FormControl,
+  InputGroup,
+  Spinner,
+  Table,
+} from "react-bootstrap";
 import { ResultsPageSizeSelect } from "../search/ResultsPageSizeSelect";
 import { ResultsPagination } from "../search/ResultsPagination";
 
@@ -19,6 +25,7 @@ export interface IDataTableProps {
   filter: string;
   sortColumn: string;
   sortDirection: string;
+  loadingResults: boolean;
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
   onFilterChange: (filter: string) => void;
@@ -35,6 +42,7 @@ export const DataTable: React.FC<IDataTableProps> = ({
   filter,
   sortColumn,
   sortDirection,
+  loadingResults,
   onPageChange,
   onPageSizeChange,
   onFilterChange,
@@ -93,6 +101,20 @@ export const DataTable: React.FC<IDataTableProps> = ({
           </tr>
         </thead>
         <tbody>
+          {loadingResults ? (
+            <tr>
+              <td colSpan={columns.length} className="text-center">
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />{" "}
+                Loading results...
+              </td>
+            </tr>
+          ) : null}
           {data.map((row) => (
             <tr key={row.id}>
               {Object.keys(row)

@@ -12,8 +12,8 @@ export const ResultsPageSizeSelect: React.FC<ResultsPageSizeSelectProps> = ({
 }) => {
   return (
     <div>
-      <Form.Control
-        as="select"
+      <Form.Select
+        aria-label="Select page size"
         value={pageSize}
         onChange={(e) => onChange(+e.target.value)}
       >
@@ -21,7 +21,7 @@ export const ResultsPageSizeSelect: React.FC<ResultsPageSizeSelectProps> = ({
         <option>50</option>
         <option>100</option>
         <option>200</option>
-      </Form.Control>
+      </Form.Select>
     </div>
   );
 };
