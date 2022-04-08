@@ -69,6 +69,8 @@ export const SearchPage: FunctionComponent = () => {
         searchFacetQueries[index].data
       ) {
         facet.options = searchFacetQueries[index].data || [];
+      } else if (facet && searchFacetQueries[index].isLoading) {
+        facet.loading = true;
       }
     });
   const searchResultsQuery = useQuery(
