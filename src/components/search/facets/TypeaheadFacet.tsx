@@ -54,7 +54,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
         </Form.Group>
       </div>
       {displayOperators ? (
-        <div className="justify-content-end mr-1 mb-1">
+        <div className="mr-1 my-2">
           <ToggleButtonGroup
             type="radio"
             name={`${name}-operator-group`}

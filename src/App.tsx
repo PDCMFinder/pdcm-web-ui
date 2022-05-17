@@ -1,6 +1,6 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { HashRouter, Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, BrowserRouter } from "react-router-dom";
 import { ContactPage } from "./pages/ContactPage";
 import { DetailsPage } from "./pages/DetailsPage";
 import { HomePage } from "./pages/HomePage";
@@ -50,7 +50,7 @@ const routeComponentMap: any = {
 
 function App() {
   return (
-    <HashRouter basename="/">
+    <BrowserRouter basename="/">
       {process.env.REACT_APP_ENV === "production" ? (
         <RouteChangeTracker />
       ) : null}
@@ -83,7 +83,7 @@ function App() {
         <Link to="/about/privacy-policy">Privacy Notice</Link> and{" "}
         <Link to="/about/terms-of-use">Terms of Use</Link>.
       </CookieConsent>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
