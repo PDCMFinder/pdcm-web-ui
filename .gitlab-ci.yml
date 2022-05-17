@@ -78,7 +78,7 @@ build_dev_image:
       - "$MOUNT_POINT/"
   only:
     refs:
-      - main
+      - dev
 
 build_prod_image:
   stage: build-prod
@@ -134,7 +134,7 @@ deploy-HH-WP-WEBADMIN-dev:
     - kubectl get pods,service,deploy,replicaset,ing
   only:
     refs:
-      - main
+      - dev
 
 deploy-HH-WP-WEBADMIN-prod:
   stage: deploy-prod
