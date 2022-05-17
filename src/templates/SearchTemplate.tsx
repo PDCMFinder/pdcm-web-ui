@@ -68,7 +68,7 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
             xs={12}
             md={3}
             lg={3}
-            className="shadow h-100 py-3 py-md-4 pl-lg-5"
+            className="h-100 py-3 py-md-4 pl-lg-5"
             id="sidebar-wrapper"
           >
             <FacetSidebar

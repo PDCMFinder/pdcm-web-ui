@@ -1,26 +1,32 @@
 @import "../../../variables";
 
 .filter-section-heading {
-  border-bottom: 3px solid $info;
   max-width: fit-content;
-  text-transform: uppercase;
+  text-transform: titlecase;
   font-weight: bold;
   font-family: $font-family-headings;
   font-size: large;
+  color: $gray-600;
 }
 
 .facet-heading {
   font-family: $font-family-headings;
-  font-weight: bold;
-  text-transform: uppercase;
+  text-transform: titlecase;
   display: flex;
   align-items: center;
   //border: none;
   justify-content: space-between;
+  color: $gray-800;
   & .facet-heading-caret {
     transition: all 0.3s;
     //font-size: large;
   }
+}
+
+.facet-section-heading {
+  color: $gray-600;
+  font-size: large;
+  font-weight: 600;
 }
 
 .facet-heading:focus {
@@ -34,5 +40,5 @@
 }
 
 .facet-section {
-  background-color: $gray-100;
+ // background-color: $gray-100;
 }

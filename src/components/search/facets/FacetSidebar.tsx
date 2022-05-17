@@ -20,7 +20,7 @@ export const FacetSidebar: FunctionComponent<IFacetSidebarProps> = ({
     <>
       <Row>
         <Col xs={6}>
-          <div className="filter-section-heading text-info">Filter by:</div>
+          <div className="filter-section-heading">Filters</div>
         </Col>
         <Col xs={6} className="d-md-none">
           <button
@@ -40,12 +40,11 @@ export const FacetSidebar: FunctionComponent<IFacetSidebarProps> = ({
           <Button
             variant="outline-danger"
             className="mt-2 mt-lg-0 mw-50 border-0"
-            size="lg"
             onClick={() => onReset()}
             disabled={Object.keys(sidebarSelection).length === 0}
           >
             <FontAwesomeIcon icon={faTimes} />
-            &nbsp;Reset
+            &nbsp;Clear all
           </Button>
         </Col>
       </Row>
