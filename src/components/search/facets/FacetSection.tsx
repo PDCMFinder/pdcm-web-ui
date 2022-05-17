@@ -22,7 +22,7 @@ export const FacetSection: FunctionComponent<IFacetSectionProps> = ({
         aria-controls={`facet-section-${name}`}
         aria-expanded={open}
         variant="light"
-        className="w-100 text-left align-middle facet-heading mb-3 border-0 bg-white"
+        className="w-100 text-left align-middle facet-section-heading facet-heading mb-3 border-0 bg-white px-0"
       >
         {name}
         {"  "}
@@ -34,7 +34,7 @@ export const FacetSection: FunctionComponent<IFacetSectionProps> = ({
         </span>
       </Button>
       <Collapse in={open}>
-        <div id={`facet-section-${name}`} className="px-2">
+        <div id={`facet-section-${name}`}>
           {facets?.map(({ key, name, type, options }) => {
             return (
               <div key={key} className="pb-2">

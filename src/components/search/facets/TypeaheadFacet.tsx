@@ -90,7 +90,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
           </ToggleButtonGroup>
         </div>
       ) : null}
-      <div className="form-control-sm" style={{ height: "inherit" }}>
+      <div className="form-control-sm px-0" style={{ height: "inherit" }}>
         {values.map((value) =>
           value ? (
             <Token
