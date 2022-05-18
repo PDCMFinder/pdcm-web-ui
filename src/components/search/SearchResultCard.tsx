@@ -5,6 +5,10 @@ import {
   faDna,
   faPills,
   faPrescription,
+  faBullseye,
+  faEyeDropper,
+  faVenusMars,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -45,6 +49,29 @@ const dataTypes = [
   },
 ];
 
+const modelInfoCategories = [
+  {
+    key: "primarySite",
+    name: "Primary site",
+    icon: faBullseye,
+  },
+  {
+    key: "patientSex",
+    name: "Patient sex",
+    icon: faVenusMars,
+  },
+  {
+    key: "collectionSite",
+    name: "Collection site",
+    icon: faEyeDropper,
+  },
+  {
+    key: "patientAge",
+    name: "Patient age",
+    icon: faUser,
+  },
+];
+
 export const SearchResultCard: React.FC<SearchResult> = ({
   pdcmId,
   sourceId,
@@ -57,11 +84,17 @@ export const SearchResultCard: React.FC<SearchResult> = ({
   patientSex,
   patientAge,
 }) => {
+  const modelInfo: any = {
+    patientSex,
+    patientAge,
+    primarySite,
+    collectionSite,
+  };
   return (
     <Card>
       <Card.Body className="m-2">
         <Row>
-          <Col xs={12} md={4} lg={4}>
+          <Col xs={12} sm={12} md={6} lg={4}>
             <Link to={`/data/${sourceId}/${pdcmId}`}>
               <h4 className="fw-light">
                 {sourceId} / {pdcmId}
@@ -71,40 +104,37 @@ export const SearchResultCard: React.FC<SearchResult> = ({
               {histology}
             </div>
             <div style={{ textTransform: "capitalize" }}>{modelType} model</div>
-            <div style={{ textTransform: "capitalize" }}>{tumourType}</div>
+            <div style={{ textTransform: "capitalize" }}>
+              {tumourType} tumour
+            </div>
           </Col>
-          <Col xs={12} sm={6} md={4} lg={4}>
+          <Col xs={12} sm={12} md={6} lg={4}>
             <div style={{ height: "2rem" }}></div>
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(2, 1fr)",
                 gridTemplateRows: "repeat(2, 1fr)",
-                gridColumnGap: "1.0rem",
+                gridColumnGap: "0.0rem",
                 gridRowGap: "0px",
               }}
             >
-              <div className="my-2" style={{ lineHeight: "1rem" }}>
-                <div className="text-capitalize">{primarySite}</div>
-                <div className="small text-muted">Primary site</div>
-              </div>
-              <div className="my-1" style={{ lineHeight: "1rem" }}>
-                <div style={{ textTransform: "capitalize" }}>
-                  {collectionSite || "Not Specified"}
-                </div>
-                <div className="small text-muted">Collection site</div>
-              </div>
-              <div className="my-2" style={{ lineHeight: "1rem" }}>
-                <div style={{ textTransform: "capitalize" }}>{patientSex}</div>
-                <div className="small text-muted">Patient sex</div>
-              </div>
-              <div className="my-2" style={{ lineHeight: "1rem" }}>
-                <div style={{ textTransform: "capitalize" }}>{patientAge}</div>
-                <div className="small text-muted">Patient age</div>
-              </div>
+              {modelInfoCategories.map((category) => {
+                return (
+                  <div className="d-inline-flex align-items-center justify-content-start">
+                    <FontAwesomeIcon icon={category.icon} className="h5" />
+                    <div className="my-2 mx-2" style={{ lineHeight: "1.2rem" }}>
+                      <div className="text-capitalize">
+                        {modelInfo[category.key] || "Not Specified"}
+                      </div>
+                      <div className="small text-muted">{category.name}</div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </Col>
-          <Col xs={12} sm={6} md={5} lg={5} xl={4}>
+          <Col xs={12} sm={12} md={12} lg={5} xl={4}>
             <div className="text-center">Data available</div>
             <div>
               <div
