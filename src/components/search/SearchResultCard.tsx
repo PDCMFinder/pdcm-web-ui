@@ -9,6 +9,7 @@ import {
   faEyeDropper,
   faVenusMars,
   faUser,
+  faVial,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -63,7 +64,7 @@ const modelInfoCategories = [
   {
     key: "collectionSite",
     name: "Collection site",
-    icon: faEyeDropper,
+    icon: faVial,
   },
   {
     key: "patientAge",
