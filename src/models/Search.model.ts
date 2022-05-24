@@ -3,10 +3,13 @@ export interface SearchResult {
   sourceId: string;
   datasource: string;
   histology: string;
-  primary: string;
-  collection: string;
-  type: string;
+  primarySite: string;
+  collectionSite: string;
+  modelType: string;
+  tumourType: string;
   dataAvailable?: Array<string>;
+  patientSex?: string;
+  patientAge?: number;
 }
 
 export interface ResultCol {

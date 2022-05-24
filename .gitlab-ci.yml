@@ -62,7 +62,7 @@ build_dev_image:
   script:
     - |
       if [[ "${REQUIRES_REBUILD_IMAGE}" == "true" ]]; then
-          echo "Building prod image" 
+          echo "Building dev image: ${CI_REGISTRY_IMAGE}:dev" 
           docker build -t "${CI_REGISTRY_IMAGE}":dev -f Dockerfile .  | tee ${MOUNT_POINT}/build.log
           docker push "${CI_REGISTRY_IMAGE}":dev  | tee ${MOUNT_POINT}/push.log
           docker logout ${CI_REGISTRY}
@@ -78,7 +78,7 @@ build_dev_image:
       - "$MOUNT_POINT/"
   only:
     refs:
-      - main
+      - dev
 
 build_prod_image:
   stage: build-prod
@@ -134,7 +134,7 @@ deploy-HH-WP-WEBADMIN-dev:
     - kubectl get pods,service,deploy,replicaset,ing
   only:
     refs:
-      - main
+      - dev
 
 deploy-HH-WP-WEBADMIN-prod:
   stage: deploy-prod

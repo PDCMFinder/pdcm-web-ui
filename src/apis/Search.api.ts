@@ -136,7 +136,7 @@ export async function getSearchResults(
   let response = await fetch(
     `${API_URL}/search_index?${query}&limit=${pageSize}&offset=${
       (page - 1) * pageSize
-    }&select=external_model_id,data_source,histology,primary_site,collection_site,tumour_type,dataset_available&order=external_model_id.asc`,
+    }&select=patient_age,patient_sex,external_model_id,model_type,data_source,histology,primary_site,collection_site,tumour_type,dataset_available&order=external_model_id.asc`,
     { headers: { Prefer: "count=exact" } }
   );
   if (!response.ok) {
@@ -151,10 +151,13 @@ export async function getSearchResults(
           sourceId: result.data_source,
           datasource: "",
           histology: result.histology,
-          primary: result.primary_site,
-          collection: result.collection_site,
-          type: result.tumour_type,
+          primarySite: result.primary_site,
+          collectionsite: result.collection_site,
+          tumourType: result.tumour_type,
           dataAvailable: result.dataset_available,
+          modelType: result.model_type,
+          patientAge: result.patient_age,
+          patientSex: result.patient_sex,
         };
       }),
     ];

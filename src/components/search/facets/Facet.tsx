@@ -79,8 +79,8 @@ export const Facet: FunctionComponent<IFacetProps> = ({
         onClick={() => setOpen(!open)}
         aria-controls={`facet-section-${name}`}
         aria-expanded={open}
-        variant={open ? "primary" : "outline-primary"}
-        className="w-100 text-left align-middle facet-heading mb-3"
+        variant={open ? "light" : "outline-light"}
+        className="w-100 text-left align-middle facet-heading mb-3 border-0 bg-white px-0"
       >
         {name}
         {"  "}
