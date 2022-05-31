@@ -15,5 +15,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: pdcm-web-ui-dev-ingress-service
+              serviceName: pdcm-web-ui-dev-service
               servicePort: 80
