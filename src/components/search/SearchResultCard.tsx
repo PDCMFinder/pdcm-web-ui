@@ -96,7 +96,7 @@ export const SearchResultCard: React.FC<SearchResult> = ({
       <Card.Body className="m-2">
         <Row>
           <Col xs={12} sm={12} md={6} lg={4}>
-            <Link to={`/data/${sourceId}/${pdcmId}`}>
+            <Link to={`/data/models/${sourceId}/${pdcmId}`}>
               <h4 className="fw-light">
                 {sourceId} / {pdcmId}
               </h4>

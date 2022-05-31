@@ -9,7 +9,7 @@ export const routes = [
   { path: "/data", name: "Data" },
   { path: "/data/search", name: "Search" },
   {
-    path: "/data/:providerId/:modelId/",
+    path: "/data/models/:providerId/:modelId/",
     name: "Details",
   },
   {
