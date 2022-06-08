@@ -14,7 +14,6 @@ import {
 import {
   IFacetSidebarOperators,
   IFacetSidebarSelection,
-  IOptionProps,
 } from "../models/Facet.model";
 import { useQueries, useQuery } from "react-query";
 import { SearchTemplate } from "../templates/SearchTemplate";
@@ -30,9 +29,9 @@ const resultTableColumns = [
 
 export const SearchPage: FunctionComponent = () => {
   document.title = "PDCM Finder - Search";
-  let [searchTermKeys, facetsByKey, operatorsByKey] = useQueryParams();
+  let [searchValues, facetsByKey, operatorsByKey] = useQueryParams();
+
   let history = useHistory();
-  let [searchValues, setSearchValues] = useState<Array<IOptionProps>>([]);
   let [facetSelection, setFacetSelection] = useState<IFacetSidebarSelection>(
     {}
   );
@@ -42,7 +41,6 @@ export const SearchPage: FunctionComponent = () => {
   let [activePage, setActivePage] = useState<number>(1);
   let [pageSize, setPageSize] = useState<number>(10);
 
-  const searchOptionsQuery = useQuery("search-options", getSearchOptions);
   const searchFacetSectionsQuery = useQuery("search-facet-sections", () =>
     getSearchFacets()
   );
@@ -52,9 +50,14 @@ export const SearchPage: FunctionComponent = () => {
       ? searchFacetSections
           .flatMap((facetSection) => facetSection.facets)
           .map((facet) => {
+            const fn = () => getFacetOptions(facet?.facetId || "");
             return {
-              queryKey: ["facet", facet?.key],
-              queryFn: () => getFacetOptions(facet?.key || ""),
+              queryKey: ["facet", facet?.facetId],
+              queryFn: ["multivalued", "autocomplete"].includes(
+                facet?.type || ""
+              )
+                ? () => []
+                : fn,
             };
           })
       : []
@@ -89,24 +92,13 @@ export const SearchPage: FunctionComponent = () => {
   );
 
   if (
-    !searchOptionsQuery.isLoading &&
-    searchTermKeys.length > 0 &&
-    searchValues.length === 0
-  ) {
-    const values = searchTermKeys.map((key: string) =>
-      searchOptionsQuery.data.find((option: IOptionProps) => option.key === key)
-    );
-    setSearchValues(values);
-  }
-
-  if (
     !searchFacetSectionsQuery.isLoading &&
     Object.keys(facetsByKey).length > 0 &&
     Object.keys(facetSelection).length === 0 &&
     searchFacetQueries.every((query) => !query.isLoading)
   ) {
     const sections = searchFacetSectionsQuery.data || [];
-    setFacetSelection(parseSelectedFacetFromUrl(sections, facetsByKey));
+    setFacetSelection(parseSelectedFacetFromUrl(facetsByKey));
   }
 
   if (
@@ -119,7 +111,7 @@ export const SearchPage: FunctionComponent = () => {
   }
 
   const updateSearchParams = (
-    searchValues: Array<IOptionProps>,
+    searchValues: Array<string>,
     facetSelection: any,
     facetOperators: any
   ) => {
@@ -139,8 +131,6 @@ export const SearchPage: FunctionComponent = () => {
       facetOperators={facetOperators}
       loadingFacetSidebar={searchFacetSectionsQuery.isLoading}
       searchValues={searchValues}
-      searchOptions={searchOptionsQuery.data}
-      loadingSearchBarOptions={searchOptionsQuery.isLoading}
       searchResults={searchResultsQuery.data ? searchResultsQuery.data[1] : []}
       loadingSearchResults={searchResultsQuery.isLoading}
       resultTableColumns={resultTableColumns}
@@ -155,9 +145,8 @@ export const SearchPage: FunctionComponent = () => {
         setFacetOperators(facetOperators);
         updateSearchParams(searchValues, facetSelection, facetOperators);
       }}
-      onSearchBarChange={(searchValues: Array<IOptionProps>) => {
+      onSearchBarChange={(searchValues: Array<string>) => {
         updateSearchParams(searchValues, facetSelection, facetOperators);
-        setSearchValues(searchValues);
         setFacetOperators({});
       }}
       onPaginationChange={(activePage: number) => {

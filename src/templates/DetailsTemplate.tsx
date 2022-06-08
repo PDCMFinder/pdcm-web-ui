@@ -78,7 +78,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   onSelectMolecularCharacterization,
   selectedMolecularCharacterization,
 }) => {
-  document.title = `PDCM Finder - Cancer Model: ${modelId} - Details`;
+  document.title = `PDCM Finder - Cancer Model: ${providerName} - ${modelId} - ${histology} - Details`;
   // TODO - Fix modal close operation to be more seamless
 
   return (

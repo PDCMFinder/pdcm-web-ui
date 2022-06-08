@@ -44,6 +44,7 @@ export const ExploreCirclePacking: FunctionComponent<{ data: any }> = ({
       }}
       labelsSkipRadius={10}
       labelTextColor={{ from: "color", modifiers: [["brighter", 100]] }}
+      animate={false}
       motionConfig="slow"
       // onClick={(node) => {
       //   setZoomedId(zoomedId === node.id ? null : node.id);

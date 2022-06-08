@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import React, { FunctionComponent, useRef } from "react";
+import React, { FunctionComponent, useRef, useState } from "react";
 import {
   Form,
   Col,
@@ -10,26 +10,32 @@ import {
   ToggleButtonGroup,
   ToggleButton,
 } from "react-bootstrap";
-import { Token, Typeahead } from "react-bootstrap-typeahead";
+import { AsyncTypeahead, Token } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { IFacetProps } from "./Facet";
 import "./TypeaheadFacet.scss";
+import { useQuery } from "react-query";
+import { autoCompleteFacetOptions } from "../../../apis/Search.api";
 
 export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
+  facetId,
   name,
   values,
-  options,
   operator,
   onSelectionChange,
   displayOperators,
 }) => {
   const ref = useRef();
+  const [query, setQuery] = useState("");
+  const optionsQuery = useQuery(query, () =>
+    autoCompleteFacetOptions(facetId, query)
+  );
   return (
     <>
       <div className="align-items-center">
         <Form.Group as={Col} xs={12}>
           <InputGroup>
-            <Typeahead
+            <AsyncTypeahead
               id="search-bar-type-ahead"
               multiple
               onChange={(s) => {
@@ -37,12 +43,16 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
               }}
               caseSensitive={false}
               filterBy={["name"]}
-              options={options}
               selected={values}
               labelKey="name"
               className="w-100 typeahead-facet"
               size="sm"
               ref={ref}
+              options={optionsQuery.data}
+              onSearch={(query) => {
+                setQuery(query);
+              }}
+              isLoading={optionsQuery.isLoading}
             />
             <InputGroup.Text
               className="text-center bg-primary text-white"
@@ -94,7 +104,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
         {values.map((value) =>
           value ? (
             <Token
-              key={value.key}
+              key={value}
               option={value}
               readOnly={false}
               onRemove={() => {
@@ -102,7 +112,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
                 onSelectionChange(newSelection, operator);
               }}
             >
-              {value.name}
+              {value}
             </Token>
           ) : null
         )}
