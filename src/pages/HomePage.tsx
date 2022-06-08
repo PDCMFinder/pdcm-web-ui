@@ -73,13 +73,12 @@ export const HomePage: FunctionComponent = () => {
               <Col md={4} xs={0}></Col>
               <Col md={8} xs={0}>
                 <SearchBar
-                  isLoading={searchOptionsQuery.isLoading}
-                  searchOptions={searchOptionsQuery.data}
-                  onSearchChange={(searchValues: Array<IOptionProps>) => {
+                  onSearchChange={(searchValues: Array<string>) => {
                     const search =
-                      "?q=" + searchValues.map((o) => o.key).join(",");
+                      "?q=" +
+                      searchValues.map((o) => encodeURIComponent(o)).join(",");
                     history.push({
-                      pathname: "/data/",
+                      pathname: "/data/search",
                       search: search,
                     });
                   }}

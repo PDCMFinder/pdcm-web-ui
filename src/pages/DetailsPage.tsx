@@ -14,7 +14,6 @@ import { IMolecularCharacterization } from "../components/details/MolecularDataT
 import { DetailsTemplate } from "../templates/DetailsTemplate";
 
 export const DetailsPage: FunctionComponent = () => {
-  document.title = "PDCM Finder - Details";
   const { modelId, providerId } = useParams<{
     modelId: string;
     providerId: string;

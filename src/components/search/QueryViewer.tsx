@@ -7,7 +7,7 @@ import {
 } from "../../models/Facet.model";
 
 export interface IQueryViewerProps {
-  searchTerms: Array<IOptionProps>;
+  searchTerms: Array<string>;
   facetSelection: IFacetSidebarSelection;
   facetOperators: IFacetSidebarOperators;
   facetNames: { [sectionFacetKey: string]: string };
@@ -116,12 +116,12 @@ const QuerySection: FunctionComponent<{
       <b>{operator}</b> ({" "}
       {options.map((option) => (
         <Token
-          key={option?.key}
+          key={option}
           option={option}
           readOnly={false}
-          onRemove={() => onRemove(option.key)}
+          onRemove={() => onRemove(option)}
         >
-          {option?.name}
+          {option}
         </Token>
       ))}
       )

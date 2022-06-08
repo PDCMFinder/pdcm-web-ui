@@ -21,10 +21,7 @@ export interface ISearchTemplateProps {
   facetSelection: IFacetSidebarSelection;
   facetOperators: IFacetSidebarOperators;
   loadingFacetSidebar: boolean;
-
-  searchOptions: Array<IOptionProps>;
-  loadingSearchBarOptions: boolean;
-  searchValues: Array<IOptionProps>;
+  searchValues: Array<string>;
 
   searchResults: Array<SearchResult>;
   loadingSearchResults: boolean;
@@ -36,7 +33,7 @@ export interface ISearchTemplateProps {
     facetSelection: IFacetSidebarSelection,
     facetOperators: IFacetSidebarOperators
   ) => void;
-  onSearchBarChange: (searchValues: Array<IOptionProps>) => void;
+  onSearchBarChange: (searchValues: Array<string>) => void;
   onPaginationChange: (page: number) => void;
   onPageSizeChange: (page: number) => void;
 }
@@ -46,9 +43,7 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
   facetSelection = {},
   facetOperators,
   loadingFacetSidebar,
-  searchOptions,
   searchValues = [],
-  loadingSearchBarOptions,
   searchResults,
   loadingSearchResults,
   resultTableColumns,
@@ -108,13 +103,11 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
           >
             <Row className="mx-auto">
               <SearchBar
-                searchValues={searchValues}
-                searchOptions={searchOptions}
                 searchAllowMultipleTerms={true}
+                searchValues={searchValues}
                 onSearchChange={(values) => {
                   onSearchBarChange(values);
                 }}
-                isLoading={loadingSearchBarOptions}
               />
             </Row>
             <Row className="mb-3 mx-auto">
@@ -127,16 +120,14 @@ export const SearchTemplate: FunctionComponent<ISearchTemplateProps> = ({
                   let newFacetSelection = { ...facetSelection };
                   newFacetSelection[sectionKey][facetKey] = newFacetSelection[
                     sectionKey
-                  ][facetKey].filter((option) => option.key !== optionKey);
+                  ][facetKey].filter((option) => option !== optionKey);
                   newFacetSelection =
                     deleteEmptyFacetSelection(newFacetSelection);
                   onFacetSidebarChange(newFacetSelection, facetOperators);
                 }}
                 onRemoveSearchTerm={(searchTermKey) => {
                   onSearchBarChange(
-                    searchValues.filter(
-                      (option) => option.key !== searchTermKey
-                    )
+                    searchValues.filter((option) => option !== searchTermKey)
                   );
                 }}
               ></QueryViewer>
@@ -224,9 +215,9 @@ function getFacetNames(
     const section = facetSections?.find(({ key }) => sectionKey === key);
     if (section && section.facets) {
       section.facets.forEach((facet) => {
-        if (facetSidebarSelection[sectionKey][facet.key]) {
+        if (facetSidebarSelection[sectionKey][facet.facetId]) {
           facetNames[
-            `${sectionKey}.${facet.key}`
+            `${sectionKey}.${facet.facetId}`
           ] = `${section.name}/${facet.name}`;
         }
       });

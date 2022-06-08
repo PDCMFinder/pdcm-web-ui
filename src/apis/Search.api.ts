@@ -79,8 +79,23 @@ export async function getFacetOptions(facetColumn: string) {
   });
 }
 
+export async function autoCompleteFacetOptions(
+  facetColumn: string,
+  text: string
+) {
+  const ilikeClause = text.length > 0 ? `, option.ilike.*${text}*` : "";
+  let response = await fetch(
+    `${API_URL}/search_facet_options?and=(facet_column.eq.${facetColumn}${ilikeClause})&limit=20&order=option.asc`
+  );
+  return response.json().then((d: Array<any>) => {
+    return d.map(({ option }) => {
+      return option;
+    });
+  });
+}
+
 export async function getSearchResults(
-  searchValues: Array<IOptionProps> = [],
+  searchValues: Array<string> = [],
   facetSelections: any,
   facetOperators: any,
   page: number,
@@ -88,9 +103,7 @@ export async function getSearchResults(
 ): Promise<[number, Array<SearchResult>]> {
   let query =
     searchValues.length > 0
-      ? `search_terms=ov.{${searchValues
-          .map((d: IOptionProps) => '"' + d.name + '"')
-          .join(",")}}`
+      ? `search_terms=ov.{${searchValues.join(",")}}`
       : "";
 
   if (facetSelections) {
@@ -99,9 +112,7 @@ export async function getSearchResults(
 
       for (let facetColumn in facet) {
         const options = facetSelections[key][facetColumn]
-          ? facetSelections[key][facetColumn].map(
-              (d: IOptionProps) => '"' + d.name + '"'
-            )
+          ? facetSelections[key][facetColumn].map((d: string) => '"' + d + '"')
           : [];
         let apiOperator = "in";
         const hasOperator =
@@ -183,54 +194,52 @@ function mapApiFacet(apiFacet: any): IFacetProps {
     facetType = "multivalued";
 
   return {
-    key: apiFacet.facet_column,
+    facetId: apiFacet.facet_column,
     name: apiFacet.facet_name,
     type: facetType,
     options: apiFacet.facet_options
-      ? apiFacet.facet_options
-          .sort((a: String, b: String) => {
-            if (apiFacet.facet_column !== "patient_age")
-              return a.toLocaleLowerCase().trim() > b.toLocaleLowerCase().trim()
-                ? 1
-                : -1;
-            else {
-              if (a.includes("months")) return -1;
-              if (b.includes("specified")) return -1;
-              let aa = a.split(" - ");
-              let bb = b.split(" - ");
-              if (+aa[0] > +bb[0]) return 1;
-              else if (+aa[0] < +bb[0]) return -1;
-              else return 0;
-            }
-          })
-          .map((option: String) => {
-            return {
-              key: option.replace(/[\W_]+/g, "_").toLowerCase(),
-              name: option,
-            };
-          })
+      ? apiFacet.facet_options.sort((a: String, b: String) => {
+          if (apiFacet.facet_column !== "patient_age")
+            return a.toLocaleLowerCase().trim() > b.toLocaleLowerCase().trim()
+              ? 1
+              : -1;
+          else {
+            if (a.includes("months")) return -1;
+            if (b.includes("specified")) return -1;
+            let aa = a.split(" - ");
+            let bb = b.split(" - ");
+            if (+aa[0] > +bb[0]) return 1;
+            else if (+aa[0] < +bb[0]) return -1;
+            else return 0;
+          }
+        })
       : [],
   };
 }
 
 export function getSearchParams(
-  searchValues: Array<IOptionProps>,
+  searchValues: Array<string>,
   facetSelection: any,
   facetOperators: any
 ) {
+  console.log("getSearchParams", searchValues, facetSelection, facetOperators);
   let search = "";
   if (searchValues.length > 0) {
-    search += "?q=" + searchValues.map((o) => o.key).join(",");
+    search +=
+      "?q=" +
+      searchValues.map((o) => encodeURIComponent('"' + o + '"')).join(",");
   }
   let facetString = "";
+  console.log("facetSelection", facetSelection);
+
   Object.keys(facetSelection).forEach((facetSectionKey) => {
     Object.keys(facetSelection[facetSectionKey]).forEach((facetKey) => {
       if (facetSelection[facetSectionKey][facetKey].length === 0) return;
       facetString += `${
         facetString === "" ? "" : " AND "
-      }${facetSectionKey}.${facetKey}:${facetSelection[facetSectionKey][
-        facetKey
-      ].map((o: IOptionProps) => o.key)}`;
+      }${facetSectionKey}.${facetKey}:${
+        facetSelection[facetSectionKey][facetKey]
+      }`;
     });
   });
   if (facetString !== "")
@@ -262,10 +271,14 @@ export function getSearchParams(
 // the query string for you.
 export function useQueryParams() {
   const search = new URLSearchParams(useLocation().search);
-  let searchTermKeys: Array<string> = [];
+  let searchTermValues: Array<string> = [];
   const queryParam = search.get("q");
+  console.log("queryParam", queryParam);
+
   if (queryParam !== null) {
-    searchTermKeys = queryParam.split(",");
+    searchTermValues = queryParam
+      .split('","')
+      .map((o) => o.replace(/["]+/g, ""));
   }
   let facetSelection: any = {};
   const facets = search.get("facets")?.split(" AND ") || [];
@@ -280,26 +293,20 @@ export function useQueryParams() {
     const [key, value] = facetString.split(":");
     facetOperators[key] = value;
   });
-  return [searchTermKeys, facetSelection, facetOperators];
+  return [searchTermValues, facetSelection, facetOperators];
 }
 
 export function parseSelectedFacetFromUrl(
-  facetSections: Array<IFacetSectionProps>,
   facetsByKey: any
 ): IFacetSidebarSelection {
   const facetSidebarSelection: IFacetSidebarSelection = {};
   Object.keys(facetsByKey).forEach((compoundKey: string) => {
     const [sectionKey, facetKey] = compoundKey.split(".");
     const urlFacetSelection = facetsByKey[compoundKey];
-    const facetSection = facetSections?.find(({ key }) => sectionKey === key);
-    const facet = facetSection?.facets?.find(({ key }) => facetKey === key);
     if (!facetSidebarSelection[sectionKey]) {
       facetSidebarSelection[sectionKey] = {};
     }
-    facetSidebarSelection[sectionKey][facetKey] =
-      facet?.options.filter((option) =>
-        urlFacetSelection.includes(option.key)
-      ) || [];
+    facetSidebarSelection[sectionKey][facetKey] = urlFacetSelection || [];
   });
   return facetSidebarSelection;
 }
