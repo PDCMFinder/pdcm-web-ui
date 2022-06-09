@@ -41,14 +41,14 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
               className="d-inline-block align-top"
               alt="PDCM Finder logo"
             />
-            <small className="d-block mb-3 text-muted text-right">
+            <small className="d-block mb-3 text-white text-right">
               &copy; 2017-2022
             </small>
           </Col>
           {MENU.map((menu) => (
             <Col xs={6} md={3} key={menu.name}>
               {" "}
-              <h5 className="footer-heading">{menu.name}</h5>
+              <p className="footer-heading h5">{menu.name}</p>
               <ul className="list-unstyled text-small">
                 {menu.children.map((menuItem) => (
                   <li key={menuItem.link}>
