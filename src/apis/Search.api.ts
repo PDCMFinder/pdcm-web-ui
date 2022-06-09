@@ -83,7 +83,7 @@ export async function autoCompleteFacetOptions(
   facetColumn: string,
   text: string
 ) {
-  const ilikeClause = text.length > 0 ? `, option.ilike.*${text}*` : "";
+  const ilikeClause = text.length > 0 ? `, option.ilike."*${text}*"` : "";
   let response = await fetch(
     `${API_URL}/search_facet_options?and=(facet_column.eq.${facetColumn}${ilikeClause})&limit=20&order=option.asc`
   );
@@ -273,7 +273,6 @@ export function useQueryParams() {
   const search = new URLSearchParams(useLocation().search);
   let searchTermValues: Array<string> = [];
   const queryParam = search.get("q");
-  console.log("queryParam", queryParam);
 
   if (queryParam !== null) {
     searchTermValues = queryParam
