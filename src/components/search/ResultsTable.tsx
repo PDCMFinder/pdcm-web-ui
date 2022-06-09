@@ -54,7 +54,7 @@ export const ResultsTable: FunctionComponent<IResultsTableProps> = ({
         </div>
       ) : null}
       {results.map((result) => (
-        <div key={result.pdcmId} className="my-3">
+        <div key={`${result.pdcmId}-${result.datasource}`} className="my-3">
           <SearchResultCard {...result} />
         </div>
       ))}

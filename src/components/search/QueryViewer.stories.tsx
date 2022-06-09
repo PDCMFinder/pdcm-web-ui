@@ -15,9 +15,6 @@ const Template: Story<IQueryViewerProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  searchTerms: [
-    { key: "diagnosis_1", name: "Diagnosits 1" },
-    { key: "diagnosis_2", name: "Diagnosits 2" },
-  ],
+  searchTerms: ["Diagnosits 1", "Diagnosits 2"],
   facetSelection: {},
 };

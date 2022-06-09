@@ -24,33 +24,15 @@ Default.args = {
       name: "PDCM Model",
       facets: [
         {
-          key: "model",
+          facetId: "model",
           name: "Data available",
           options: [
-            {
-              key: "gene_mutation",
-              name: "Gene Mutation",
-            },
-            {
-              key: "cytogenetics",
-              name: "Cytogenetics",
-            },
-            {
-              key: "copy_number_alteration",
-              name: "Copy Number Alteration",
-            },
-            {
-              key: "dosing_studies",
-              name: "Dosing Studies",
-            },
-            {
-              key: "patient_treatment",
-              name: "Patient Treatment",
-            },
-            {
-              key: "expression",
-              name: "Expression",
-            },
+            "Gene Mutation",
+            "Cytogenetics",
+            "Copy Number Alteration",
+            "Dosing Studies",
+            "Patient Treatment",
+            "Expression",
           ],
           type: "check",
         },
@@ -61,7 +43,7 @@ Default.args = {
       name: "Molecular Data",
       facets: [
         {
-          key: "molecular_data",
+          facetId: "molecular_data",
           name: "Copy number alteration",
           options: [],
           type: "autocomplete",

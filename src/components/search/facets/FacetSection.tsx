@@ -35,26 +35,26 @@ export const FacetSection: FunctionComponent<IFacetSectionProps> = ({
       </Button>
       <Collapse in={open}>
         <div id={`facet-section-${name}`}>
-          {facets?.map(({ key, name, type, options }) => {
+          {facets?.map(({ facetId, name, type, options }) => {
             return (
-              <div key={key} className="pb-2">
+              <div key={facetId} className="pb-2">
                 <Facet
-                  key={key}
+                  facetId={facetId}
                   name={name}
                   options={options}
                   selection={
-                    sectionSelection && sectionSelection[key]
-                      ? sectionSelection[key]
-                      : ([] as IOptionProps[])
+                    sectionSelection && sectionSelection[facetId]
+                      ? sectionSelection[facetId]
+                      : ([] as string[])
                   }
                   operator={
-                    sectionOperators && sectionOperators[key]
-                      ? sectionOperators[key]
+                    sectionOperators && sectionOperators[facetId]
+                      ? sectionOperators[facetId]
                       : undefined
                   }
                   type={type}
                   onSelectionChange={(v, op) => {
-                    if (onSelectionChange) onSelectionChange(key, v, op);
+                    if (onSelectionChange) onSelectionChange(facetId, v, op);
                   }}
                 />
               </div>

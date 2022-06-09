@@ -102,7 +102,7 @@ export const SearchResultCard: React.FC<SearchResult> = ({
               </h4>
             </Link>
             <div className="fw-light" style={{ fontSize: "larger" }}>
-              {histology}
+              {histology.replace("/", " / ")}
             </div>
             <div style={{ textTransform: "capitalize" }}>{modelType} model</div>
             <div style={{ textTransform: "capitalize" }}>
@@ -122,11 +122,15 @@ export const SearchResultCard: React.FC<SearchResult> = ({
             >
               {modelInfoCategories.map((category) => {
                 return (
-                  <div className="d-inline-flex align-items-center justify-content-start">
+                  <div
+                    key={category.name}
+                    className="d-inline-flex align-items-center justify-content-start"
+                  >
                     <FontAwesomeIcon icon={category.icon} className="h5" />
                     <div className="my-2 mx-2" style={{ lineHeight: "1.2rem" }}>
                       <div className="text-capitalize">
-                        {modelInfo[category.key] || "Not Specified"}
+                        {modelInfo[category.key]?.replace("/", " / ") ||
+                          "Not Specified"}
                       </div>
                       <div className="small text-muted">{category.name}</div>
                     </div>

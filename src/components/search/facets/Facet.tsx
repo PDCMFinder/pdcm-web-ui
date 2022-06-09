@@ -7,6 +7,7 @@ import { IFacetProps } from "../../../models/Facet.model";
 import { TypeaheadFacet } from "./TypeaheadFacet";
 
 export const Facet: FunctionComponent<IFacetProps> = ({
+  facetId,
   name,
   type,
   options,
@@ -23,10 +24,10 @@ export const Facet: FunctionComponent<IFacetProps> = ({
         return options.map((option) => {
           return (
             <Form.Check
-              key={option.key}
+              key={option}
               type="checkbox"
-              label={option.name}
-              id={option.key}
+              label={option}
+              id={option}
               checked={selection.includes(option)}
               onChange={(e) => {
                 let newSelection = [...selection];
@@ -46,8 +47,8 @@ export const Facet: FunctionComponent<IFacetProps> = ({
       case "multivalued":
         return (
           <TypeaheadFacet
+            facetId={facetId}
             name={name}
-            options={options}
             values={selection}
             onSelectionChange={onSelectionChange}
             operator={operator ? operator : "any"}
@@ -59,8 +60,8 @@ export const Facet: FunctionComponent<IFacetProps> = ({
       case "autocomplete":
         return (
           <TypeaheadFacet
+            facetId={facetId}
             name={name}
-            options={options}
             values={selection}
             onSelectionChange={onSelectionChange}
             operator={operator}
