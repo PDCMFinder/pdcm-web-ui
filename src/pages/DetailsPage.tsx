@@ -74,6 +74,7 @@ export const DetailsPage: FunctionComponent = () => {
       cancerGradingSystem={modelMetadataQuery.data?.cancerGradingSystem}
       cancerStage={modelMetadataQuery.data?.cancerStage}
       cancerStagingSystem={modelMetadataQuery.data?.cancerStagingSystem}
+      primarySite={modelMetadataQuery.data?.primarySite}
       collectionSite={modelMetadataQuery.data?.collectionSite}
       contactLink={modelExtLinksQuery.data?.contactLink}
       sourceDatabaseUrl={modelExtLinksQuery.data?.sourceDatabaseUrl}
