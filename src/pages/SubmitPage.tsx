@@ -37,6 +37,12 @@ const templateFiles: Array<TemplateFileGroup> = [
           process.env.PUBLIC_URL +
           "/static/templates/sampleplatform_template.xlsx",
       },
+      {
+        name: "Model type",
+        link:
+          process.env.PUBLIC_URL +
+          "/static/templates/metadata_template-cell_model.xlsx",
+      },
     ],
   },
 
