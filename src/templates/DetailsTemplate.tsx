@@ -6,10 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { IModelExtLinks } from "../apis/Details.api";
+import { AnchorLink } from "../components/details/AnchorLink";
 import {
   DosingStudyTable,
   IDosingStudyTableProps,
 } from "../components/details/DosingStudyTable";
+import { MetadataItem } from "../components/details/MetadataItem";
 import {
   IModelEngraftmentTableProps,
   ModelEngraftmentTable,
@@ -36,17 +38,18 @@ import {
   IPatientTreatmentTableProps,
   PatientTreatmentTable,
 } from "../components/details/PatientTreatmentTable";
+import { TableOfContent } from "../components/details/TableOfContent";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 
 export interface IDetailsTemplateProps
   extends IModelMetadataProps,
-    IPatientMetadataProps,
-    IModelExtLinks,
-    IMolecularDataTableProps,
-    IModelEngraftmentTableProps,
-    IModelQualityControlTableProps,
-    IDosingStudyTableProps,
-    IPatientTreatmentTableProps {
+  IPatientMetadataProps,
+  IModelExtLinks,
+  IMolecularDataTableProps,
+  IModelEngraftmentTableProps,
+  IModelQualityControlTableProps,
+  IDosingStudyTableProps,
+  IPatientTreatmentTableProps {
   selectedMolecularCharacterization?: IMolecularCharacterization;
   molecularDetailLoading?: boolean;
   molecularDetailData?: Array<any>;
@@ -85,131 +88,202 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   return (
     <GeneralTemplate>
       <Container fluid className="mt-5 w-100">
-        <Row>
-          <Col sm="2" xxl="1" className="d-sm-block d-none">
-            <h6 className="text-muted my-4">Data available</h6>
-            <ul className="list-unstyled">
-              <li>Quality control</li>
-              <li>Molecular data</li>
-              <li>Dosing studies</li>
-              <li>Patient treatment</li>
-              <li>Publications</li>
-            </ul>
+        <Row className="gx-5">
+          <Col sm="2" className="d-sm-block d-none">
+          <h6 className="text-muted my-4">Data available</h6>
+      <ul className="list-unstyled">
+        {modelType === "xenograft" ? (
+          <AnchorLink label="PDX model engraftment" href="#engraftments"  disabled={!engraftments?.length}/>
+        ) : null}
+        <AnchorLink label="Quality control" href="#quality-control"  disabled={!qualityChecks?.length}/>
+        <AnchorLink label="Molecular data" href="#molecular-data"  disabled={!molecularCharacterizations?.length}/>
+        <AnchorLink label="Dosing studies" href="#dosing-studies"  disabled={!dosingStudies?.length}/>
+        <AnchorLink label="Patient treatment" href="#patient-treatment"  disabled={!patientTreatments?.length}/>
+        {/* <li className="py-3"><a href="#publications" className={qualityChecks.length > 0 ? "" : "disabled text-muted text-decoration-none"}>Publications</a></li> */}
+        <li className="py-3">
+          <Button
+            variant="outline-primary"
+            href={contactLink}
+            target="_blank"
+            className="w-100"
+          >
+            <FontAwesomeIcon icon={faEnvelope} />
+            &nbsp; Contact provider
+          </Button>
+        </li>
+
+        {sourceDatabaseUrl && (
+          <li className="py-3">
+            <Button
+              variant="outline-primary"
+              href={sourceDatabaseUrl}
+              target="_blank"
+              className="w-100"
+            >
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
+              &nbsp; View data at {providerId}
+            </Button>
+          </li>
+        )}
+      </ul>
           </Col>
-          <Col sm="10" xxl="11">
+          <Col sm="10">
             <Row className="ml-2">
               <Col lg="8" className="lh-sm">
                 <div>
-                  <h1 className="text-muted fw-lighter mb-3">Model</h1>
-                  <p className="fs-1 fw-lighter lh-sm pb-0 mb-0">{histology}</p>
-                  <p className="fs-4 text-muted">Diagnosis</p>
+                  <h2 className="text-muted fw-lighter mb-3">Model metadata</h2>
+                  <p className="fs-2 fw-lighter lh-sm pb-0 mb-0">{histology}</p>
+                  <p className="fs-5 text-muted">Diagnosis</p>
                 </div>
 
                 <dd>
-                  <Row className="g-0 fs-4">
+                  <Row className="g-0 fs-5">
                     <Col lg="4">
-                      <dt style={{ fontWeight: "400" }}>{modelId}</dt>
-                      <dl className="text-muted fw-lighter">
-                        Model identifier
-                      </dl>
+                      <MetadataItem value={modelId} label="Model identifier" />
                     </Col>
                     <Col>
-                      <dt style={{ fontWeight: "400" }}>{providerName}</dt>
-                      <dl className="text-muted fw-lighter">Model provider</dl>
+                      <MetadataItem value={providerName} label="Model provider" />
                     </Col>
                   </Row>
-                  <Row className="g-0 fs-4">
+                  <Row className="g-0 fs-5">
                     <Col lg="4">
-                      <dt
-                        style={{ fontWeight: "400" }}
-                        className="text-capitalize"
-                      >
-                        {modelType}
-                      </dt>
-                      <dl className="text-muted fw-lighter">Model type</dl>
+                      <MetadataItem value={modelType} label="Model type" />
                     </Col>
                     <Col>
-                      <dt style={{ fontWeight: "400" }}>{cancerSystem}</dt>
-                      <dl className="text-muted fw-lighter">Cancer system</dl>
+                      <MetadataItem value={cancerSystem} label="Cancer system" />
                     </Col>
                   </Row>
                 </dd>
               </Col>
             </Row>
-            <Row className="ml-2">
+            <Row className="ml-2 mb-5">
               <Col lg="8" className="lh-sm">
                 <div>
-                  <h1 className="text-muted fw-lighter mb-3">
-                    Patient / Tumor
-                  </h1>
+                  <h2 className="text-muted fw-lighter mb-3">
+                    Patient / Tumor metadata
+                  </h2>
                 </div>
 
                 <dd>
-                  <Row className="g-0 fs-4">
+                  <Row className="g-0 fs-5">
                     <Col lg="4">
-                      <dt
-                        style={{ fontWeight: "400" }}
-                        className="text-capitalize"
-                      >
-                        {patientSex}
-                      </dt>
-                      <dl className="text-muted fw-lighter">Patient sex</dl>
+                      <MetadataItem value={patientSex} label="Patient sex" />
                     </Col>
                     <Col lg="4">
-                      <dt style={{ fontWeight: "400" }}>{patientAge}</dt>
-                      <dl className="text-muted fw-lighter">Patient Age</dl>
+                      <MetadataItem value={`${patientAge}`} label="Patient age" />
                     </Col>
                     <Col lg="4">
-                      <dt style={{ fontWeight: "400" }}>{patientEthnicity}</dt>
-                      <dl className="text-muted fw-lighter">
-                        Patient ethnicity
-                      </dl>
+                      <MetadataItem value={patientEthnicity} label="Patient ethnicity" />
                     </Col>
                   </Row>
-                  <Row className="g-0 fs-4">
+                  <Row className="g-0 fs-5">
                     <Col lg="4">
-                      <dt
-                        style={{ fontWeight: "400" }}
-                        className="text-capitalize"
-                      >
-                        {tumourType}
-                      </dt>
-                      <dl className="text-muted fw-lighter">Tumor type</dl>
+                      <MetadataItem value={tumourType} label="Tumor type" />
                     </Col>
                     <Col lg="4">
-                      <dt style={{ fontWeight: "400" }}>{cancerGrade}</dt>
-                      <dl className="text-muted fw-lighter">Cancer grade</dl>
+                      <MetadataItem value={cancerGrade} label="Cancer grade" />
                     </Col>
                     <Col lg="4">
-                      <dt style={{ fontWeight: "400" }}>{cancerStage}</dt>
-                      <dl className="text-muted fw-lighter">Cancer stage</dl>
+                      <MetadataItem value={cancerStage} label="Cancer stage" />
                     </Col>
                   </Row>
-                  <Row className="g-0 fs-4">
+                  <Row className="g-0 fs-5">
                     <Col lg="4">
-                      <dt
-                        style={{ fontWeight: "400" }}
-                        className="text-capitalize"
-                      >
-                        {primarySite?.replace("/", " / ")}
-                      </dt>
-                      <dl className="text-muted fw-lighter">Primary site</dl>
+                      <MetadataItem value={primarySite?.replace("/", " / ")} label="Primary site" />
                     </Col>
                     <Col lg="4">
-                      <dt
-                        style={{ fontWeight: "400" }}
-                        className="text-capitalize"
-                      >
-                        {collectionSite}
-                      </dt>
-                      <dl className="text-muted fw-lighter">Collection site</dl>
+                      <MetadataItem value={collectionSite} label="Collection site" />
                     </Col>
                   </Row>
                 </dd>
               </Col>
             </Row>
+            {engraftments.length > 0 && (
+              <>
+                <h3>PDX model engraftment</h3>{" "}
+                <Row className="mt-3 mb-5">
+                  <Col>
+                    <ModelEngraftmentTable engraftments={engraftments} />
+                  </Col>
+                </Row>
+              </>
+            )}
+            {qualityChecks.length > 0 && (
+              <>
+                <h3 style={{ position: "relative" }}><span id="quality-control" style={{ position: "absolute", top: "-100px" }}></span>Model quality control</h3>{" "}
+                <Row className="mt-3 mb-5">
+                  <Col>
+                    <ModelQualityControlTable qualityChecks={qualityChecks} />
+                  </Col>
+                </Row>
+              </>
+            )}
+            {molecularCharacterizations?.length > 0 && (
+              <>
+                <h3 style={{ position: "relative" }}><span id="molecular-data" style={{ position: "absolute", top: "-100px" }}></span>Molecular data</h3>
+                <Row className="mt-3 mb-5">
+                  <Col>
+                    <MolecularDataTable
+                      molecularCharacterizations={molecularCharacterizations}
+                      onSelectMolecularCharacterization={
+                        onSelectMolecularCharacterization
+                      }
+                    />
+                  </Col>
+                </Row>
+              </>
+            )}
+
+            {dosingStudies.length > 0 && (
+              <>
+                <h3 style={{ position: "relative" }}><span id="dosing-studies" style={{ position: "absolute", top: "-100px" }}></span>Dosing studies</h3>
+                <Row className="mb-5">
+                  <Col>
+                    <DosingStudyTable dosingStudies={dosingStudies} />
+                  </Col>
+                </Row>
+              </>
+            )}
+            {patientTreatments.length > 0 && (
+              <>
+                <h3 style={{ position: "relative" }}><span id="patient-treatment" style={{ position: "absolute", top: "-100px" }}></span>Patient treatment</h3>
+                <Row className="mb-5">
+                  <Col>
+                    <PatientTreatmentTable patientTreatments={patientTreatments} />
+                  </Col>
+                </Row>
+              </>
+            )}
+            <Modal
+              show={selectedMolecularCharacterization !== undefined}
+              dialogClassName="modal-90w"
+              onHide={() => onSelectMolecularCharacterization(undefined)}
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>
+                  {selectedMolecularCharacterization?.platformName}{" "}
+                  {selectedMolecularCharacterization ? "data" : ""}
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {selectedMolecularCharacterization && (
+                  <MolecularDataDetailTable
+                    molecularCharacterization={selectedMolecularCharacterization}
+                  ></MolecularDataDetailTable>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="secondary"
+                  onClick={() => onSelectMolecularCharacterization(undefined)}
+                >
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </Col>
         </Row>
+
       </Container>
     </GeneralTemplate>
   );
