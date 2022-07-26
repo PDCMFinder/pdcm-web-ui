@@ -227,19 +227,15 @@ export async function getPatientTreatment(
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-  return response.json().then((d) => {
-    return d.flatMap((item: any) => {
-      const itemCamelCase: any = camelCase(item);
-
-      return itemCamelCase.treatment.split(" And ").map((name: string) => {
-        return {
-          treatmentName: name,
-          treatmentDose: itemCamelCase.dose,
-          treatmentResponse: itemCamelCase.response,
-        };
-      });
-    });
-  });
+  return response.json().then((d) => d.map((item: any) => {
+    const itemCamelCase: any = camelCase(item);
+    let treatment: Treatment = {
+      treatmentName: itemCamelCase.treatment.replaceAll(" And ", ", "),
+      treatmentDose: itemCamelCase.dose,
+      treatmentResponse: itemCamelCase.response,
+    };
+    return treatment;
+  }));
 }
 
 export async function getModelDrugDosing(
