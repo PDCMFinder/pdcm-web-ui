@@ -43,13 +43,13 @@ import { GeneralTemplate } from "../templates/GeneralTemplate";
 
 export interface IDetailsTemplateProps
   extends IModelMetadataProps,
-  IPatientMetadataProps,
-  IModelExtLinks,
-  IMolecularDataTableProps,
-  IModelEngraftmentTableProps,
-  IModelQualityControlTableProps,
-  IDosingStudyTableProps,
-  IPatientTreatmentTableProps {
+    IPatientMetadataProps,
+    IModelExtLinks,
+    IMolecularDataTableProps,
+    IModelEngraftmentTableProps,
+    IModelQualityControlTableProps,
+    IDosingStudyTableProps,
+    IPatientTreatmentTableProps {
   selectedMolecularCharacterization?: IMolecularCharacterization;
   molecularDetailLoading?: boolean;
   molecularDetailData?: Array<any>;
@@ -90,42 +90,62 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
       <Container fluid className="mt-5 w-100">
         <Row className="gx-5">
           <Col sm="2" className="d-sm-block d-none">
-          <h6 className="text-muted my-4">Data available</h6>
-      <ul className="list-unstyled">
-        {modelType === "xenograft" ? (
-          <AnchorLink label="PDX model engraftment" href="#engraftments"  disabled={!engraftments?.length}/>
-        ) : null}
-        <AnchorLink label="Quality control" href="#quality-control"  disabled={!qualityChecks?.length}/>
-        <AnchorLink label="Molecular data" href="#molecular-data"  disabled={!molecularCharacterizations?.length}/>
-        <AnchorLink label="Dosing studies" href="#dosing-studies"  disabled={!dosingStudies?.length}/>
-        <AnchorLink label="Patient treatment" href="#patient-treatment"  disabled={!patientTreatments?.length}/>
-        {/* <li className="py-3"><a href="#publications" className={qualityChecks.length > 0 ? "" : "disabled text-muted text-decoration-none"}>Publications</a></li> */}
-        <li className="py-3">
-          <Button
-            variant="outline-primary"
-            href={contactLink}
-            target="_blank"
-            className="w-100"
-          >
-            <FontAwesomeIcon icon={faEnvelope} />
-            &nbsp; Contact provider
-          </Button>
-        </li>
+            <h6 className="text-muted my-4">Data available</h6>
+            <ul className="list-unstyled">
+              {modelType === "xenograft" ? (
+                <AnchorLink
+                  label="PDX model engraftment"
+                  href="#engraftments"
+                  disabled={!engraftments?.length}
+                />
+              ) : null}
+              <AnchorLink
+                label="Quality control"
+                href="#quality-control"
+                disabled={!qualityChecks?.length}
+              />
+              <AnchorLink
+                label="Molecular data"
+                href="#molecular-data"
+                disabled={!molecularCharacterizations?.length}
+              />
+              <AnchorLink
+                label="Dosing studies"
+                href="#dosing-studies"
+                disabled={!dosingStudies?.length}
+              />
+              <AnchorLink
+                label="Patient treatment"
+                href="#patient-treatment"
+                disabled={!patientTreatments?.length}
+              />
+              {/* <li className="py-3"><a href="#publications" className={qualityChecks.length > 0 ? "" : "disabled text-muted text-decoration-none"}>Publications</a></li> */}
+              {/* <li className="py-3">
+                <Button
+                  variant="outline-primary"
+                  href={contactLink}
+                  target="_blank"
+                  className="w-100"
+                >
+                  <FontAwesomeIcon icon={faEnvelope} />
+                  &nbsp; Contact provider
+                </Button>
+              </li>
 
-        {sourceDatabaseUrl && (
-          <li className="py-3">
-            <Button
-              variant="outline-primary"
-              href={sourceDatabaseUrl}
-              target="_blank"
-              className="w-100"
-            >
-              <FontAwesomeIcon icon={faExternalLinkAlt} />
-              &nbsp; View data at {providerId}
-            </Button>
-          </li>
-        )}
-      </ul>
+              {sourceDatabaseUrl && (
+                <li className="py-3">
+                  <Button
+                    variant="outline-primary"
+                    href={sourceDatabaseUrl}
+                    target="_blank"
+                    className="w-100"
+                  >
+                    <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    &nbsp; View data at {providerId}
+                  </Button>
+                </li>
+              )} */}
+            </ul>
           </Col>
           <Col sm="10">
             <Row className="ml-2">
@@ -142,7 +162,10 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                       <MetadataItem value={modelId} label="Model identifier" />
                     </Col>
                     <Col>
-                      <MetadataItem value={providerName} label="Model provider" />
+                      <MetadataItem
+                        value={providerName}
+                        label="Model provider"
+                      />
                     </Col>
                   </Row>
                   <Row className="g-0 fs-5">
@@ -150,10 +173,35 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                       <MetadataItem value={modelType} label="Model type" />
                     </Col>
                     <Col>
-                      <MetadataItem value={cancerSystem} label="Cancer system" />
+                      <MetadataItem
+                        value={cancerSystem}
+                        label="Cancer system"
+                      />
                     </Col>
                   </Row>
                 </dd>
+              </Col>
+              <Col>
+                <Button
+                  variant="primary"
+                  href={contactLink}
+                  target="_blank"
+                  className="w-50 d-block mb-2"
+                >
+                  <FontAwesomeIcon icon={faEnvelope} />
+                  &nbsp; Contact provider
+                </Button>
+                {sourceDatabaseUrl && (
+                  <Button
+                    variant="primary"
+                    href={sourceDatabaseUrl}
+                    target="_blank"
+                    className="w-50 d-block"
+                  >
+                    <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    &nbsp; View data at {providerId}
+                  </Button>
+                )}
               </Col>
             </Row>
             <Row className="ml-2 mb-5">
@@ -170,10 +218,16 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                       <MetadataItem value={patientSex} label="Patient sex" />
                     </Col>
                     <Col lg="4">
-                      <MetadataItem value={`${patientAge}`} label="Patient age" />
+                      <MetadataItem
+                        value={`${patientAge}`}
+                        label="Patient age"
+                      />
                     </Col>
                     <Col lg="4">
-                      <MetadataItem value={patientEthnicity} label="Patient ethnicity" />
+                      <MetadataItem
+                        value={patientEthnicity}
+                        label="Patient ethnicity"
+                      />
                     </Col>
                   </Row>
                   <Row className="g-0 fs-5">
@@ -189,10 +243,16 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                   </Row>
                   <Row className="g-0 fs-5">
                     <Col lg="4">
-                      <MetadataItem value={primarySite?.replace("/", " / ")} label="Primary site" />
+                      <MetadataItem
+                        value={primarySite?.replace("/", " / ")}
+                        label="Primary site"
+                      />
                     </Col>
                     <Col lg="4">
-                      <MetadataItem value={collectionSite} label="Collection site" />
+                      <MetadataItem
+                        value={collectionSite}
+                        label="Collection site"
+                      />
                     </Col>
                   </Row>
                 </dd>
@@ -210,7 +270,13 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             )}
             {qualityChecks.length > 0 && (
               <>
-                <h3 style={{ position: "relative" }}><span id="quality-control" style={{ position: "absolute", top: "-100px" }}></span>Model quality control</h3>{" "}
+                <h3 style={{ position: "relative" }}>
+                  <span
+                    id="quality-control"
+                    style={{ position: "absolute", top: "-100px" }}
+                  ></span>
+                  Model quality control
+                </h3>{" "}
                 <Row className="mt-3 mb-5">
                   <Col>
                     <ModelQualityControlTable qualityChecks={qualityChecks} />
@@ -220,7 +286,13 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             )}
             {molecularCharacterizations?.length > 0 && (
               <>
-                <h3 style={{ position: "relative" }}><span id="molecular-data" style={{ position: "absolute", top: "-100px" }}></span>Molecular data</h3>
+                <h3 style={{ position: "relative" }}>
+                  <span
+                    id="molecular-data"
+                    style={{ position: "absolute", top: "-100px" }}
+                  ></span>
+                  Molecular data
+                </h3>
                 <Row className="mt-3 mb-5">
                   <Col>
                     <MolecularDataTable
@@ -236,7 +308,13 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
 
             {dosingStudies.length > 0 && (
               <>
-                <h3 style={{ position: "relative" }}><span id="dosing-studies" style={{ position: "absolute", top: "-100px" }}></span>Dosing studies</h3>
+                <h3 style={{ position: "relative" }}>
+                  <span
+                    id="dosing-studies"
+                    style={{ position: "absolute", top: "-100px" }}
+                  ></span>
+                  Dosing studies
+                </h3>
                 <Row className="mb-5">
                   <Col>
                     <DosingStudyTable dosingStudies={dosingStudies} />
@@ -246,10 +324,18 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             )}
             {patientTreatments.length > 0 && (
               <>
-                <h3 style={{ position: "relative" }}><span id="patient-treatment" style={{ position: "absolute", top: "-100px" }}></span>Patient treatment</h3>
+                <h3 style={{ position: "relative" }}>
+                  <span
+                    id="patient-treatment"
+                    style={{ position: "absolute", top: "-100px" }}
+                  ></span>
+                  Patient treatment
+                </h3>
                 <Row className="mb-5">
                   <Col>
-                    <PatientTreatmentTable patientTreatments={patientTreatments} />
+                    <PatientTreatmentTable
+                      patientTreatments={patientTreatments}
+                    />
                   </Col>
                 </Row>
               </>
@@ -268,7 +354,9 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
               <Modal.Body>
                 {selectedMolecularCharacterization && (
                   <MolecularDataDetailTable
-                    molecularCharacterization={selectedMolecularCharacterization}
+                    molecularCharacterization={
+                      selectedMolecularCharacterization
+                    }
                   ></MolecularDataDetailTable>
                 )}
               </Modal.Body>
@@ -283,7 +371,6 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             </Modal>
           </Col>
         </Row>
-
       </Container>
     </GeneralTemplate>
   );
