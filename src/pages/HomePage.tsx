@@ -21,6 +21,7 @@ import { SearchBar } from "../components/search/SearchBar";
 import { Timeline } from "react-twitter-widgets";
 import { getSearchOptions } from "../apis/Search.api";
 import { IOptionProps } from "../models/Facet.model";
+import { capitalizeFirstLetter } from "../apis/Utils.api";
 
 export const HomePage: FunctionComponent = () => {
   const searchOptionsQuery = useQuery("search-options", getSearchOptions);
@@ -94,10 +95,15 @@ export const HomePage: FunctionComponent = () => {
                 <ExploreCirclePacking
                   data={cancerHierarchy.data}
                   onCircleClick={(circleId, circleDepth) => {
-                    const searchPrefix = circleDepth === 1 ? `?facets=patient_tumour.cancer_system:`: `?q=`;
-                    const termSuffix =  circleDepth === 1 ? "Cancer" : "";
-                    const search = `${searchPrefix}${encodeURIComponent(circleId + termSuffix)}`;
-                      
+                    const searchPrefix =
+                      circleDepth === 1
+                        ? `?facets=patient_tumour.cancer_system:`
+                        : `?q=`;
+                    const termSuffix = circleDepth === 1 ? "Cancer" : "";
+                    const search = `${searchPrefix}${encodeURIComponent(
+                      circleId + termSuffix
+                    )}`;
+
                     history.push({
                       pathname: "/data/search",
                       search: search,
@@ -126,11 +132,20 @@ export const HomePage: FunctionComponent = () => {
                           modelType: string;
                           count: number;
                         }) => (
-                          <Stats
-                            key={modelType}
-                            count={count}
-                            title={`${modelType} models`}
-                          />
+                          <Link
+                            to={`data/?facets=model.model_type:${encodeURIComponent(
+                              modelType
+                            )}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <Stats
+                              key={modelType}
+                              count={count}
+                              title={`${capitalizeFirstLetter(
+                                modelType
+                              )} models`}
+                            />
+                          </Link>
                         )
                       )}
                   </>
