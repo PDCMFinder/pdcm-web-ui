@@ -24,8 +24,6 @@ import { IOptionProps } from "../models/Facet.model";
 import { capitalizeFirstLetter } from "../apis/Utils.api";
 
 export const HomePage: FunctionComponent = () => {
-  const searchOptionsQuery = useQuery("search-options", getSearchOptions);
-
   let cancerHierarchy = useQuery("cancerHierarchy", () => {
     return getCancerHierarchy();
   });
@@ -186,6 +184,16 @@ export const HomePage: FunctionComponent = () => {
               <div style={{ height: "400px" }}>
                 {frequentlyMutatedGenes.data && (
                   <ExploreBarChart
+                    chartTitle="Models by top mutated gene"
+                    onBarClick={(category) => {
+                      const search = `?facets=molecular_data.makers_with_mutation_data:${encodeURIComponent(
+                        category
+                      )}&facet.operators=molecular_data.makers_with_mutation_data:any`;
+                      history.push({
+                        pathname: "/data/search",
+                        search: search,
+                      });
+                    }}
                     data={frequentlyMutatedGenes.data}
                     indexKey="mutatedGene"
                   />
@@ -197,7 +205,18 @@ export const HomePage: FunctionComponent = () => {
               <h3>Models by dataset availability</h3>
               <div style={{ height: "400px" }}>
                 {modelsByDatasetAvailability.data && (
-                  <ExplorePieChart data={modelsByDatasetAvailability.data} />
+                  <ExplorePieChart
+                    onSectionClick={(category) => {
+                      const search = `?facets=model.dataset_available:${encodeURIComponent(
+                        category
+                      )}`;
+                      history.push({
+                        pathname: "/data/search",
+                        search: search,
+                      });
+                    }}
+                    data={modelsByDatasetAvailability.data}
+                  />
                 )}
               </div>
             </Col>
@@ -207,6 +226,16 @@ export const HomePage: FunctionComponent = () => {
               <div style={{ height: "400px" }}>
                 {modelsByTreatment.data && (
                   <ExploreBarChart
+                    chartTitle="Models by drug treatment"
+                    onBarClick={(category) => {
+                      const search = `?facets=treatment_drug_dosing.treatment_list:${encodeURIComponent(
+                        category
+                      )}&facet.operators=treatment_drug_dosing.treatment_list:any`;
+                      history.push({
+                        pathname: "/data/search",
+                        search: search,
+                      });
+                    }}
                     data={modelsByTreatment.data}
                     indexKey="treatment"
                     leftMargin={150}

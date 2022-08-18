@@ -61,7 +61,10 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
               <Col xs={12} md={6}>
                 <h2 className="text-center">Models by Primary Site</h2>
                 <div style={{ height: "500px" }}>
-                  <ExplorePieChart data={providerModelsBySystem} />
+                  <ExplorePieChart
+                    onSectionClick={(category) => {}}
+                    data={providerModelsBySystem}
+                  />
                 </div>
               </Col>
               <Col xs={12} md={6}>
