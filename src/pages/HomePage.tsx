@@ -91,7 +91,19 @@ export const HomePage: FunctionComponent = () => {
           <Row className="mx-0 w-100 d-flex justify-content-between g-0">
             <Col xs={12} md={5} id="explore-pie-chart">
               {cancerHierarchy.data && (
-                <ExploreCirclePacking data={cancerHierarchy.data} />
+                <ExploreCirclePacking
+                  data={cancerHierarchy.data}
+                  onCircleClick={(circleId, circleDepth) => {
+                    const searchPrefix = circleDepth === 1 ? `?facets=patient_tumour.cancer_system:`: `?q=`;
+                    const termSuffix =  circleDepth === 1 ? "Cancer" : "";
+                    const search = `${searchPrefix}${encodeURIComponent(circleId + termSuffix)}`;
+                      
+                    history.push({
+                      pathname: "/data/search",
+                      search: search,
+                    });
+                  }}
+                />
               )}
             </Col>
             <Col xs={12} md={7} className="text-end">

@@ -8,10 +8,10 @@ import { FunctionComponent, useState } from "react";
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-export const ExploreCirclePacking: FunctionComponent<{ data: any }> = ({
-  data,
-}) => {
-  const [zoomedId, setZoomedId] = useState<string | null>(null);
+export const ExploreCirclePacking: FunctionComponent<{
+  data: any;
+  onCircleClick: (circleId: string, circleDepth: number) => void;
+}> = ({ data, onCircleClick }) => {
   return (
     <ResponsiveCirclePacking
       data={data}
@@ -24,12 +24,10 @@ export const ExploreCirclePacking: FunctionComponent<{ data: any }> = ({
       enableLabels={true}
       labelsFilter={function (e) {
         return (
-          1 === e.node.depth ||
-          (zoomedId !== null && zoomedId !== "PDCM Models")
+          1 === e.node.depth
         );
       }}
       margin={{ top: 0, right: 20, bottom: 10, left: 0 }}
-      zoomedId={zoomedId}
       theme={{
         labels: {
           text: {
@@ -46,9 +44,9 @@ export const ExploreCirclePacking: FunctionComponent<{ data: any }> = ({
       labelTextColor={{ from: "color", modifiers: [["brighter", 100]] }}
       animate={false}
       motionConfig="slow"
-      // onClick={(node) => {
-      //   setZoomedId(zoomedId === node.id ? null : node.id);
-      // }}
+      onClick={(node) => {
+        onCircleClick(node.id, node.depth);
+      }}
       borderWidth={1}
       borderColor={{ from: "color", modifiers: [["darker", 0.5]] }}
     />
