@@ -68,7 +68,10 @@ export const DetailsPage: FunctionComponent = () => {
 
   const publicationsQuery = useQueries<Array<Publication>>(
     pubmedIds.map((p: string) => {
-      return { queryKey: p, queryFn: () => getPublicationData(p) };
+      return {
+        queryKey: ["publication-data", p],
+        queryFn: () => getPublicationData(p),
+      };
     })
   );
 
