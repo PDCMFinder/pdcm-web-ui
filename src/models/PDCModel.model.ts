@@ -29,3 +29,12 @@ export interface Treatment {
   treatmentDose: string;
   treatmentResponse: string;
 }
+
+export interface Publication {
+  pmid: string;
+  title: string;
+  pubYear: string;
+  journalTitle: string;
+  authorString: string;
+  doi: string;
+}

@@ -38,7 +38,10 @@ import {
   IPatientTreatmentTableProps,
   PatientTreatmentTable,
 } from "../components/details/PatientTreatmentTable";
-import { TableOfContent } from "../components/details/TableOfContent";
+import {
+  IPublicationsTableProps,
+  PublicationTable,
+} from "../components/details/PublicationTable";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 
 export interface IDetailsTemplateProps
@@ -49,7 +52,8 @@ export interface IDetailsTemplateProps
     IModelEngraftmentTableProps,
     IModelQualityControlTableProps,
     IDosingStudyTableProps,
-    IPatientTreatmentTableProps {
+    IPatientTreatmentTableProps,
+    IPublicationsTableProps {
   selectedMolecularCharacterization?: IMolecularCharacterization;
   molecularDetailLoading?: boolean;
   molecularDetailData?: Array<any>;
@@ -79,6 +83,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   qualityChecks,
   dosingStudies,
   patientTreatments,
+  publications,
   onSelectMolecularCharacterization,
   selectedMolecularCharacterization,
 }) => {
@@ -340,6 +345,24 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                 </Row>
               </>
             )}
+
+            {publications.length > 0 && (
+              <>
+                <h3 style={{ position: "relative" }}>
+                  <span
+                    id="publications"
+                    style={{ position: "absolute", top: "-100px" }}
+                  ></span>
+                  Publications
+                </h3>
+                <Row className="mb-5">
+                  <Col>
+                    <PublicationTable publications={publications} />
+                  </Col>
+                </Row>
+              </>
+            )}
+
             <Modal
               show={selectedMolecularCharacterization !== undefined}
               dialogClassName="modal-90w"
@@ -375,155 +398,3 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
     </GeneralTemplate>
   );
 };
-
-/*
-    <GeneralTemplate>
-      <Container className="mt-5">
-        <Row>
-          <Col>
-            <h2>{modelId}</h2>
-            <h3>{histology}</h3>
-            <h5 className="text-muted">
-              {" "}
-              {providerName} - {providerId}
-            </h5>
-          </Col>
-          <Col xs={12} md={4} className="mt-2 mt-md-0">
-            <Button
-              variant="primary"
-              size="lg"
-              href={contactLink}
-              target="_blank"
-              className="mb-3"
-            >
-              <FontAwesomeIcon icon={faEnvelope} />
-              &nbsp; Contact provider
-            </Button>
-            {sourceDatabaseUrl && (
-              <Button
-                variant="primary"
-                size="lg"
-                href={sourceDatabaseUrl}
-                target="_blank"
-              >
-                <FontAwesomeIcon icon={faExternalLinkAlt} />
-                &nbsp; View data at {providerId}
-              </Button>
-            )}
-          </Col>
-        </Row>
-
-        <Row className="mt-5 mb-5">
-          <Col>
-            <h4>Model Metadata</h4>
-            <ModelMetadata
-              modelId={modelId}
-              providerId={providerId}
-              providerName={providerName || ""}
-              histology={histology || ""}
-              cancerSystem={cancerSystem || ""}
-              modelType={modelType || ""}
-            />
-          </Col>
-          <Col>
-            <h4>Patient Metadata</h4>
-            <PatientMetadata
-              patientSex={patientSex || ""}
-              derivedModels={[]}
-              patientAge={patientAge}
-              tumourType={tumourType || ""}
-              patientEthnicity={patientEthnicity || ""}
-              cancerGrade={cancerGrade || ""}
-              cancerGradingSystem={cancerGradingSystem || ""}
-              cancerStagingSystem={cancerStagingSystem || ""}
-              cancerStage={cancerStage || ""}
-              collectionSite={collectionSite || ""}
-            />
-          </Col>
-        </Row>
-        {engraftments.length > 0 && (
-          <>
-            <h3>PDX model engraftment</h3>{" "}
-            <Row className="mt-3 mb-5">
-              <Col>
-                <ModelEngraftmentTable engraftments={engraftments} />
-              </Col>
-            </Row>
-          </>
-        )}
-        {qualityChecks.length > 0 && (
-          <>
-            <h3>Model quality control</h3>{" "}
-            <Row className="mt-3 mb-5">
-              <Col>
-                <ModelQualityControlTable qualityChecks={qualityChecks} />
-              </Col>
-            </Row>
-          </>
-        )}
-        {molecularCharacterizations?.length > 0 && (
-          <>
-            <h3>Molecular data</h3>
-            <Row className="mt-3 mb-5">
-              <Col>
-                <MolecularDataTable
-                  molecularCharacterizations={molecularCharacterizations}
-                  onSelectMolecularCharacterization={
-                    onSelectMolecularCharacterization
-                  }
-                />
-              </Col>
-            </Row>
-          </>
-        )}
-
-        {dosingStudies.length > 0 && (
-          <>
-            <h3>Dosing studies</h3>
-            <Row className="mb-5">
-              <Col>
-                <DosingStudyTable dosingStudies={dosingStudies} />
-              </Col>
-            </Row>
-          </>
-        )}
-        {patientTreatments.length > 0 && (
-          <>
-            <h3>Patient treatment</h3>
-            <Row className="mb-5">
-              <Col>
-                <PatientTreatmentTable patientTreatments={patientTreatments} />
-              </Col>
-            </Row>
-          </>
-        )}
-      </Container>
-      <Modal
-        show={selectedMolecularCharacterization !== undefined}
-        dialogClassName="modal-90w"
-        onHide={() => onSelectMolecularCharacterization(undefined)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {selectedMolecularCharacterization?.platformName}{" "}
-            {selectedMolecularCharacterization ? "data" : ""}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedMolecularCharacterization && (
-            <MolecularDataDetailTable
-              molecularCharacterization={selectedMolecularCharacterization}
-            ></MolecularDataDetailTable>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => onSelectMolecularCharacterization(undefined)}
-          >
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </GeneralTemplate>
-*/
