@@ -5,6 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
 import { Badge, Button, Col, Container, Modal, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { IModelExtLinks } from "../apis/Details.api";
 import { capitalizeFirstLetter } from "../apis/Utils.api";
 import { AnchorLink } from "../components/details/AnchorLink";
@@ -172,8 +173,13 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                   <h2 className="text-muted mb-3">
                     {histology}- {capitalizeFirstLetter(modelType || "")} model
                   </h2>
-                  <p className="fs-2 fw-lighter lh-sm pb-0 mb-0">
-                    {providerName} ({providerId})
+                  <p className="fs-2 fw-lighter pb-0 mb-0">
+                    <Link
+                      to={`/about/provider/${providerId}`}
+                      className="text-decoration-none"
+                    >
+                      {providerName} ({providerId})
+                    </Link>
                   </p>
                 </div>
               </Col>

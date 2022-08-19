@@ -45,9 +45,7 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
             <Link
               role="button"
               className="btn btn-primary btn-lg btn-block"
-              to={`/data?facets=model.data_source:${providerId
-                .toLowerCase()
-                .replace("-", "_")}`}
+              to={`/data?facets=model.data_source:${providerId}`}
             >
               See all {providerId} models
             </Link>
