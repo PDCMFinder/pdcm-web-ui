@@ -13,5 +13,5 @@ export function camelCase(obj: any) {
 }
 
 export function capitalizeFirstLetter(text: string) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : "";
 }

@@ -4,8 +4,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import { Button, Col, Container, Modal, Row } from "react-bootstrap";
+import { Badge, Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { IModelExtLinks } from "../apis/Details.api";
+import { capitalizeFirstLetter } from "../apis/Utils.api";
 import { AnchorLink } from "../components/details/AnchorLink";
 import {
   DosingStudyTable,
@@ -95,7 +96,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
       <Container fluid className="mt-5 w-100">
         <Row className="gx-5">
           <Col sm="2" className="d-sm-block d-none">
-            <h6 className="text-muted my-4">Data available</h6>
+            <h5 className="text-muted my-4">Data available</h5>
             <ul className="list-unstyled">
               {modelType === "xenograft" ? (
                 <AnchorLink
@@ -164,38 +165,17 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             </ul>
           </Col>
           <Col sm="10">
-            <Row className="ml-2">
-              <Col lg="8" className="lh-sm">
+            <Row className="ml-2 mb-5">
+              <Col lg="8" className="lh-sm mb-3">
                 <div>
-                  <h2 className="text-muted fw-lighter mb-3">Model metadata</h2>
-                  <p className="fs-2 fw-lighter lh-sm pb-0 mb-0">{histology}</p>
-                  <p className="fs-5 text-muted">Diagnosis</p>
+                  <h1>{modelId}</h1>
+                  <h2 className="text-muted mb-3">
+                    {histology}- {capitalizeFirstLetter(modelType || "")} model
+                  </h2>
+                  <p className="fs-2 fw-lighter lh-sm pb-0 mb-0">
+                    {providerName} ({providerId})
+                  </p>
                 </div>
-
-                <dd>
-                  <Row className="g-0 fs-5">
-                    <Col lg="4">
-                      <MetadataItem value={modelId} label="Model identifier" />
-                    </Col>
-                    <Col>
-                      <MetadataItem
-                        value={providerName}
-                        label="Model provider"
-                      />
-                    </Col>
-                  </Row>
-                  <Row className="g-0 fs-5">
-                    <Col lg="4">
-                      <MetadataItem value={modelType} label="Model type" />
-                    </Col>
-                    <Col>
-                      <MetadataItem
-                        value={cancerSystem}
-                        label="Cancer system"
-                      />
-                    </Col>
-                  </Row>
-                </dd>
               </Col>
               <Col>
                 <Button
@@ -223,9 +203,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
             <Row className="ml-2 mb-5">
               <Col lg="8" className="lh-sm">
                 <div>
-                  <h2 className="text-muted fw-lighter mb-3">
-                    Patient / Tumor metadata
-                  </h2>
+                  <h3 className="mb-3">Patient / Tumor metadata</h3>
                 </div>
 
                 <dd>
