@@ -124,7 +124,18 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                 href="#patient-treatment"
                 disabled={!patientTreatments?.length}
               />
-              {/* <li className="py-3"><a href="#publications" className={qualityChecks.length > 0 ? "" : "disabled text-muted text-decoration-none"}>Publications</a></li> */}
+              <li className="py-3">
+                <a
+                  href="#publications"
+                  className={
+                    publications.length > 0
+                      ? ""
+                      : "disabled text-muted text-decoration-none"
+                  }
+                >
+                  Publications
+                </a>
+              </li>
               {/* <li className="py-3">
                 <Button
                   variant="outline-primary"
