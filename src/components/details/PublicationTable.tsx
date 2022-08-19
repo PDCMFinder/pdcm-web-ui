@@ -23,10 +23,16 @@ export const PublicationTable: FunctionComponent<IPublicationsTableProps> = ({
             </Card.Text>
             <Card.Link
               href={`https://europepmc.org/article/MED/${publication.pmid}`}
+              target="_blank"
+              rel="noreferrer"
             >
               View at EuropePMC
             </Card.Link>
-            <Card.Link href={`https://doi.org/${publication.doi}`}>
+            <Card.Link
+              href={`https://doi.org/${publication.doi}`}
+              target="_blank"
+              rel="noreferrer"
+            >
               DOI:{publication.doi}
             </Card.Link>
           </Card.Body>
