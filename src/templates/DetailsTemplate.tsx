@@ -370,13 +370,22 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {selectedMolecularCharacterization && (
-                  <MolecularDataDetailTable
-                    molecularCharacterization={
-                      selectedMolecularCharacterization
-                    }
-                  ></MolecularDataDetailTable>
-                )}
+                {selectedMolecularCharacterization &&
+                  (!["Curie-BC", "Curie-LC", "Curie-OC", "CRL"].includes(
+                    providerId
+                  ) ? (
+                    <MolecularDataDetailTable
+                      molecularCharacterization={
+                        selectedMolecularCharacterization
+                      }
+                    ></MolecularDataDetailTable>
+                  ) : (
+                    <span>
+                      This data is only accessible through the provider website
+                      - please click on 'CONTACT PROVIDER' button above to
+                      request access.
+                    </span>
+                  ))}
               </Modal.Body>
               <Modal.Footer>
                 <Button
