@@ -22,6 +22,7 @@ export interface IPatientMetadataProps {
   cancerStage: string;
   cancerStagingSystem: string;
   collectionSite: string;
+  primarySite: string;
 }
 
 export const PatientMetadata: FunctionComponent<IPatientMetadataProps> = ({

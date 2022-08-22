@@ -21,10 +21,9 @@ import { SearchBar } from "../components/search/SearchBar";
 import { Timeline } from "react-twitter-widgets";
 import { getSearchOptions } from "../apis/Search.api";
 import { IOptionProps } from "../models/Facet.model";
+import { capitalizeFirstLetter } from "../apis/Utils.api";
 
 export const HomePage: FunctionComponent = () => {
-  const searchOptionsQuery = useQuery("search-options", getSearchOptions);
-
   let cancerHierarchy = useQuery("cancerHierarchy", () => {
     return getCancerHierarchy();
   });
@@ -91,7 +90,24 @@ export const HomePage: FunctionComponent = () => {
           <Row className="mx-0 w-100 d-flex justify-content-between g-0">
             <Col xs={12} md={5} id="explore-pie-chart">
               {cancerHierarchy.data && (
-                <ExploreCirclePacking data={cancerHierarchy.data} />
+                <ExploreCirclePacking
+                  data={cancerHierarchy.data}
+                  onCircleClick={(circleId, circleDepth) => {
+                    const searchPrefix =
+                      circleDepth === 1
+                        ? `?facets=patient_tumour.cancer_system:`
+                        : `?q=`;
+                    const termSuffix = circleDepth === 1 ? "Cancer" : "";
+                    const search = `${searchPrefix}${encodeURIComponent(
+                      circleId + termSuffix
+                    )}`;
+
+                    history.push({
+                      pathname: "/data/search",
+                      search: search,
+                    });
+                  }}
+                />
               )}
             </Col>
             <Col xs={12} md={7} className="text-end">
@@ -114,11 +130,20 @@ export const HomePage: FunctionComponent = () => {
                           modelType: string;
                           count: number;
                         }) => (
-                          <Stats
-                            key={modelType}
-                            count={count}
-                            title={`${modelType} models`}
-                          />
+                          <Link
+                            to={`data/?facets=model.model_type:${encodeURIComponent(
+                              modelType
+                            )}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <Stats
+                              key={modelType}
+                              count={count}
+                              title={`${capitalizeFirstLetter(
+                                modelType
+                              )} models`}
+                            />
+                          </Link>
                         )
                       )}
                   </>
@@ -159,6 +184,16 @@ export const HomePage: FunctionComponent = () => {
               <div style={{ height: "400px" }}>
                 {frequentlyMutatedGenes.data && (
                   <ExploreBarChart
+                    chartTitle="Models by top mutated gene"
+                    onBarClick={(category) => {
+                      const search = `?facets=molecular_data.makers_with_mutation_data:${encodeURIComponent(
+                        category
+                      )}&facet.operators=molecular_data.makers_with_mutation_data:any`;
+                      history.push({
+                        pathname: "/data/search",
+                        search: search,
+                      });
+                    }}
                     data={frequentlyMutatedGenes.data}
                     indexKey="mutatedGene"
                   />
@@ -170,7 +205,18 @@ export const HomePage: FunctionComponent = () => {
               <h3>Models by dataset availability</h3>
               <div style={{ height: "400px" }}>
                 {modelsByDatasetAvailability.data && (
-                  <ExplorePieChart data={modelsByDatasetAvailability.data} />
+                  <ExplorePieChart
+                    onSectionClick={(category) => {
+                      const search = `?facets=model.dataset_available:${encodeURIComponent(
+                        category
+                      )}`;
+                      history.push({
+                        pathname: "/data/search",
+                        search: search,
+                      });
+                    }}
+                    data={modelsByDatasetAvailability.data}
+                  />
                 )}
               </div>
             </Col>
@@ -180,6 +226,16 @@ export const HomePage: FunctionComponent = () => {
               <div style={{ height: "400px" }}>
                 {modelsByTreatment.data && (
                   <ExploreBarChart
+                    chartTitle="Models by drug treatment"
+                    onBarClick={(category) => {
+                      const search = `?facets=treatment_drug_dosing.treatment_list:${encodeURIComponent(
+                        category
+                      )}&facet.operators=treatment_drug_dosing.treatment_list:any`;
+                      history.push({
+                        pathname: "/data/search",
+                        search: search,
+                      });
+                    }}
                     data={modelsByTreatment.data}
                     indexKey="treatment"
                     leftMargin={150}

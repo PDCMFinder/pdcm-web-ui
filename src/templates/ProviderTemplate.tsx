@@ -45,9 +45,7 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
             <Link
               role="button"
               className="btn btn-primary btn-lg btn-block"
-              to={`/data?facets=model.data_source:${providerId
-                .toLowerCase()
-                .replace("-", "_")}`}
+              to={`/data?facets=model.data_source:${providerId}`}
             >
               See all {providerId} models
             </Link>
@@ -61,7 +59,10 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
               <Col xs={12} md={6}>
                 <h2 className="text-center">Models by Primary Site</h2>
                 <div style={{ height: "500px" }}>
-                  <ExplorePieChart data={providerModelsBySystem} />
+                  <ExplorePieChart
+                    onSectionClick={(category) => {}}
+                    data={providerModelsBySystem}
+                  />
                 </div>
               </Col>
               <Col xs={12} md={6}>

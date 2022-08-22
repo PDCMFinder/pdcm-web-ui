@@ -8,7 +8,10 @@ import { FunctionComponent } from "react";
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-export const ExplorePieChart: FunctionComponent<{ data: any }> = ({ data }) => (
+export const ExplorePieChart: FunctionComponent<{
+  data: any;
+  onSectionClick: (category: string) => void;
+}> = ({ data, onSectionClick }) => (
   <ResponsivePie
     data={data}
     margin={{ top: 20, right: 80, bottom: 20, left: 60 }}
@@ -27,5 +30,8 @@ export const ExplorePieChart: FunctionComponent<{ data: any }> = ({ data }) => (
     arcLinkLabelsStraightLength={5}
     arcLinkLabelsDiagonalLength={10}
     arcLinkLabelsSkipAngle={10}
+    onClick={({ data: d }: { data: any }) => {
+      onSectionClick(d.label);
+    }}
   />
 );

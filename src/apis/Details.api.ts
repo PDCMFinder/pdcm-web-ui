@@ -1,6 +1,6 @@
 import { IEngraftment } from "../components/details/ModelEngraftmentTable";
 import { IMolecularCharacterization } from "../components/details/MolecularDataTable";
-import { Treatment } from "../models/PDCModel.model";
+import { Publication, Treatment } from "../models/PDCModel.model";
 import { camelCase } from "./Utils.api";
 
 export interface IModelExtLinks {
@@ -19,6 +19,44 @@ export async function getModelDetailsMetadata(
     throw new Error("Network response was not ok");
   }
   return response.json().then((d) => camelCase(d[0]));
+}
+
+export async function getModelPubmedIds(pdcmModelId: string): Promise<any> {
+  if (!pdcmModelId) {
+    return [];
+  }
+  let response = await fetch(
+    `${process.env.REACT_APP_API_URL}/model_information?id=eq.${pdcmModelId}&select=publication_group(pubmed_ids)`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  const jsonContent = await response.json();
+
+  const publicationGroup = jsonContent[0]["publication_group"] || {};
+
+  const pubmedIds: string = publicationGroup["pubmed_ids"] || "";
+  return pubmedIds.replaceAll(" ", "").split(",");
+}
+
+export async function getPublicationData(
+  pubmedId: string
+): Promise<Publication> {
+  let response = await fetch(
+    `https://www.ebi.ac.uk/europepmc/webservices/rest/article/MED/${pubmedId.replace(
+      "PMID:",
+      ""
+    )}?resultType=lite&format=json`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json().then((d) => {
+    console.log(d);
+
+    return camelCase(d["result"]);
+  });
 }
 
 export async function getModelExtLinks(
@@ -227,19 +265,17 @@ export async function getPatientTreatment(
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-  return response.json().then((d) => {
-    return d.flatMap((item: any) => {
+  return response.json().then((d) =>
+    d.map((item: any) => {
       const itemCamelCase: any = camelCase(item);
-
-      return itemCamelCase.treatment.split(" And ").map((name: string) => {
-        return {
-          treatmentName: name,
-          treatmentDose: itemCamelCase.dose,
-          treatmentResponse: itemCamelCase.response,
-        };
-      });
-    });
-  });
+      let treatment: Treatment = {
+        treatmentName: itemCamelCase.treatment.replaceAll(" And ", ", "),
+        treatmentDose: itemCamelCase.dose,
+        treatmentResponse: itemCamelCase.response,
+      };
+      return treatment;
+    })
+  );
 }
 
 export async function getModelDrugDosing(

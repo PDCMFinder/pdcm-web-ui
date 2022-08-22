@@ -11,8 +11,10 @@ import { FunctionComponent } from "react";
 export const ExploreBarChart: FunctionComponent<{
   data: any;
   indexKey: string;
+  chartTitle: string;
+  onBarClick: (category: string | number) => void;
   leftMargin?: number;
-}> = ({ data, indexKey, leftMargin }) => (
+}> = ({ data, indexKey, chartTitle, onBarClick, leftMargin }) => (
   <ResponsiveBar
     data={data}
     keys={["count"]}
@@ -28,40 +30,6 @@ export const ExploreBarChart: FunctionComponent<{
     indexScale={{ type: "band", round: true }}
     colors={["#0032a0"]}
     layout="horizontal"
-    defs={[
-      {
-        id: "dots",
-        type: "patternDots",
-        background: "inherit",
-        color: "#38bcb2",
-        size: 4,
-        padding: 1,
-        stagger: true,
-      },
-      {
-        id: "lines",
-        type: "patternLines",
-        background: "inherit",
-        color: "#eed312",
-        rotation: -45,
-        lineWidth: 6,
-        spacing: 10,
-      },
-    ]}
-    fill={[
-      {
-        match: {
-          id: "fries",
-        },
-        id: "dots",
-      },
-      {
-        match: {
-          id: "sandwich",
-        },
-        id: "lines",
-      },
-    ]}
     borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
     axisTop={null}
     axisRight={null}
@@ -69,24 +37,21 @@ export const ExploreBarChart: FunctionComponent<{
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      // legend: "Model count",
-      // legendPosition: "middle",
-      // legendOffset: 32,
     }}
     axisLeft={{
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      // legend: "Mutated gene",
-      // legendPosition: "middle",
-      // legendOffset: -80,
     }}
     labelSkipWidth={12}
     labelSkipHeight={12}
     colorBy="id"
     labelTextColor={"#fff"}
     role="application"
-    ariaLabel="Nivo bar chart demo"
+    ariaLabel={chartTitle}
+    onClick={(datum) => {
+      onBarClick(datum.data[indexKey]);
+    }}
     barAriaLabel={function (e) {
       return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
     }}

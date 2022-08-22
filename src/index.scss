@@ -118,3 +118,8 @@ th {
   max-width: none !important;
   height: fit-content;
 }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}

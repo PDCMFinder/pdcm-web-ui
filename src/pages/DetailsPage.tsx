@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { useQuery } from "react-query";
+import { useQueries, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import {
   getModelDetailsMetadata,
@@ -7,10 +7,13 @@ import {
   getModelEngraftments,
   getModelExtLinks,
   getModelMolecularData,
+  getModelPubmedIds,
   getModelQualityData,
   getPatientTreatment,
+  getPublicationData,
 } from "../apis/Details.api";
 import { IMolecularCharacterization } from "../components/details/MolecularDataTable";
+import { Publication } from "../models/PDCModel.model";
 import { DetailsTemplate } from "../templates/DetailsTemplate";
 
 export const DetailsPage: FunctionComponent = () => {
@@ -57,6 +60,25 @@ export const DetailsPage: FunctionComponent = () => {
     getModelQualityData(pdcmModelId)
   );
 
+  const pubmedIdsQuery = useQuery(["pubmed-ids-data", { pdcmModelId }], () =>
+    getModelPubmedIds(pdcmModelId)
+  );
+
+  const pubmedIds = pubmedIdsQuery.data || [];
+
+  const publicationsQuery = useQueries<Array<Publication>>(
+    pubmedIds.map((p: string) => {
+      return {
+        queryKey: ["publication-data", p],
+        queryFn: () => getPublicationData(p),
+      };
+    })
+  );
+
+  const publications: Array<Publication> = publicationsQuery
+    .map((q) => q.data as Publication)
+    .filter((d) => d !== undefined);
+
   return (
     <DetailsTemplate
       modelId={modelId}
@@ -74,6 +96,7 @@ export const DetailsPage: FunctionComponent = () => {
       cancerGradingSystem={modelMetadataQuery.data?.cancerGradingSystem}
       cancerStage={modelMetadataQuery.data?.cancerStage}
       cancerStagingSystem={modelMetadataQuery.data?.cancerStagingSystem}
+      primarySite={modelMetadataQuery.data?.primarySite}
       collectionSite={modelMetadataQuery.data?.collectionSite}
       contactLink={modelExtLinksQuery.data?.contactLink}
       sourceDatabaseUrl={modelExtLinksQuery.data?.sourceDatabaseUrl}
@@ -84,6 +107,7 @@ export const DetailsPage: FunctionComponent = () => {
       selectedMolecularCharacterization={selectedMolecularCharacterization}
       dosingStudies={dosingStudiesQuery.data || []}
       patientTreatments={patientTreatmentQuery.data || []}
+      publications={publications}
     ></DetailsTemplate>
   );
 };
