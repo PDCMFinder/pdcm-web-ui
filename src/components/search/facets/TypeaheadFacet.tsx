@@ -24,6 +24,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
   operator,
   onSelectionChange,
   displayOperators,
+  placeholder,
 }) => {
   const ref = useRef();
   const [query, setQuery] = useState("");
@@ -53,6 +54,7 @@ export const TypeaheadFacet: FunctionComponent<IFacetProps> = ({
                 setQuery(query);
               }}
               isLoading={optionsQuery.isLoading}
+              placeholder={`e.g. ${placeholder}`}
             />
             <InputGroup.Text
               className="text-center bg-primary text-white"

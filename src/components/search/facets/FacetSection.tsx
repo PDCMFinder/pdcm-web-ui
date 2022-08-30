@@ -35,7 +35,7 @@ export const FacetSection: FunctionComponent<IFacetSectionProps> = ({
       </Button>
       <Collapse in={open}>
         <div id={`facet-section-${name}`}>
-          {facets?.map(({ facetId, name, type, options }) => {
+          {facets?.map(({ facetId, name, type, options, placeholder }) => {
             return (
               <div key={facetId} className="pb-2">
                 <Facet
@@ -56,6 +56,7 @@ export const FacetSection: FunctionComponent<IFacetSectionProps> = ({
                   onSelectionChange={(v, op) => {
                     if (onSelectionChange) onSelectionChange(facetId, v, op);
                   }}
+                  placeholder={placeholder}
                 />
               </div>
             );
