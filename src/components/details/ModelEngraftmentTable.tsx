@@ -39,7 +39,7 @@ export const ModelEngraftmentTable: FunctionComponent<
                 placement="right"
                 overlay={
                   <Tooltip id={`strain-tooltip-${index}`}>
-                    {engraftment.hostStrainNomenclature}
+                    {engraftment.hostStrainNomenclature.toUpperCase()}
                   </Tooltip>
                 }
               >
