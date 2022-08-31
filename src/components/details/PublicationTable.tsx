@@ -12,7 +12,7 @@ export const PublicationTable: FunctionComponent<IPublicationsTableProps> = ({
   return (
     <>
       {publications.map((publication: Publication) => (
-        <Card className="my-4">
+        <Card key={publication.pmid} className="my-4">
           <Card.Body>
             <Card.Title>{publication.title}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
