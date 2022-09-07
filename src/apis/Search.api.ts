@@ -223,7 +223,6 @@ export function getSearchParams(
   facetSelection: any,
   facetOperators: any
 ) {
-  console.log("getSearchParams", searchValues, facetSelection, facetOperators);
   let search = "";
   if (searchValues.length > 0) {
     search +=
@@ -231,7 +230,6 @@ export function getSearchParams(
       searchValues.map((o) => encodeURIComponent('"' + o + '"')).join(",");
   }
   let facetString = "";
-  console.log("facetSelection", facetSelection);
 
   Object.keys(facetSelection).forEach((facetSectionKey) => {
     Object.keys(facetSelection[facetSectionKey]).forEach((facetKey) => {

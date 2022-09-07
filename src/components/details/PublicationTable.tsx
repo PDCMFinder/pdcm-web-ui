@@ -35,6 +35,13 @@ export const PublicationTable: FunctionComponent<IPublicationsTableProps> = ({
             >
               DOI:{publication.doi}
             </Card.Link>
+            <Card.Link
+              href={`https://pubmed.ncbi.nlm.nih.gov/${publication.pmid}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              PubMed
+            </Card.Link>
           </Card.Body>
         </Card>
       ))}
