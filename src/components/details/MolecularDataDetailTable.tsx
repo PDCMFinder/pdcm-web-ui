@@ -153,6 +153,12 @@ export const MolecularDataDetailTable: FunctionComponent<
       case "copy number alteration":
         columnsToDisplay = [
           { key: "hgnc_symbol", name: "HGNC Symbol" },
+          { key: "log10r_cna", name: "log10  CNA" },
+          { key: "log2r_cna", name: "log2  CNA" },
+
+          { key: "copy_number_status", name: "Copy Number Status" },
+          { key: "gistic_value", name: "GISTIC Value" },
+          { key: "picnic_value", name: "PICNIC Value" },
           { key: "amino_acid_change", name: "Amino Acid Change" },
           { key: "consequence", name: "Consequence" },
           { key: "read_depth", name: "Read Depth" },
