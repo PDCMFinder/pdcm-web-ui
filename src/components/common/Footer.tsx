@@ -17,7 +17,7 @@ const MENU = [
     ],
   },
   {
-    name: "Contacts",
+    name: "",
     children: [
       { name: "Submit models", link: "/submit" },
       { name: "Feedback", link: "/contact" },
