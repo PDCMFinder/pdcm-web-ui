@@ -124,7 +124,7 @@ export const DataTable: React.FC<IDataTableProps> = ({
                     return row[key] ? (
                       <td key={index}>{row[key]}</td>
                     ) : (
-                      row["non_harmonised_symbol"]
+                      <td key={index}>{row["non_harmonised_symbol"]}</td>
                     );
                   else return <td key={index}>{row[key]}</td>;
                 })}
