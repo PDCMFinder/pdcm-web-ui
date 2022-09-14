@@ -12,7 +12,7 @@ export const PublicationTable: FunctionComponent<IPublicationsTableProps> = ({
   return (
     <>
       {publications.map((publication: Publication) => (
-        <Card className="my-4">
+        <Card key={publication.pmid} className="my-4">
           <Card.Body>
             <Card.Title>{publication.title}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
@@ -34,6 +34,13 @@ export const PublicationTable: FunctionComponent<IPublicationsTableProps> = ({
               rel="noreferrer"
             >
               DOI:{publication.doi}
+            </Card.Link>
+            <Card.Link
+              href={`https://pubmed.ncbi.nlm.nih.gov/${publication.pmid}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              PubMed
             </Card.Link>
           </Card.Body>
         </Card>

@@ -14,6 +14,7 @@ export const Facet: FunctionComponent<IFacetProps> = ({
   selection,
   operator,
   loading,
+  placeholder,
   onSelectionChange,
 }) => {
   const [open, setOpen] = useState(selection.length > 0);
@@ -53,6 +54,7 @@ export const Facet: FunctionComponent<IFacetProps> = ({
             onSelectionChange={onSelectionChange}
             operator={operator ? operator : "any"}
             displayOperators={true}
+            placeholder={placeholder}
             loading={loading}
           />
         );
@@ -66,6 +68,7 @@ export const Facet: FunctionComponent<IFacetProps> = ({
             onSelectionChange={onSelectionChange}
             operator={operator}
             displayOperators={false}
+            placeholder={placeholder}
           />
         );
 

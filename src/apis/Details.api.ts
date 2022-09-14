@@ -225,7 +225,7 @@ export async function getModelEngraftments(
   pdcmModelId: string,
   modelType: string
 ): Promise<Array<IEngraftment>> {
-  if (!pdcmModelId || modelType !== "xenograft model") {
+  if (!pdcmModelId || modelType !== "xenograft") {
     return [];
   }
   let response = await fetch(
@@ -238,9 +238,9 @@ export async function getModelEngraftments(
     return d.map((item: any) => {
       const engraftment: IEngraftment = camelCase(item);
       const itemCamelCase: any = camelCase(item);
-      engraftment.hostStrain = itemCamelCase.hostStrain.name;
+      engraftment.hostStrain = itemCamelCase.hostStrain?.name || "";
       engraftment.hostStrainNomenclature =
-        itemCamelCase.hostStrain.nomenclature;
+        itemCamelCase.hostStrain?.nomenclature || "";
       engraftment.engraftmentSite = itemCamelCase.engraftmentSite.name;
       engraftment.engraftmentType = itemCamelCase.engraftmentType.name;
       engraftment.engraftmentSampleType =

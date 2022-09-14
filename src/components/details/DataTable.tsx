@@ -119,9 +119,15 @@ export const DataTable: React.FC<IDataTableProps> = ({
             <tr key={row.id}>
               {Object.keys(row)
                 .filter((k) => columns.map((i) => i.key).includes(k))
-                .map((key, index) => (
-                  <td key={index}>{row[key]}</td>
-                ))}
+                .map((key, index) => {
+                  if (key === "hgnc_symbol")
+                    return row[key] ? (
+                      <td key={index}>{row[key]}</td>
+                    ) : (
+                      <td key={index}>{row["non_harmonised_symbol"]}</td>
+                    );
+                  else return <td key={index}>{row[key]}</td>;
+                })}
             </tr>
           ))}
         </tbody>

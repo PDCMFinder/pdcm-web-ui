@@ -34,7 +34,7 @@ export async function getSearchFacets(
   noOptions = false
 ): Promise<Array<IFacetSectionProps>> {
   let response = await fetch(
-    `${API_URL}/search_facet?facet_section=neq.search&${"&select=facet_section,facet_column,facet_name"}`
+    `${API_URL}/search_facet?facet_section=neq.search&${"&select=facet_section,facet_column,facet_name,facet_example"}`
   );
 
   const sections: any = {
@@ -214,6 +214,7 @@ function mapApiFacet(apiFacet: any): IFacetProps {
           }
         })
       : [],
+    placeholder: apiFacet.facet_example,
   };
 }
 
@@ -222,7 +223,6 @@ export function getSearchParams(
   facetSelection: any,
   facetOperators: any
 ) {
-  console.log("getSearchParams", searchValues, facetSelection, facetOperators);
   let search = "";
   if (searchValues.length > 0) {
     search +=
@@ -230,7 +230,6 @@ export function getSearchParams(
       searchValues.map((o) => encodeURIComponent('"' + o + '"')).join(",");
   }
   let facetString = "";
-  console.log("facetSelection", facetSelection);
 
   Object.keys(facetSelection).forEach((facetSectionKey) => {
     Object.keys(facetSelection[facetSectionKey]).forEach((facetKey) => {

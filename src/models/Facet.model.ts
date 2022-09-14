@@ -46,6 +46,7 @@ export interface IFacetProps {
   operator?: string;
   loading?: boolean;
   displayOperators?: boolean;
+  placeholder?: string;
   onSelectionChange?(selection: Array<string>, operator: string): void;
 }
 
