@@ -1,7 +1,7 @@
 ---
-name: The Pediatric Preclinical Testing Consortium
-abbreviation: PPTC
-logo: img/providers/pptc.png
+name: The Pediatric Preclinical In Vivo Testing consortium
+abbreviation: PIVOT
+logo: img/providers/pivot.png
 ---
 
 The National Cancer Institute Pediatric Preclinical Testing Consortium (NCI PPTC) addresses key challenges associated with the development of new therapies for children with cancer by developing reliable preclinical testing data for pediatric drug candidates that can be used to inform new agent prioritization decisions.
