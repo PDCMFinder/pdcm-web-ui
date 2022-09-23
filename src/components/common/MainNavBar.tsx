@@ -34,6 +34,7 @@ export const MENU = [
     name: "About",
     children: [
       { link: "/about/", name: "PDCM Finder" },
+      { link: "/about/providers", name: "Data Providers" },
       // { link: "/about/data-summary", name: "Data summary" },
       // { link: "/about/how-to-cite", name: "How to cite?" },
       // {
