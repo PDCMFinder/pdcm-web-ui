@@ -19,6 +19,7 @@ import { StaticArticlePage } from "./pages/StaticArticlePage";
 import RouteChangeTracker from "./components/common/RouteChangeTracker";
 import ReactGA from "react-ga4";
 import { ProviderPage } from "./pages/ProviderPage";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 ReactGA.initialize("G-34S5KH94SX");
 
@@ -51,6 +52,7 @@ const routeComponentMap: any = {
 function App() {
   return (
     <BrowserRouter basename="/">
+      <ScrollToTop />
       {process.env.REACT_APP_ENV === "production" ? (
         <RouteChangeTracker />
       ) : null}
