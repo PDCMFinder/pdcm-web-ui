@@ -6,7 +6,6 @@ import {
   faPills,
   faPrescription,
   faBullseye,
-  faEyeDropper,
   faVenusMars,
   faUser,
   faVial,

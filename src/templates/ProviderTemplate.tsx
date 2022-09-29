@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import { ExplorePieChart } from "../components/explore/ExplorePieChart";
 import { GeneralTemplate } from "./GeneralTemplate";

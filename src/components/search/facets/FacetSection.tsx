@@ -2,7 +2,7 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FunctionComponent, useState } from "react";
 import { Button, Collapse } from "react-bootstrap";
-import { IFacetSectionProps, IOptionProps } from "../../../models/Facet.model";
+import { IFacetSectionProps } from "../../../models/Facet.model";
 import { Facet } from "./Facet";
 import "./FacetSidebar.scss";
 

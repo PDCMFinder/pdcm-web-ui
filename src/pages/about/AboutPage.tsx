@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { GeneralTemplate } from "../../templates/GeneralTemplate";
 
 export const AboutPage: FunctionComponent = () => {
