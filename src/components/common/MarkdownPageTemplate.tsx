@@ -1,18 +1,16 @@
 import { FunctionComponent } from "react";
 import { useQuery } from "react-query";
-import { Container, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import {
   parseArticleContent as parsePageContent,
   parseArticleMetadata as parsePageMetadata,
 } from "../../apis/StaticArticles.api";
-import { GeneralTemplate } from "../../templates/GeneralTemplate";
 
 export const MarkdownPageTemplate: FunctionComponent<{
   fileName: string;
-  containerClassName?: string;
-}> = ({ fileName, containerClassName }) => {
+}> = ({ fileName }) => {
   const pagesPath: any = require.context(
     "../../../public/static/content",
     true,
@@ -22,10 +20,7 @@ export const MarkdownPageTemplate: FunctionComponent<{
   const pagePath = pagesPath(`./${fileName}.md`).default;
 
   return pagePath !== undefined ? (
-    <MarkdownPageTemplateWrapper
-      pagePath={pagePath}
-      containerClassName={containerClassName ? containerClassName : undefined}
-    />
+    <MarkdownPageTemplateWrapper pagePath={pagePath} />
   ) : (
     <Spinner animation="border" />
   );
@@ -33,8 +28,7 @@ export const MarkdownPageTemplate: FunctionComponent<{
 
 const MarkdownPageTemplateWrapper: FunctionComponent<{
   pagePath: string;
-  containerClassName?: string;
-}> = ({ pagePath, containerClassName }) => {
+}> = ({ pagePath }) => {
   const pageQuery = useQuery(pagePath, () =>
     fetch(pagePath).then((res) => res.text())
   );
@@ -46,13 +40,9 @@ const MarkdownPageTemplateWrapper: FunctionComponent<{
     document.title = metadata.title;
 
     return (
-      <GeneralTemplate>
-        <Container className={containerClassName}>
-          <ReactMarkdown remarkPlugins={[gfm]} className="pdcm-mark-down">
-            {content}
-          </ReactMarkdown>
-        </Container>
-      </GeneralTemplate>
+      <ReactMarkdown remarkPlugins={[gfm]} className="pdcm-mark-down">
+        {content}
+      </ReactMarkdown>
     );
   }
 };
