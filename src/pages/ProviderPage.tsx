@@ -45,6 +45,7 @@ const ProviderPageWrapper: FunctionComponent<{ providerPath: string }> = ({
         providerDescription={content}
         providerName={metadata.name}
         providerId={metadata.abbreviation}
+        providerLogo={metadata.logo}
         providerModelsBySystem={[]}
         providerModelsByDataAvailability={[]}
       />
