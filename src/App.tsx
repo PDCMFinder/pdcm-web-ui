@@ -1,10 +1,10 @@
-import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Link, Route, Switch, BrowserRouter } from "react-router-dom";
 import { ContactPage } from "./pages/ContactPage";
 import { DetailsPage } from "./pages/DetailsPage";
 import { HomePage } from "./pages/HomePage";
 import { PrivacyPolicyPage } from "./pages/about/PrivacyPolicyPage";
+import { ProvidersPage } from "./pages/about/ProvidersPage";
 import { SearchPage } from "./pages/SearchPage";
 import { SubmitPage } from "./pages/SubmitPage";
 import { TermsOfUsePage } from "./pages/about/TermsOfUsePage";
@@ -38,6 +38,7 @@ const routeComponentMap: any = {
   Contact: ContactPage,
   Submit: SubmitPage,
   "Privacy policy": PrivacyPolicyPage,
+  "Data providers": ProvidersPage,
   "Terms of use": TermsOfUsePage,
   About: AboutPage,
   "How to cite?": HowToCitePage,

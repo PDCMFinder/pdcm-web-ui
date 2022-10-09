@@ -29,6 +29,10 @@ export const routes = [
     name: "Privacy policy",
   },
   {
+    path: "/about/providers",
+    name: "Data providers",
+  },
+  {
     path: "/about/terms-of-use",
     name: "Terms of use",
   },
