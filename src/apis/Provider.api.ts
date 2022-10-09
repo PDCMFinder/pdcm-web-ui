@@ -15,6 +15,7 @@ export async function getProviderMetadata(
     return {
       providerId: provider.abbreviation,
       providerName: provider.name,
+      providerLogo: provider.logo,
       providerDescription: provider.description.replace(/\\n/gm, "\n"),
       providerModelsBySystem: [],
       providerModelsByDataAvailability: [],
