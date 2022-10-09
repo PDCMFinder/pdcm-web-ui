@@ -3,10 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import React, { FunctionComponent, useState } from "react";
 import { Form, Col, InputGroup } from "react-bootstrap";
-import { AsyncTypeahead, Option, Typeahead } from "react-bootstrap-typeahead";
+import { AsyncTypeahead, Option } from "react-bootstrap-typeahead";
 import "./SearchBar.scss";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import { IOptionProps } from "../../models/Facet.model";
 import { useQuery } from "react-query";
 import { autoCompleteFacetOptions } from "../../apis/Search.api";
 
