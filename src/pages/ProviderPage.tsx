@@ -2,7 +2,6 @@ import React, { FunctionComponent } from "react";
 import { ProviderTemplate } from "../templates/ProviderTemplate";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getProviderMetadata } from "../apis/Provider.api";
 import { Spinner } from "react-bootstrap";
 import {
   parseArticleContent,
@@ -45,6 +44,7 @@ const ProviderPageWrapper: FunctionComponent<{ providerPath: string }> = ({
         providerDescription={content}
         providerName={metadata.name}
         providerId={metadata.abbreviation}
+        providerLogo={metadata.logo}
         providerModelsBySystem={[]}
         providerModelsByDataAvailability={[]}
       />

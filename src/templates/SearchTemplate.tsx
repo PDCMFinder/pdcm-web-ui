@@ -9,7 +9,6 @@ import {
   IFacetSectionProps,
   IFacetSidebarOperators,
   IFacetSidebarSelection,
-  IOptionProps,
 } from "../models/Facet.model";
 import { ResultCol, SearchResult } from "../models/Search.model";
 import { GeneralTemplate } from "./GeneralTemplate";

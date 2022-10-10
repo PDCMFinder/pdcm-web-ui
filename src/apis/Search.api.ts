@@ -4,7 +4,6 @@ import {
   IFacetSectionProps,
   IFacetSidebarOperators,
   IFacetSidebarSelection,
-  IOptionProps,
 } from "../models/Facet.model";
 import { SearchResult } from "../models/Search.model";
 

@@ -2,7 +2,7 @@
 // install (please make sure versions match peerDependencies)
 // yarn add @nivo/core @nivo/circle-packing
 import { ResponsiveCirclePacking } from "@nivo/circle-packing";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
@@ -23,9 +23,7 @@ export const ExploreCirclePacking: FunctionComponent<{
       padding={6}
       enableLabels={true}
       labelsFilter={function (e) {
-        return (
-          1 === e.node.depth
-        );
+        return 1 === e.node.depth;
       }}
       margin={{ top: 0, right: 20, bottom: 10, left: 0 }}
       theme={{

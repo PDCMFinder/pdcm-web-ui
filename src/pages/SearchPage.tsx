@@ -2,7 +2,6 @@ import { FunctionComponent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   getSearchFacets,
-  getSearchOptions,
   getSearchParams,
   getSearchResults,
   parseSelectedFacetFromUrl,
@@ -97,7 +96,6 @@ export const SearchPage: FunctionComponent = () => {
     Object.keys(facetSelection).length === 0 &&
     searchFacetQueries.every((query) => !query.isLoading)
   ) {
-    const sections = searchFacetSectionsQuery.data || [];
     setFacetSelection(parseSelectedFacetFromUrl(facetsByKey));
   }
 

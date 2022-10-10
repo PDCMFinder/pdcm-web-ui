@@ -4,7 +4,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import { Badge, Button, Col, Container, Modal, Row } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IModelExtLinks } from "../apis/Details.api";
 import { capitalizeFirstLetter } from "../apis/Utils.api";
@@ -18,10 +18,7 @@ import {
   IModelEngraftmentTableProps,
   ModelEngraftmentTable,
 } from "../components/details/ModelEngraftmentTable";
-import {
-  IModelMetadataProps,
-  ModelMetadata,
-} from "../components/details/ModelMetadata";
+import { IModelMetadataProps } from "../components/details/ModelMetadata";
 import {
   IModelQualityControlTableProps,
   ModelQualityControlTable,
@@ -32,10 +29,7 @@ import {
   IMolecularDataTableProps,
   MolecularDataTable,
 } from "../components/details/MolecularDataTable";
-import {
-  IPatientMetadataProps,
-  PatientMetadata,
-} from "../components/details/PatientMetadata";
+import { IPatientMetadataProps } from "../components/details/PatientMetadata";
 import {
   IPatientTreatmentTableProps,
   PatientTreatmentTable,
