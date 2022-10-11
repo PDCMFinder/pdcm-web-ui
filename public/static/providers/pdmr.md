@@ -1,7 +1,7 @@
 ---
 name: NCI Patient-Derived Models Repository
 abbreviation: PDMR
-logo: img/providers/pdmr.png
+logo: img/providers/PDMR.png
 ---
 
 The NCI Patient-Derived Models Repository is a national repository of patient-derived xenografts developed from patients with solid tumors.

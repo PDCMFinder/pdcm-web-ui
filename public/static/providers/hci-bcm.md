@@ -1,7 +1,7 @@
 ---
 name: HCI-Baylor College of Medicine
 abbreviation: HCI-BCM
-logo: img/providers/hci-bcm.png
+logo: img/providers/HCI-BCM.png
 ---
 
 The National Cancer Institute (NCI) launched the PDX (patient-derived xenografts) Development and Trial Centers Research Network (PDXNet) in September, 2017 to accelerate translational research using PDX datasets. The PDXNet comprises of four PDX Development and Trial Centers (PDTCs) and the PDX Data Commons and Coordinating Center (PDCCC).
