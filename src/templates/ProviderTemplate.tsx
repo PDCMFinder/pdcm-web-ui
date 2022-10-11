@@ -5,6 +5,7 @@ import { ExplorePieChart } from "../components/explore/ExplorePieChart";
 import { GeneralTemplate } from "./GeneralTemplate";
 import gfm from "remark-gfm";
 import { Link } from "react-router-dom";
+import "./ProviderTemplate.scss";
 
 export interface IProviderTemplateProps {
   providerId: string;
@@ -29,18 +30,14 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
 }) => {
   return (
     <GeneralTemplate>
-      <Container>
+      <Container className="mb-5">
         <Row className="my-5 align-items-center">
           <Col md={9} lg={8}>
             <h1 className="text-center text-md-start">{providerName}</h1>
           </Col>
           {providerLogo && (
-            <Col md={3} lg={4}>
-              <img
-                src={`/${providerLogo}`}
-                alt={providerName}
-                className="w-100"
-              />
+            <Col md={3} lg={4} className="ProviderTemplate__logo">
+              <img src={`/${providerLogo}`} alt={providerName} />
             </Col>
           )}
         </Row>

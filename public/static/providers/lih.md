@@ -1,7 +1,7 @@
 ---
 name: Luxembourg Institute of Health - Gliomas
 abbreviation: LIH
-logo: img/providers/lih.png
+logo: img/providers/LIH.png
 ---
 
 Within the Luxembourg Institute of Health (LIH), the NORLUX Neuro-Oncology laboratory is specialized in brain tumor research with a major emphasis on the biology of malit gliomas, in particular the most aggressive form - Glioblastoma. NORLUX aims to translate acquired research-based knowledge into preclinical and clinical applications.
