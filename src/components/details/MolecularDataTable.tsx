@@ -20,8 +20,7 @@ export interface IMolecularCharacterization {
   xenograftSampleId: string;
   xenograftModelId: string;
   xenograftPassage: string;
-  patientRawDataUrl: string;
-  xenograftRawDataUrl: string;
+  rawDataUrl: string;
   dataType: string;
   platformId: string;
   platformName: string;
@@ -68,9 +67,6 @@ export const MolecularDataTable: FunctionComponent<
             const sampleType = molecularCharacterization.xenograftSampleId
               ? "Engrafted Tumour"
               : "Patient Tumour";
-            const rawDataUrl =
-              molecularCharacterization.xenograftRawDataUrl ||
-              molecularCharacterization.patientRawDataUrl;
             return (
               <tr key={molecularCharacterization.id}>
                 <td>{sampleId}</td>
@@ -99,8 +95,13 @@ export const MolecularDataTable: FunctionComponent<
                 </td>
                 <td>{molecularCharacterization.platformName}</td>
                 <td>
-                  {rawDataUrl ? (
-                    <a href={rawDataUrl}>{rawDataUrl.split("/").pop()}</a>
+                  {molecularCharacterization.rawDataUrl ? (
+                    <a
+                      href={molecularCharacterization.rawDataUrl.split(",")[1]}
+                      target="_blank"
+                    >
+                      {molecularCharacterization.rawDataUrl.split(",")[0]}
+                    </a>
                   ) : (
                     "Not available"
                   )}
