@@ -18,6 +18,7 @@ export interface IMolecularCharacterization {
   patientSampleId: string;
   patientModelId: string;
   xenograftSampleId: string;
+  cellSampleId: string;
   xenograftModelId: string;
   xenograftPassage: string;
   rawDataUrl: string;
@@ -63,7 +64,8 @@ export const MolecularDataTable: FunctionComponent<
           molecularCharacterizations.map((molecularCharacterization) => {
             const sampleId =
               molecularCharacterization.xenograftSampleId ||
-              molecularCharacterization.patientSampleId;
+              molecularCharacterization.patientSampleId ||
+              molecularCharacterization.cellSampleId;
             const sampleType = molecularCharacterization.xenograftSampleId
               ? "Engrafted Tumour"
               : "Patient Tumour";
