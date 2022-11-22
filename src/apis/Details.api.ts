@@ -110,7 +110,7 @@ export async function getModelMolecularData(
     return [];
   }
   let response = await fetch(
-    `${process.env.REACT_APP_API_URL}/details_molecular_data?or=(patient_model_id.eq.${pdcmModelId},xenograft_model_id.eq.${pdcmModelId})`,
+    `${process.env.REACT_APP_API_URL}/details_molecular_data?or=(patient_model_id.eq.${pdcmModelId},xenograft_model_id.eq.${pdcmModelId},cell_model_id.eq.${pdcmModelId})`,
     { headers: { Prefer: "count=exact" } }
   );
   if (!response.ok) {
