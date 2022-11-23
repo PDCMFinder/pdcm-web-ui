@@ -4,7 +4,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import { Badge, Button, Col, Container, Modal, Row } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IModelExtLinks } from "../apis/Details.api";
 import { capitalizeFirstLetter } from "../apis/Utils.api";
@@ -18,10 +18,7 @@ import {
   IModelEngraftmentTableProps,
   ModelEngraftmentTable,
 } from "../components/details/ModelEngraftmentTable";
-import {
-  IModelMetadataProps,
-  ModelMetadata,
-} from "../components/details/ModelMetadata";
+import { IModelMetadataProps } from "../components/details/ModelMetadata";
 import {
   IModelQualityControlTableProps,
   ModelQualityControlTable,
@@ -32,10 +29,7 @@ import {
   IMolecularDataTableProps,
   MolecularDataTable,
 } from "../components/details/MolecularDataTable";
-import {
-  IPatientMetadataProps,
-  PatientMetadata,
-} from "../components/details/PatientMetadata";
+import { IPatientMetadataProps } from "../components/details/PatientMetadata";
 import {
   IPatientTreatmentTableProps,
   PatientTreatmentTable,
@@ -81,6 +75,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   contactLink,
   sourceDatabaseUrl,
   molecularCharacterizations,
+  dataRestrictions,
   engraftments,
   qualityChecks,
   dosingStudies,
@@ -300,6 +295,8 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                       onSelectMolecularCharacterization={
                         onSelectMolecularCharacterization
                       }
+                      dataRestrictions={dataRestrictions}
+                      contactLink={contactLink}
                     />
                   </Col>
                 </Row>
@@ -370,22 +367,19 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {selectedMolecularCharacterization &&
-                  (!["Curie-BC", "Curie-LC", "Curie-OC", "CRL"].includes(
-                    providerId
-                  ) ? (
-                    <MolecularDataDetailTable
-                      molecularCharacterization={
-                        selectedMolecularCharacterization
-                      }
-                    ></MolecularDataDetailTable>
-                  ) : (
-                    <span>
-                      This data is only accessible through the provider website
-                      - please click on 'CONTACT PROVIDER' button above to
-                      request access.
-                    </span>
-                  ))}
+                {selectedMolecularCharacterization ? (
+                  <MolecularDataDetailTable
+                    molecularCharacterization={
+                      selectedMolecularCharacterization
+                    }
+                  ></MolecularDataDetailTable>
+                ) : (
+                  <span>
+                    This data is only accessible through the provider website -
+                    please click on 'CONTACT PROVIDER' button above to request
+                    access.
+                  </span>
+                )}
               </Modal.Body>
               <Modal.Footer>
                 <Button

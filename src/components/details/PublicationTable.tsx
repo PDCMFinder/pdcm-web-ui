@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { Card, ListGroup, ListGroupItem, Table } from "react-bootstrap";
-import { Publication, Treatment } from "../../models/PDCModel.model";
+import { Card } from "react-bootstrap";
+import { Publication } from "../../models/PDCModel.model";
 
 export interface IPublicationsTableProps {
   publications: Array<Publication>;

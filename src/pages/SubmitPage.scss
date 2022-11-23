@@ -1,0 +1,50 @@
+.submitModels__page {
+  table {
+    margin-bottom: 2.1rem;
+  }
+  table thead th:empty {
+    display: none;
+  }
+  .table > :not(:first-child), .pdcm-mark-down table > :not(:first-child) {
+    border-top: none;
+  }
+  .table > :not(caption) > * > *, .pdcm-mark-down table > :not(caption) > * > * {
+    --bs-table-accent-bg: transparent !important;
+  }
+  .table-bordered > :not(caption) > *:empty, .pdcm-mark-down table > :not(caption) > *:empty {
+    border-width: 0;
+  }
+  img[src$='#envelopeIcon'],
+  img[src$='#excelIcon'],
+  img[src$='#externalLinkIcon'] {
+    height: 18px;
+    width: 18px;
+    margin-bottom: 6px;
+  }
+  img[src$='#submissionProcess--horiz'],
+  img[src$='#submissionProcess--vert'] {
+    margin-bottom: 30px;
+  }
+  img[src$='#submissionProcess--horiz'] {
+    display: none;
+  }
+  img[src$='#submissionProcess--vert'] {
+    display: block;
+  }
+  @media (min-width: 768px) {
+    img[src$='#submissionProcess--horiz'] {
+      display: block;
+    }
+    img[src$='#submissionProcess--vert'] {
+      display: none;
+    }
+    table {
+      width: 350px;
+    }
+  }
+  @media (min-width: 992px) {
+    img[src$='#submissionProcess--horiz'] {
+      width: 80%;
+    }
+  }
+}

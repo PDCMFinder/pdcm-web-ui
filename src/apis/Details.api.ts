@@ -102,19 +102,41 @@ export async function getModelQualityData(pdcmModelId: string) {
   });
 }
 
-export async function getModelMolecularData(pdcmModelId: string) {
+export async function getModelMolecularData(
+  providerId: string,
+  pdcmModelId: string
+) {
   if (!pdcmModelId) {
     return [];
   }
   let response = await fetch(
-    `${process.env.REACT_APP_API_URL}/details_molecular_data?or=(patient_model_id.eq.${pdcmModelId},xenograft_model_id.eq.${pdcmModelId})`,
+    `${process.env.REACT_APP_API_URL}/details_molecular_data?or=(patient_model_id.eq.${pdcmModelId},xenograft_model_id.eq.${pdcmModelId},cell_model_id.eq.${pdcmModelId})`,
     { headers: { Prefer: "count=exact" } }
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
   return response.json().then((d) => {
-    return d.map((item: any) => camelCase(item));
+    return d.map((item: any) => {
+      return { ...camelCase(item), dataSource: providerId };
+    });
+  });
+}
+
+export async function getMolecularDataRestrictions(dataSource: string) {
+  if (!dataSource) {
+    return [];
+  }
+  let response = await fetch(
+    `${process.env.REACT_APP_API_URL}/molecular_data_restriction?data_source=eq.${dataSource}`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json().then((d) => {
+    return d.map((item: any) => {
+      return camelCase(item);
+    });
   });
 }
 
@@ -134,6 +156,25 @@ export async function getModelMolecularDataColumns(
   const endpoint = typeEndpointMap[dataType];
   let response = await fetch(
     `${process.env.REACT_APP_API_URL}/${endpoint}?molecular_characterization_id=eq.${molecularCharacterizationId}`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json().then((d) => {
+    return d[0].not_empty_cols;
+  });
+}
+
+export async function getAvailableDataColumns(
+  dataSource: string,
+  molecularCharacterizationType: string
+) {
+  molecularCharacterizationType =
+    molecularCharacterizationType == "copy number alteration"
+      ? "cna"
+      : molecularCharacterizationType;
+  let response = await fetch(
+    `${process.env.REACT_APP_API_URL}/available_molecular_data_columns?data_source=eq.${dataSource}&molecular_characterization_type=eq.${molecularCharacterizationType}`
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -256,7 +297,7 @@ export async function getPatientTreatment(
   pdcmModelId: string,
   modelType: string
 ): Promise<Array<Treatment>> {
-  if (!pdcmModelId || modelType !== "xenograft") {
+  if (!pdcmModelId) {
     return [];
   }
   let response = await fetch(

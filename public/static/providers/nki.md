@@ -1,7 +1,7 @@
 ---
 name: Netherlands Cancer Institute
 abbreviation: NKI
-logo: img/providers/nki.png
+logo: img/providers/NKI.png
 ---
 
 The Netherlands Cancer Institute was founded in 1913, combining research and patient care focussing solely on cancer. It is the only dedicated cancer centre in The Netherlands and maintains an important role as national and international centre of scientific and clinical expertise, development and training.

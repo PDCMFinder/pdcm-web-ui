@@ -1,21 +1,5 @@
-import {
-  faDna,
-  faMicroscope,
-  faPills,
-  faPrescription,
-  faTh,
-  faWaveSquare,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import {
-  Table,
-  OverlayTrigger,
-  Tooltip,
-  Alert,
-  Spinner,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Alert, Spinner } from "react-bootstrap";
 import { SearchResult, ResultCol } from "../../models/Search.model";
 import { SearchResultCard } from "./SearchResultCard";
 

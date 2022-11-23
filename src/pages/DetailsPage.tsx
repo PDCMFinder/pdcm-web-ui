@@ -9,6 +9,7 @@ import {
   getModelMolecularData,
   getModelPubmedIds,
   getModelQualityData,
+  getMolecularDataRestrictions,
   getPatientTreatment,
   getPublicationData,
 } from "../apis/Details.api";
@@ -33,8 +34,13 @@ export const DetailsPage: FunctionComponent = () => {
   );
 
   const molecularDataQuery = useQuery(
-    ["model-molecular-data-summary", { pdcmModelId }],
-    () => getModelMolecularData(pdcmModelId)
+    ["model-molecular-data-summary", { providerId, pdcmModelId }],
+    () => getModelMolecularData(providerId, pdcmModelId)
+  );
+
+  const dataRestrictionsQuery = useQuery(
+    ["model-molecular-data-restrictions", { providerId }],
+    () => getMolecularDataRestrictions(providerId)
   );
 
   const [selectedMolecularCharacterization, selectMolecularCharacterization] =
@@ -101,6 +107,7 @@ export const DetailsPage: FunctionComponent = () => {
       contactLink={modelExtLinksQuery.data?.contactLink}
       sourceDatabaseUrl={modelExtLinksQuery.data?.sourceDatabaseUrl}
       molecularCharacterizations={molecularDataQuery.data}
+      dataRestrictions={dataRestrictionsQuery.data}
       engraftments={engraftmentQuery.data || []}
       qualityChecks={qualityQuery.data || []}
       onSelectMolecularCharacterization={selectMolecularCharacterization}

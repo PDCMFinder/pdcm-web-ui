@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { withRouter } from "react-router";
 import { Footer } from "../components/common/Footer";
 import { MainNavBar } from "../components/common/MainNavBar";

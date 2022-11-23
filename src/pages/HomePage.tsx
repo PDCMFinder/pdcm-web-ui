@@ -10,7 +10,6 @@ import {
   getModelsByTreatment,
   getModelsByType,
 } from "../apis/Explore.api";
-import { NewsFeed } from "../components/common/NewsFeed";
 import { Stats } from "../components/common/Stats";
 import { ExploreBarChart } from "../components/explore/ExploreBarChart";
 import { ExploreCirclePacking } from "../components/explore/ExploreCirclePacking";
@@ -18,9 +17,6 @@ import { ExplorePieChart } from "../components/explore/ExplorePieChart";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 import { SearchBar } from "../components/search/SearchBar";
 
-import { Timeline } from "react-twitter-widgets";
-import { getSearchOptions } from "../apis/Search.api";
-import { IOptionProps } from "../models/Facet.model";
 import { capitalizeFirstLetter } from "../apis/Utils.api";
 
 export const HomePage: FunctionComponent = () => {

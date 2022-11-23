@@ -1,11 +1,16 @@
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FunctionComponent } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Badge, Button, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export interface IMolecularDataTableProps {
   molecularCharacterizations: Array<IMolecularCharacterization>;
+  dataRestrictions: Array<{ dataSource: string; molecularDataTable: string }>;
   onSelectMolecularCharacterization: (
     molecularCharacterization?: IMolecularCharacterization
   ) => void;
+  contactLink?: string;
 }
 
 export interface IMolecularCharacterization {
@@ -13,19 +18,34 @@ export interface IMolecularCharacterization {
   patientSampleId: string;
   patientModelId: string;
   xenograftSampleId: string;
+  cellSampleId: string;
   xenograftModelId: string;
   xenograftPassage: string;
-  patientRawDataUrl: string;
-  xenograftRawDataUrl: string;
+  rawDataUrl: string;
   dataType: string;
   platformId: string;
   platformName: string;
   dataAvailability: boolean;
+  dataSource: string;
 }
 
 export const MolecularDataTable: FunctionComponent<
   IMolecularDataTableProps
-> = ({ molecularCharacterizations, onSelectMolecularCharacterization }) => {
+> = ({
+  molecularCharacterizations,
+  dataRestrictions,
+  onSelectMolecularCharacterization,
+  contactLink,
+}) => {
+  const typesMap: any = {
+    expression_molecular_data: "expression",
+    cna_molecular_data: "copy number alteration",
+    mutation_measurement_data: "mutation",
+    cytogenetics_molecular_data: "cytogenetics",
+  };
+  const restrictedTypes = dataRestrictions.map(
+    (d) => typesMap[d.molecularDataTable]
+  );
   return (
     <Table responsive>
       <thead>
@@ -44,13 +64,11 @@ export const MolecularDataTable: FunctionComponent<
           molecularCharacterizations.map((molecularCharacterization) => {
             const sampleId =
               molecularCharacterization.xenograftSampleId ||
-              molecularCharacterization.patientSampleId;
+              molecularCharacterization.patientSampleId ||
+              molecularCharacterization.cellSampleId;
             const sampleType = molecularCharacterization.xenograftSampleId
               ? "Engrafted Tumour"
               : "Patient Tumour";
-            const rawDataUrl =
-              molecularCharacterization.xenograftRawDataUrl ||
-              molecularCharacterization.patientRawDataUrl;
             return (
               <tr key={molecularCharacterization.id}>
                 <td>{sampleId}</td>
@@ -58,22 +76,34 @@ export const MolecularDataTable: FunctionComponent<
                 <td>{molecularCharacterization.xenograftPassage || "NA"}</td>
                 <td>{molecularCharacterization.dataType}</td>
                 <td>
-                  <Button
-                    onClick={() =>
-                      onSelectMolecularCharacterization(
-                        molecularCharacterization
-                      )
-                    }
-                    variant="link"
-                    disabled={!molecularCharacterization.dataAvailability}
-                  >
-                    VIEW DATA
-                  </Button>
+                  {!restrictedTypes.includes(
+                    molecularCharacterization.dataType
+                  ) ? (
+                    <Button
+                      onClick={() =>
+                        onSelectMolecularCharacterization(
+                          molecularCharacterization
+                        )
+                      }
+                      variant="link"
+                    >
+                      VIEW DATA
+                    </Button>
+                  ) : (
+                    <a href={contactLink || ""} target="_blank">
+                      REQUEST DATA
+                    </a>
+                  )}
                 </td>
                 <td>{molecularCharacterization.platformName}</td>
                 <td>
-                  {rawDataUrl ? (
-                    <a href={rawDataUrl}>{rawDataUrl.split("/").pop()}</a>
+                  {molecularCharacterization.rawDataUrl ? (
+                    <a
+                      href={molecularCharacterization.rawDataUrl.split(",")[1]}
+                      target="_blank"
+                    >
+                      {molecularCharacterization.rawDataUrl.split(",")[0]}
+                    </a>
                   ) : (
                     "Not available"
                   )}

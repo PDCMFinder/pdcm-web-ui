@@ -1,14 +1,16 @@
 import React, { FunctionComponent } from "react";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import { ExplorePieChart } from "../components/explore/ExplorePieChart";
 import { GeneralTemplate } from "./GeneralTemplate";
 import gfm from "remark-gfm";
 import { Link } from "react-router-dom";
+import "./ProviderTemplate.scss";
 
 export interface IProviderTemplateProps {
   providerId: string;
   providerName: string;
+  providerLogo: string;
   providerDescription: string;
   providerModelsBySystem: any;
   providerModelsByDataAvailability: Array<{
@@ -21,20 +23,26 @@ export interface IProviderTemplateProps {
 export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
   providerId,
   providerName,
+  providerLogo,
   providerDescription,
   providerModelsBySystem,
   providerModelsByDataAvailability,
 }) => {
   return (
     <GeneralTemplate>
-      <Container>
-        <Row className="my-5">
-          <Col xs={12} md={9}>
-            <h1>{providerName}</h1>
+      <Container className="mb-5">
+        <Row className="my-5 align-items-center">
+          <Col md={9} lg={8}>
+            <h1 className="text-center text-md-start">{providerName}</h1>
           </Col>
+          {providerLogo && (
+            <Col md={3} lg={4} className="ProviderTemplate__logo">
+              <img src={`/${providerLogo}`} alt={providerName} />
+            </Col>
+          )}
         </Row>
         <Row className="my-5">
-          <Col xs={12} md={9}>
+          <Col md={9}>
             <ReactMarkdown remarkPlugins={[gfm]} className="pdcm-mark-down">
               {providerDescription}
             </ReactMarkdown>
@@ -56,7 +64,7 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
         providerModelsBySystem.length > 0 && (
           <Container className="my-5">
             <Row>
-              <Col xs={12} md={6}>
+              <Col md={6}>
                 <h2 className="text-center">Models by Primary Site</h2>
                 <div style={{ height: "500px" }}>
                   <ExplorePieChart
@@ -65,7 +73,7 @@ export const ProviderTemplate: FunctionComponent<IProviderTemplateProps> = ({
                   />
                 </div>
               </Col>
-              <Col xs={12} md={6}>
+              <Col md={6}>
                 <h2 className="text-center">Models by Data Available</h2>
                 <div>
                   <Table>

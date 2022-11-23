@@ -5,8 +5,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export const ContactPage: FunctionComponent = () => {
-  document.title = "PDCM Finder - Contact us";
   return (
+    // file name in /static/content,  without `.md` file extension
     <GeneralTemplate>
       <Container className="my-5">
         <h1>Contact</h1>

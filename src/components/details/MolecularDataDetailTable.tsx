@@ -2,13 +2,12 @@ import React, { FunctionComponent, useState, useRef } from "react";
 import { CSVLink } from "react-csv";
 import { useQuery } from "react-query";
 import {
-  getExpressionHeatmap,
+  getAvailableDataColumns,
   getModelMolecularDataColumns,
   getModelMolecularDataDetails,
   getMolecularDataDownload,
 } from "../../apis/Details.api";
 import { DataTable } from "./DataTable";
-import { ExpressionHeatmap } from "./ExpressionHeatmap";
 import { IMolecularCharacterization } from "./MolecularDataTable";
 
 export interface IMolecularDataDetailTableProps {
@@ -24,11 +23,15 @@ export const MolecularDataDetailTable: FunctionComponent<
   const [sortDirection, setSortDirection] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
 
-  const { data: columns, isLoading: isLoadingColumns } = useQuery(
-    ["get-molecular-data-detail-cols", molecularCharacterization.id],
+  const { data: columns } = useQuery(
+    [
+      "get-molecular-data-detail-cols",
+      molecularCharacterization.dataSource,
+      molecularCharacterization.dataType,
+    ],
     () =>
-      getModelMolecularDataColumns(
-        molecularCharacterization.id,
+      getAvailableDataColumns(
+        molecularCharacterization.dataSource,
         molecularCharacterization.dataType
       )
   );
@@ -55,19 +58,6 @@ export const MolecularDataDetailTable: FunctionComponent<
         pageSize,
         sortColumn,
         sortDirection
-      )
-  );
-
-  const { data: expressionData, isLoading: isLoadingHeatmap } = useQuery(
-    [
-      "get-expression-data-heatmap",
-      molecularCharacterization.id,
-      molecularCharacterization.dataType,
-    ],
-    () =>
-      getExpressionHeatmap(
-        molecularCharacterization.id,
-        molecularCharacterization.dataType
       )
   );
 
@@ -124,10 +114,10 @@ export const MolecularDataDetailTable: FunctionComponent<
           (column) =>
             columns.includes(column.key) || column.key === "hgnc_symbol"
         );
-        const sampleIds = [
-          "CRC0018LMX0B02201TUMR01R01",
-          "CRC0018LMX0B02204TUMR01R01",
-        ];
+        // const sampleIds = [
+        //   "CRC0018LMX0B02201TUMR01R01",
+        //   "CRC0018LMX0B02204TUMR01R01",
+        // ];
         // return (
         //   <div style={{ height: "10000px" }}>
         //     <ExpressionHeatmap
