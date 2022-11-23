@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import ReactMarkdown from "react-markdown";
 
 export interface IModelEngraftmentTableProps {
   engraftments: Array<IEngraftment>;
@@ -31,34 +32,57 @@ export const ModelEngraftmentTable: FunctionComponent<
         </tr>
       </thead>
       <tbody>
-        {engraftments.map((engraftment, index) => (
-          <tr key={index}>
-            <td>
-              <OverlayTrigger
-                key={`strain-tooltip-ov-${index}`}
-                placement="right"
-                overlay={
-                  <Tooltip id={`strain-tooltip-${index}`}>
-                    {engraftment.hostStrainNomenclature.toUpperCase()}
-                  </Tooltip>
-                }
-              >
-                <span
-                  style={{
-                    borderBottom: "1px dotted #000",
-                  }}
+        {engraftments.map((engraftment, index) => {
+          const hostStrainNomenclatures = engraftment.hostStrainNomenclature
+            .split(" ")
+            .map((h) => {
+              const regExp = /(.*)<sup>(.*)<\/sup>(.*)/gm;
+              const matches = regExp.exec(h) || [];
+              const strainPrefix = matches[1] || "";
+              const strainSup = matches[2] || "";
+              const strainSuffix = matches[3] || "";
+              return { strainPrefix, strainSup, strainSuffix };
+            });
+
+          console.log(engraftment.hostStrainNomenclature);
+
+          return (
+            <tr key={index}>
+              <td>
+                <OverlayTrigger
+                  key={`strain-tooltip-ov-${index}`}
+                  placement="right"
+                  overlay={
+                    <Tooltip id={`strain-tooltip-${index}`}>
+                      {hostStrainNomenclatures.map((h) => (
+                        <span
+                          key={h.strainPrefix + h.strainSup + h.strainSuffix}
+                        >
+                          {h.strainPrefix}
+                          <sup>{h.strainSup}</sup>
+                          {h.strainSuffix}{" "}
+                        </span>
+                      ))}
+                    </Tooltip>
+                  }
                 >
-                  {engraftment.hostStrain.toUpperCase()}
-                </span>
-              </OverlayTrigger>
-            </td>
-            <td>{engraftment.engraftmentSite}</td>
-            <td>{engraftment.engraftmentType}</td>
-            <td>{engraftment.engraftmentSampleType}</td>
-            <td>{engraftment.engraftmentSampleState}</td>
-            <td>{engraftment.passageNumber}</td>
-          </tr>
-        ))}
+                  <span
+                    style={{
+                      borderBottom: "1px dotted #000",
+                    }}
+                  >
+                    {engraftment.hostStrain.toUpperCase()}
+                  </span>
+                </OverlayTrigger>
+              </td>
+              <td>{engraftment.engraftmentSite}</td>
+              <td>{engraftment.engraftmentType}</td>
+              <td>{engraftment.engraftmentSampleType}</td>
+              <td>{engraftment.engraftmentSampleState}</td>
+              <td>{engraftment.passageNumber}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </Table>
   );

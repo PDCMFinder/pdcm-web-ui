@@ -1,7 +1,7 @@
 ---
 name: The Human Cancer Models Initiative
 abbreviation: HCMI
-logo: img/providers/hcmi.png
+logo: img/providers/HCMI.png
 ---
 
 The [Human Cancer Models Initiative](https://ocg.cancer.gov/programs/HCMI) (HCMI) is an international collaboration between the [US National Cancer Institute](https://www.cancer.gov/) (NCI) – part of the [National Institutes of Health](https://www.nih.gov/) (NIH), [Cancer Research UK](https://www.cancerresearchuk.org/funding-for-researchers/how-we-deliver-research/our-research-partnerships/human-cancer-models-initiative) (CRUK), [Wellcome Sanger Institute](https://www.sanger.ac.uk/collaboration/human-cancer-model-initiative-hcmi/) (WSI), and foundation [Hubrecht Organoid Technology](https://hub4organoids.eu/) (HUB). The goal of HCMI is to create patient-derived Next-generation Cancer Models (NGCMs) such as organoids, conditionally reprogrammed cells, neurospheres, or optimal growth condition models as a community resource. HCMI aims to provide the models’ case-associated data, which includes quality-checked clinical, biospecimen, and molecular characterization data from the models, the tissues from which they were derived, and normal tissues, when available. Available harmonized data are accessible through the NCI's [Genomic Data Commons](https://portal.gdc.cancer.gov/projects/HCMI-CMDC) (GDC), and the models are broadly available through a single third-party distributor, [American Type Culture Collection](https://www.atcc.org/hcmi) (ATCC).

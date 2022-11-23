@@ -131,6 +131,7 @@ deploy-HH-WP-WEBADMIN-dev:
       else
         echo "=> Deployment apply has changed the object, no need to force image update."
       fi
+    - kubectl rollout status -f k8-deploy/nodeport_deploy/dev/deployment-dev.yml
     - kubectl get pods,service,deploy,replicaset,ing
   only:
     refs:
@@ -154,6 +155,7 @@ deploy-HH-WP-WEBADMIN-prod:
       else
         echo "=> Deployment apply has changed the object, no need to force image update."
       fi
+    - kubectl rollout status -f k8-deploy/nodeport_deploy/prod/deployment-prod.yml
     - kubectl get pods,service,deploy,replicaset,ing
   only:
     refs:
@@ -177,6 +179,7 @@ deploy-HX-WP-WEBADMIN-prod:
       else
         echo "=> Deployment apply has changed the object, no need to force image update."
       fi
+    - kubectl rollout status -f k8-deploy/nodeport_deploy/prod/deployment-prod.yml
     - kubectl get pods,service,deploy,replicaset,ing
   only:
     refs:

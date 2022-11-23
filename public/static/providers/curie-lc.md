@@ -1,7 +1,7 @@
 ---
 name: Pre-clinical Investigation Laboratory - lung cancer
 abbreviation: Curie-LC
-logo: img/providers/curie-lc.png
+logo: img/providers/Curie-LC.png
 ---
 
 The Pre-clinical investigation laboratory at the Curie Institute (LIP) has 25 years experience in developing patient-derived xenografts of a wide range of cancers including breast, colon, lung, ovary, uveal melanoma, retinoblastoma, Head and Neck cancers.

@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState, useRef } from "react";
 import { CSVLink } from "react-csv";
 import { useQuery } from "react-query";
 import {
+  getAvailableDataColumns,
   getModelMolecularDataColumns,
   getModelMolecularDataDetails,
   getMolecularDataDownload,
@@ -23,10 +24,14 @@ export const MolecularDataDetailTable: FunctionComponent<
   const [filter, setFilter] = useState<string>("");
 
   const { data: columns } = useQuery(
-    ["get-molecular-data-detail-cols", molecularCharacterization.id],
+    [
+      "get-molecular-data-detail-cols",
+      molecularCharacterization.dataSource,
+      molecularCharacterization.dataType,
+    ],
     () =>
-      getModelMolecularDataColumns(
-        molecularCharacterization.id,
+      getAvailableDataColumns(
+        molecularCharacterization.dataSource,
         molecularCharacterization.dataType
       )
   );

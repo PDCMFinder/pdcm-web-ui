@@ -75,6 +75,7 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
   contactLink,
   sourceDatabaseUrl,
   molecularCharacterizations,
+  dataRestrictions,
   engraftments,
   qualityChecks,
   dosingStudies,
@@ -294,6 +295,8 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                       onSelectMolecularCharacterization={
                         onSelectMolecularCharacterization
                       }
+                      dataRestrictions={dataRestrictions}
+                      contactLink={contactLink}
                     />
                   </Col>
                 </Row>
@@ -364,22 +367,19 @@ export const DetailsTemplate: FunctionComponent<IDetailsTemplateProps> = ({
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {selectedMolecularCharacterization &&
-                  (!["Curie-BC", "Curie-LC", "Curie-OC", "CRL"].includes(
-                    providerId
-                  ) ? (
-                    <MolecularDataDetailTable
-                      molecularCharacterization={
-                        selectedMolecularCharacterization
-                      }
-                    ></MolecularDataDetailTable>
-                  ) : (
-                    <span>
-                      This data is only accessible through the provider website
-                      - please click on 'CONTACT PROVIDER' button above to
-                      request access.
-                    </span>
-                  ))}
+                {selectedMolecularCharacterization ? (
+                  <MolecularDataDetailTable
+                    molecularCharacterization={
+                      selectedMolecularCharacterization
+                    }
+                  ></MolecularDataDetailTable>
+                ) : (
+                  <span>
+                    This data is only accessible through the provider website -
+                    please click on 'CONTACT PROVIDER' button above to request
+                    access.
+                  </span>
+                )}
               </Modal.Body>
               <Modal.Footer>
                 <Button

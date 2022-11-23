@@ -1,7 +1,7 @@
 ---
 name: Pre-clinical Investigation Laboratory - breast cancer
 abbreviation: Curie-BC
-logo: img/providers/curie-bc.png
+logo: img/providers/Curie-BC.png
 ---
 
 The Pre-clinical investigation laboratory at the Curie Institute (LIP) has 25 years experience in developing patient-derived xenografts of a wide range of cancers including breast, colon, lung, ovary, uveal melanoma, retinoblastoma, Head and Neck cancers.
