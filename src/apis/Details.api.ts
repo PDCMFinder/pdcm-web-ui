@@ -297,6 +297,9 @@ export async function getPatientTreatment(
   pdcmModelId: string,
   modelType: string
 ): Promise<Array<Treatment>> {
+  if (!pdcmModelId) {
+    return [];
+  }
   let response = await fetch(
     `${process.env.REACT_APP_API_URL}/patient_treatment?model_id=eq.${pdcmModelId}&select=*`
   );
