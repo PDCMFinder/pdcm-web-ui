@@ -83,7 +83,7 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
         </Row>
         <Row>
           <Col xs={12} className="text-end small text-light">
-            Data Release 2.1 | 16-09-2022
+            Data Release 3.0 | 23-11-2022
           </Col>
         </Row>
       </Container>
