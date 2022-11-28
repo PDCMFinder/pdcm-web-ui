@@ -20,6 +20,7 @@ import RouteChangeTracker from "./components/common/RouteChangeTracker";
 import ReactGA from "react-ga4";
 import { ProviderPage } from "./pages/ProviderPage";
 import ScrollToTop from "./components/common/ScrollToTop";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 ReactGA.initialize("G-34S5KH94SX");
 
@@ -52,41 +53,43 @@ const routeComponentMap: any = {
 
 function App() {
   return (
-    <BrowserRouter basename="/">
-      <ScrollToTop />
-      {process.env.REACT_APP_ENV === "production" ? (
-        <RouteChangeTracker />
-      ) : null}
-      <QueryClientProvider client={queryClient}>
-        <Switch>
-          {routes.map(({ path, name }) => (
-            <Route
-              exact
-              path={path}
-              key={name}
-              component={
-                process.env.REACT_APP_UNDER_CONSTRUCTION === "true"
-                  ? UnderConstructionPage
-                  : routeComponentMap[name]
-              }
-            />
-          ))}
-        </Switch>
-      </QueryClientProvider>
-      <CookieConsent
-        buttonText="I agree, dismiss this banner."
-        containerClasses="p-lg-5 p-3 bg-white text-dark border-top border-primary"
-        style={{ borderWidth: "5px !important" }}
-        buttonClasses="btn btn-primary"
-        disableButtonStyles={true}
-      >
-        This website requires cookies, and the limited processing of your
-        personal data in order to function. By using the site you are agreeing
-        to this as outlined in our{" "}
-        <Link to="/about/privacy-policy">Privacy Notice</Link> and{" "}
-        <Link to="/about/terms-of-use">Terms of Use</Link>.
-      </CookieConsent>
-    </BrowserRouter>
+    <GoogleReCaptchaProvider reCaptchaKey="6LepEiwjAAAAAN9QFU8RpeY0QXCFoRRVVis2B-iF">
+      <BrowserRouter basename="/">
+        <ScrollToTop />
+        {process.env.REACT_APP_ENV === "production" ? (
+          <RouteChangeTracker />
+        ) : null}
+        <QueryClientProvider client={queryClient}>
+          <Switch>
+            {routes.map(({ path, name }) => (
+              <Route
+                exact
+                path={path}
+                key={name}
+                component={
+                  process.env.REACT_APP_UNDER_CONSTRUCTION === "true"
+                    ? UnderConstructionPage
+                    : routeComponentMap[name]
+                }
+              />
+            ))}
+          </Switch>
+        </QueryClientProvider>
+        <CookieConsent
+          buttonText="I agree, dismiss this banner."
+          containerClasses="p-lg-5 p-3 bg-white text-dark border-top border-primary"
+          style={{ borderWidth: "5px !important" }}
+          buttonClasses="btn btn-primary"
+          disableButtonStyles={true}
+        >
+          This website requires cookies, and the limited processing of your
+          personal data in order to function. By using the site you are agreeing
+          to this as outlined in our{" "}
+          <Link to="/about/privacy-policy">Privacy Notice</Link> and{" "}
+          <Link to="/about/terms-of-use">Terms of Use</Link>.
+        </CookieConsent>
+      </BrowserRouter>
+    </GoogleReCaptchaProvider>
   );
 }
 
