@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Col, Row, Container } from "react-bootstrap";
+import { Col, Row, Container, Spinner, Modal } from "react-bootstrap";
 import { GeneralTemplate } from "../templates/GeneralTemplate";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -20,18 +20,21 @@ export const ContactPage: FunctionComponent = () => {
   const [submitted, setSubmitted] = useState(false);
   const [validated, setValidated] = useState(false);
   const [valid, setValid] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(true);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(false);
 
   const handleReCaptchaVerify = useCallback(async () => {
     if (!executeRecaptcha) {
-      console.log("Execute recaptcha not yet available");
       return;
     }
 
-    const token = await executeRecaptcha("yourAction");
+    const token = await executeRecaptcha("feedback");
     if (valid && submitted) {
+      setLoading(true);
       const response = await createTicket(userName, userEmail, feedback, token);
-      console.log(response);
-
       if (!response.error) {
         setSubmitted(false);
         setValid(false);
@@ -39,6 +42,8 @@ export const ContactPage: FunctionComponent = () => {
         setName("");
         setEmail("");
         setFeedback("");
+        setLoading(false);
+        handleShow();
       }
     }
   }, [executeRecaptcha, userName, userEmail, feedback, valid, submitted]);
@@ -62,7 +67,7 @@ export const ContactPage: FunctionComponent = () => {
 
   return (
     // file name in /static/content,  without `.md` file extension
-    <GeneralTemplate>
+    <GeneralTemplate showRecaptcha={true}>
       <Container className="my-5">
         <h1>Contact</h1>
         <h4>PDCM Finder Feedback</h4>
@@ -73,50 +78,45 @@ export const ContactPage: FunctionComponent = () => {
         <Col md={6} lg={4}>
           <Row>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
-              <Form.Group
-                className="mb-3"
-                controlId="formName"
-                onChange={(e) => setName((e.target as HTMLInputElement).value)}
-              >
+              <Form.Group className="mb-3" controlId="formName">
                 <Form.Label>Your Name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter your full name"
                   required
                   value={userName}
+                  onChange={(e) =>
+                    setName((e.target as HTMLInputElement).value)
+                  }
                 />
               </Form.Group>
 
-              <Form.Group
-                className="mb-3"
-                controlId="formEmail"
-                onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
-              >
+              <Form.Group className="mb-3" controlId="formEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter your email"
                   required
                   value={userEmail}
+                  onChange={(e) =>
+                    setEmail((e.target as HTMLInputElement).value)
+                  }
                 />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
               </Form.Group>
 
-              <Form.Group
-                className="mb-3"
-                controlId="formMessage"
-                onChange={(e) =>
-                  setFeedback((e.target as HTMLInputElement).value)
-                }
-              >
+              <Form.Group className="mb-3" controlId="formMessage">
                 <Form.Label>Your Feedback *</Form.Label>
                 <Form.Control
                   as="textarea"
                   placeholder="Please write here your feedback"
                   required={true}
                   value={feedback}
+                  onChange={(e) =>
+                    setFeedback((e.target as HTMLInputElement).value)
+                  }
                 />
               </Form.Group>
 
@@ -126,11 +126,30 @@ export const ContactPage: FunctionComponent = () => {
               </Form.Group> */}
 
               <Button variant="primary" type="submit">
-                Send feedback
+                Send feedback{" "}
+                {loading ? (
+                  <Spinner animation="grow" role="status" size="sm">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                ) : null}
               </Button>
             </Form>
           </Row>
         </Col>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Thanks for your feedback!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            A member of our team will been in touch with you to process your
+            request.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </GeneralTemplate>
   );
