@@ -21,7 +21,7 @@ export const ContactPage: FunctionComponent = () => {
   const [validated, setValidated] = useState(false);
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(false);
