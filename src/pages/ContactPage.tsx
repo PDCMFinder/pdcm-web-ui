@@ -24,7 +24,7 @@ export const ContactPage: FunctionComponent = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleReCaptchaVerify = useCallback(async () => {
     if (!executeRecaptcha) {
