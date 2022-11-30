@@ -79,7 +79,7 @@ export const ContactPage: FunctionComponent = () => {
           <Row>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formName">
-                <Form.Label>Your Name</Form.Label>
+                <Form.Label>Your Name *</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter your full name"
@@ -92,7 +92,7 @@ export const ContactPage: FunctionComponent = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Email address *</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter your email"
