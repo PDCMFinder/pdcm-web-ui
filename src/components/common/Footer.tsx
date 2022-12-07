@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { getDataReleaseInformation } from "../../apis/Explore.api";
 import "./Footer.scss";
 
 const MENU = [
@@ -30,6 +32,9 @@ export interface IFooterProps {
 }
 
 export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
+  let releaseInfo = useQuery("releaseInfo", () => {
+    return getDataReleaseInformation();
+  });
   return (
     <footer className={`py-5 bg-dark text-white ${className}`}>
       <Container>
@@ -82,9 +87,12 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} className="text-end small text-light">
-            Data Release 3.0 | 23-11-2022
-          </Col>
+          {releaseInfo.data ? (
+            <Col xs={12} className="text-end small text-light">
+              Data Release {releaseInfo.data.name.replace("dr", "")} |{" "}
+              {new Date(releaseInfo.data.date).toISOString().substring(0, 10)}
+            </Col>
+          ) : null}
         </Row>
       </Container>
     </footer>
