@@ -83,3 +83,11 @@ export async function getModelsByDatasetAvailability() {
     })
   );
 }
+
+export async function getDataReleaseInformation() {
+  let response = await fetch(`${process.env.REACT_APP_API_URL}/release_info`);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json().then((d: Array<any>) => d[0]);
+}
