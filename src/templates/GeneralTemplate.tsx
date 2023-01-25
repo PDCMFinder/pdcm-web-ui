@@ -4,6 +4,7 @@ import { Footer } from "../components/common/Footer";
 import { MainNavBar } from "../components/common/MainNavBar";
 import "./GeneralTemplate.scss";
 import { Breadcrumbs } from "../components/common/Breadcrumbs";
+import FloatingWidget from "../components/common/FloatingWidget";
 
 export const GeneralTemplate: FunctionComponent<{
   showRecaptcha?: boolean;
@@ -27,6 +28,9 @@ export const GeneralTemplate: FunctionComponent<{
         <BreadcrumbsWithRouter />
       ) : null}
       <main className="main-content px-5">{children}</main>
+      <FloatingWidget link="https://docs.google.com/forms/d/e/1FAIpQLSeRJQ7Xu1pMqegYvs4KVdA17bucM6XzW2zzA2yHaroPfSR7Sg/viewform">
+        Help us improve - take our user survey
+      </FloatingWidget>
       <Footer className="footer"></Footer>
     </div>
   );
