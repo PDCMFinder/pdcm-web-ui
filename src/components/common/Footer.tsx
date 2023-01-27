@@ -47,7 +47,7 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
               alt="PDCM Finder logo"
             />
             <small className="d-block mb-3 text-white text-right">
-              &copy; 2017-2022
+              &copy; 2017-2023
             </small>
           </Col>
           {MENU.map((menu) => (
