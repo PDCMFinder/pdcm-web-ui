@@ -74,6 +74,7 @@ export const MainNavBar: FunctionComponent<RouteComponentProps> = ({
             src={`${process.env.PUBLIC_URL}/img/pdcm-hor.svg`}
             className="d-inline-block align-top"
             alt="PDCM Finder logo"
+            style={{ width: "100%" }}
           />
         </Navbar.Brand>
         <Navbar.Toggle
