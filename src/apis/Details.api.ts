@@ -21,8 +21,8 @@ export async function getModelDetailsMetadata(
   return response.json().then((d) => camelCase(d[0]));
 }
 
-export async function getModelPubmedIds(pdcmModelId: string): Promise<any> {
-  if (!pdcmModelId) {
+export async function getModelPubmedIds(pdcmModelId: number): Promise<any> {
+  if (pdcmModelId !== 0 && !pdcmModelId) {
     return [];
   }
   let response = await fetch(
@@ -60,10 +60,10 @@ export async function getPublicationData(
 }
 
 export async function getModelExtLinks(
-  pdcmModelId: string,
+  pdcmModelId: number,
   modelId: string
 ): Promise<IModelExtLinks> {
-  if (!pdcmModelId) {
+  if (pdcmModelId !== 0 && !pdcmModelId) {
     return {};
   }
   let response = await fetch(
@@ -87,8 +87,8 @@ export async function getModelExtLinks(
   });
 }
 
-export async function getModelQualityData(pdcmModelId: string) {
-  if (!pdcmModelId) {
+export async function getModelQualityData(pdcmModelId: number) {
+  if (pdcmModelId !== 0 && !pdcmModelId) {
     return [];
   }
   let response = await fetch(
@@ -104,9 +104,9 @@ export async function getModelQualityData(pdcmModelId: string) {
 
 export async function getModelMolecularData(
   providerId: string,
-  pdcmModelId: string
+  pdcmModelId: number
 ) {
-  if (!pdcmModelId) {
+  if (pdcmModelId !== 0 && !pdcmModelId) {
     return [];
   }
   let response = await fetch(
@@ -263,10 +263,10 @@ export async function getMolecularDataDownload(
 }
 
 export async function getModelEngraftments(
-  pdcmModelId: string,
+  pdcmModelId: number,
   modelType: string
 ): Promise<Array<IEngraftment>> {
-  if (!pdcmModelId || modelType !== "xenograft") {
+  if ((pdcmModelId !== 0 && !pdcmModelId) || modelType !== "xenograft") {
     return [];
   }
   let response = await fetch(
@@ -294,10 +294,10 @@ export async function getModelEngraftments(
 }
 
 export async function getPatientTreatment(
-  pdcmModelId: string,
+  pdcmModelId: number,
   modelType: string
 ): Promise<Array<Treatment>> {
-  if (!pdcmModelId) {
+  if (pdcmModelId !== 0 && !pdcmModelId) {
     return [];
   }
   let response = await fetch(
@@ -320,10 +320,10 @@ export async function getPatientTreatment(
 }
 
 export async function getModelDrugDosing(
-  pdcmModelId: string,
+  pdcmModelId: number,
   modelType: string
 ): Promise<Array<Treatment>> {
-  if (!pdcmModelId || modelType !== "xenograft") {
+  if ((pdcmModelId !== 0 && !pdcmModelId) || modelType !== "xenograft") {
     return [];
   }
   let response = await fetch(
