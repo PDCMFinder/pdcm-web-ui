@@ -82,6 +82,8 @@ function App() {
           buttonClasses="btn btn-primary"
           disableButtonStyles={true}
           enableDeclineButton
+          declineButtonText="Reject"
+          declineButtonClasses="btn btn-outline-primary me-2"
         >
           This website requires cookies, and the limited processing of your
           personal data in order to function. By using the site you are agreeing
