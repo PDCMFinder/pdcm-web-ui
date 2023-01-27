@@ -81,6 +81,7 @@ function App() {
           style={{ borderWidth: "5px !important" }}
           buttonClasses="btn btn-primary"
           disableButtonStyles={true}
+          enableDeclineButton
         >
           This website requires cookies, and the limited processing of your
           personal data in order to function. By using the site you are agreeing
