@@ -39,16 +39,14 @@ export const Footer: FunctionComponent<IFooterProps> = ({ className }) => {
     <footer className={`py-5 bg-dark text-white ${className}`}>
       <Container>
         <Row>
-          <Col xs={12} md={2} className="text-center">
+          <Col xs={12} md={2} className="text-left">
             <img
               src={`${process.env.PUBLIC_URL}/img/pdcm-dark.svg`}
               style={{ width: "100%", maxWidth: "200px" }}
               className="d-inline-block align-top"
               alt="PDCM Finder logo"
             />
-            <small className="d-block mb-3 text-white text-right">
-              &copy; 2017-2023
-            </small>
+            <small className="d-block mb-3 text-white">&copy; 2017-2023</small>
           </Col>
           {MENU.map((menu) => (
             <Col xs={6} md={3} key={menu.name}>
