@@ -162,7 +162,7 @@ export async function getSearchResults(
           datasource: "",
           histology: result.histology,
           primarySite: result.primary_site,
-          collectionsite: result.collection_site,
+          collectionSite: result.collection_site,
           tumourType: result.tumour_type,
           dataAvailable: result.dataset_available,
           modelType: result.model_type,
