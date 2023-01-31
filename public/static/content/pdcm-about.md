@@ -12,10 +12,15 @@ We welcome feedback on the resource and are looking for participants for usabili
 
 ## How to cite
 
-If you use PDCM Finder in your work, please cite our publication: 
+Please use the following citation when referring to the PDCM Finder in your work: 
 
 [PDCM Finder: an open global research platform for patient-derived cancer models](https://academic.oup.com/nar/article/51/D1/D1360/6833240?login=true). Nucleic Acids Res. 2022 [doi: 10.1093/nar/gkac1021](https://doi.org/10.1093/nar/gkac1021). PMID: 36399494.
 
-If you use PDX-MI in your work, please cite our publication:
+Please use the following citation when referring to the PDX-MI in your work:
 
 [PDX-MI: Minimal Information for Patient-Derived Tumor Xenograft Models](https://aacrjournals.org/cancerres/article/77/21/e62/662594/PDX-MI-Minimal-Information-for-Patient-Derived). Cancer Res. 2017 [doi: 10.1158/0008-5472.CAN-17-0582](https://doi.org/10.1158/0008-5472.CAN-17-0582). PMID: 29092942; PMCID: PMC5738926.
+
+If you wish to cite a specific area of PDCM Finder we suggest a format similar to the following example:
+
+Some data for this paper were retrieved from the Patient-Derived Cancer Models Finder (PDCM Finder), www.cancermodels.org (date you retrieved the data cited)
+
