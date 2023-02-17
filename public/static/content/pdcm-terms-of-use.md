@@ -1,10 +1,10 @@
 ---
-title: PCDM Finder - Terms of Use
+title: CancerModels.Org - Terms of Use
 ---
 
 # Terms of Use
 
-PDCM Finder is a joint effort by the EMBL-EBI and the Jackson Laboratory. Please, check their terms of use and legal notice in order to follow them in the usage of the PDCM Finder website.
+CancerModels.Org is a joint effort by the EMBL-EBI and the Jackson Laboratory. Please, check their terms of use and legal notice in order to follow them in the usage of the CancerModels.Org platform.
 
 [EMBL-EBI terms of use](https://www.ebi.ac.uk/about/terms-of-use)
 
