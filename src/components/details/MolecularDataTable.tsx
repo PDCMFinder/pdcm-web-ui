@@ -25,7 +25,7 @@ export interface IMolecularCharacterization {
   dataType: string;
   platformId: string;
   platformName: string;
-  dataAvailability: boolean;
+  dataAvailability: "TRUE" | "FALSE";
   dataSource: string;
 }
 
@@ -78,7 +78,7 @@ export const MolecularDataTable: FunctionComponent<
                 <td>
                   {!restrictedTypes.includes(
                     molecularCharacterization.dataType
-                  ) ? (
+                  ) && molecularCharacterization.dataAvailability === "TRUE" ? (
                     <Button
                       onClick={() =>
                         onSelectMolecularCharacterization(
